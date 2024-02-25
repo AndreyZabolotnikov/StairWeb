@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Лесенка: программа</title>
+    <link rel="icon" th:href="@{img/stair_l.png}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<header>
+    <div class="container">
+        <table>
+            <tr>
+                <td style="width: 20%">
+                    <img th:src="@{img/logo.svg}" alt="Logo" width=80% height=80%/>
+                <td>
+                    <a class="btn btn-danger btn-in" th:href="@{/authorization}">Вход</a>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <nav class=" navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="collapse navbar-collapse" id="navbarNav">
+                <div class="dropdown col-2">
+                    <a class="btn btn-a dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Информация &nbsp
+                        <div class="down-arrow"></div>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Действие</a></li>
+                        <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                        <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown col-2">
+                    <a class="btn btn-a  dropdown-toggle" href="#" role="button" id="dropdownMenuLink1"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Действия &nbsp
+                        <div class="down-arrow"></div>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Действие</a></li>
+                        <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                        <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown col-2">
+                    <a class="btn btn-a dropdown-toggle" href="#" role="button" id="dropdownMenuLink2"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Полезное &nbsp
+                        <div class="down-arrow"></div>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Действие</a></li>
+                        <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                        <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                    </ul>
+                </div>
+            </span>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container fw-bolder">
+        <div class="row">
+            <div class="align-items-start col">
+                <h5 class="display-6">Лестница</h5>
+                <form>
+                    <hr>
+                    <div class="prokrutka">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>№</th>
+                                <td align="center">Высота ступеней, мм</td>
+                                <td align="center">Длинна ступеней, мм</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>3</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>4</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>5</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>6</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>7</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>8</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>9</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>10</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>11</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>12</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>13</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>14</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>15</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>16</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>17</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>18</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>19</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>20</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>21</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>22</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>23</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>24</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>25</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>26</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>27</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>28</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>29</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                            <tr>
+                                <th>30</th>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                                <td><input class="form-control" type="number" step="1" min="0"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div>
+                            <br>
+                            <table>
+                                <tr>
+                                    <td>Длина нижней площадки, мм</td>
+                                    <td><input class="form-control" type="number" step="1" min="0"></td>
+                                </tr>
+                                <tr>
+                                    <td>Ширина марша, мм</td>
+                                    <td><input class="form-control" type="number" step="1" min="0"></td>
+                                </tr>
+                                <tr>
+                                    <td>Длина верхней площадки, мм</td>
+                                    <td><input class="form-control" type="number" step="1" min="0"></td>
+                                </tr>
+                            </table>
+                            <br>
+                        </div>
+                        <span>
+                            <input class="btn btn-danger" type="submit" value="Расчитать">
+                            <input class="btn btn-danger" type="reset" value="Начать заново">
+                        </span>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="col my-nav">
+                <div class="container text-info-my">
+                    <p class="text-p">Вводить целые числа в мм!<br>
+                        Ступеньки не пропускать!<br>
+                        Последняя ступенька без длины проступи!<br>
+                        (т.к. длина проступи - это длина верхней площадки)
+                    </p>
+                </div>
+                <img th:src="@{img/stair_size.png}" alt="Лестница" width="600">
+                <div class="container text-info-my-2">
+                    <p class="text-p">
+                    <h3 class="my-h3">Внимание!</h3>
+                    <b>Ограничения по характеристикам платформ:</b><br>
+                    <ol class="my-ol">
+                        <li>Максимальная длина подъёма 10м.</li>
+                        <li>Максимальный угол подъёма 30°.</li>
+                    </ol>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <hr>
+        <table>
+            <tr>
+                <td class="my-td" align="left"><h4 style="color: black">Контакты разработчика</h4></td>
+                <td style="width: 20%"><img th:src="@{img/logo.svg}" alt="Logo" width=80% height=80%></td>
+            </tr>
+            <tr>
+                <td class="my-td" align="top">89658572145@mail.ru</td>
+            </tr>
+        </table>
+    </div>
+
+</footer>
+
+</body>
+</html>
