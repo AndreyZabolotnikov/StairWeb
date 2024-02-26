@@ -1,5 +1,7 @@
 package ru.duxa.stairweb.model;
 
+import java.util.Date;
+
 public class Person {
     private int id;
     private String name;
@@ -9,6 +11,7 @@ public class Person {
     private int telephone;
     private String email;
     private String password;
+    private Date date;
 
     public int getId() {
         return id;

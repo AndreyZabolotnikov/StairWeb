@@ -60,6 +60,9 @@ body {
     border-left: 1px solid black;
     transform: rotate(225deg);
 }
+.dropdown-menu{
+    margin-right: -10px !important;
+}
 
 .dropdown-menu:before {
     content: "" !important;

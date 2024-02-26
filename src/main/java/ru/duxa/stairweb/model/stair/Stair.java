@@ -1,14 +1,28 @@
-package ru.duxa.stairweb.stair;
+package ru.duxa.stairweb.model.stair;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Stair{
+    private int id;
+    private int numberStair;
     private int upperFloor;
     private int downFloor;
     private int widthStair;
     private Map<Integer, Integer> stepHeights = new HashMap<>();
     private Map<Integer, Integer> stepLengths = new HashMap<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNumberStair() {
+        return numberStair;
+    }
+
+    public void setNumberStair(int numberStair) {
+        this.numberStair = numberStair;
+    }
 
     public int getUpperFloor() {
         return upperFloor;
