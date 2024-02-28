@@ -1,4 +1,4 @@
-package ru.duxa.stairweb;
+package ru.duxa.stairweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

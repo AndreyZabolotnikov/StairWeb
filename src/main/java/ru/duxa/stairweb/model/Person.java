@@ -1,17 +1,52 @@
 package ru.duxa.stairweb.model;
 
-import java.util.Date;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+
+@Entity
+@Table
+@Data
 public class Person {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue
     private int id;
+
+    @Column(name = "name")
+    @NotBlank(message = "Имя не может быть пустым")
     private String name;
+
+    @Column(name = "middle_name")
     private String middleName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "organization")
     private String organization;
+
+    @Column(name = "telephone")
+    @NotBlank(message = "Номер телефона не может быть пустым")
     private int telephone;
+
+    @Column(name = "email")
+    @NotBlank(message = "Email не может быть пустым")
     private String email;
+
+    @Column(name = "password")
+    @NotBlank(message = "Пароль не может быть пустым")
     private String password;
-    private Date date;
+
+    @Column(name = "date")
+    private LocalDateTime date;
+
+    @PrePersist
+    private void onCreate() {
+        date = LocalDateTime.now();
+    }
 
     public int getId() {
         return id;
