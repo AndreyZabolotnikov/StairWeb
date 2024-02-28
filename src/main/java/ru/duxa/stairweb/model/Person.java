@@ -1,6 +1,7 @@
 package ru.duxa.stairweb.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -32,8 +33,9 @@ public class Person {
     @NotBlank(message = "Номер телефона не может быть пустым")
     private int telephone;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotBlank(message = "Email не может быть пустым")
+    @Email(message = "Некорректный email")
     private String email;
 
     @Column(name = "password")
