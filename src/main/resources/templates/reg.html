@@ -19,14 +19,14 @@
 <header th:insert="block/header-block.html"/>
 <main>
     <div class="container">
-        <form th:action="@{/reg}" th:object="${person}">
+        <form th:action="@{/reg}" method="POST" th:object="${person}">
             <table>
                 <tr>
                     <td>
-                        <label>Имя:</label>
+                        <label for="name">Имя:</label>
                     </td>
                     <td>
-                        <input class="form-control" type="text" th:field="*{name}">
+                        <input class="form-control" type="text" th:field="*{name}" id="name">
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +62,7 @@
                         <label>Телефон:</label>
                     </td>
                     <td>
-                        <input class="form-control" type="tel" th:field="*{telephone}">
+                        <input class="form-control" type="text" th:field="*{telephone}">
                     </td>
                 </tr>
                 <tr>
