@@ -3,17 +3,22 @@ package ru.duxa.stairweb.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "person")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -42,13 +47,14 @@ public class Person {
     @NotBlank(message = "Пароль не может быть пустым")
     private String password;
 
-    @Column(name = "date")
-    private LocalDateTime date;
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate;
 
     @PrePersist
     private void onCreate() {
-        date = LocalDateTime.now();
+        dateCreate = LocalDateTime.now();
     }
+
 
     public int getId() {
         return id;
