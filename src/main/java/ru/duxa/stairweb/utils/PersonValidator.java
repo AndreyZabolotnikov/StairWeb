@@ -24,10 +24,25 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
+        if (person.getEmail() == null || person.getEmail().length() == 0) {
+            errors.rejectValue("email", "", "Email не может быть пустым");
+        }
+
         if (person.getEmail() != null && person.getEmail().length() > 0) {
             if (!person.getEmail().contains("@")) {
                 errors.rejectValue("email", "", "Некорректный email");
             }
+        }
+
+        if(personRepository.findByEmail(person.getEmail()) != null){
+            errors.rejectValue("email", "", "Пользователь с таким email уже существует");
+        }
+
+        if(person.getName() == null || person.getName().length() == 0){
+            errors.rejectValue("name", "", "Имя не может быть пустым");
+        }
+        if(person.getPassword() == null || person.getPassword().length() == 0){
+            errors.rejectValue("password", "", "Пароль не может быть пустым");
         }
     }
 }
