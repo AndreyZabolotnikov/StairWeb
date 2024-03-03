@@ -45,6 +45,9 @@ public class Person {
     @NotBlank(message = "Пароль не может быть пустым")
     private String password;
 
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "date_create")
     private LocalDateTime dateCreate;
 
