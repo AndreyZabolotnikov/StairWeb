@@ -35,7 +35,6 @@ public class RegController {
             return "reg";
         }
 
-        person.setRole("ROLE_USER");
         personRepository.save(person);
         return "redirect:authorization";
     }

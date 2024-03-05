@@ -3,15 +3,17 @@ package ru.duxa.stairweb.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 public class Person {
 
     @Id
@@ -45,15 +47,32 @@ public class Person {
     @NotBlank(message = "Пароль не может быть пустым")
     private String password;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "date_create")
     private LocalDateTime dateCreate;
+
 
     @PrePersist
     private void onCreate() {
         dateCreate = LocalDateTime.now();
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_role",
+            joinColumns = @JoinColumn(name = "user_id",
+            referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",
+                    referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+    public Person(String name, String middleName, String lastName, String organization, Long telephone, String email, String password, Collection<Role> roles) {
+        this.name = name;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.organization = organization;
+        this.telephone = telephone;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
 }
