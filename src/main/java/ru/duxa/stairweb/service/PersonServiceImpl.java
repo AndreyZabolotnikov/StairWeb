@@ -3,6 +3,7 @@ package ru.duxa.stairweb.service;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +14,6 @@ import ru.duxa.stairweb.model.Role;
 import ru.duxa.stairweb.model.Roles;
 import ru.duxa.stairweb.repository.PersonRepository;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class PersonServiceImpl implements PersonService {
 
     private PersonRepository personRepository;
     private BCryptPasswordEncoder passwordEncoder;
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var person = personRepository.findByEmail(username);
-        if(person != null){
-            throw new UsernameNotFoundException("Пользователь с таким email не найден");
+        if(person == null){
+            throw new UsernameNotFoundException("Неправильный email");
         }
-        return new org.springframework.security.core.userdetails.User(person.getEmail(), person.getPassword(), mapRolesToAuthorities(person.getRoles()));
+        return new User(person.getName(), person.getPassword(), mapRolesToAuthorities(person.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){

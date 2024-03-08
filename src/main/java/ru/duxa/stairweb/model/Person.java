@@ -7,11 +7,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "person")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Person {
@@ -58,10 +58,8 @@ public class Person {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_role",
-            joinColumns = @JoinColumn(name = "user_id",
-            referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"))
+            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Collection<Role> roles;
 
     public Person(String name, String middleName, String lastName, String organization, Long telephone, String email, String password, Collection<Role> roles) {

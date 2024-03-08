@@ -6,7 +6,7 @@ import ru.duxa.stairweb.model.Person;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
+public interface PersonService extends UserDetailsService {
     Person save(PersonRegistrationDto personRegistrationDto);
     List<Person> getAll();
 }

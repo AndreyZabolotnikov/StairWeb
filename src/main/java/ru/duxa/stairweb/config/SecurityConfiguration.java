@@ -25,8 +25,7 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/authorization")
-                        .permitAll()
+                        .loginPage("/authorization").permitAll()
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
