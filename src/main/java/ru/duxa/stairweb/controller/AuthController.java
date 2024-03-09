@@ -37,7 +37,7 @@ public class AuthController {
         return "reg";
     }
 
-    @PostMapping("/reg/save")
+    @PostMapping("/reg")
     public String regPerson(@Valid @ModelAttribute("person") PersonRegistrationDto registrationDto,
                             BindingResult result, Model model) {
         Person existing = personService.findByEmail(registrationDto.getEmail());

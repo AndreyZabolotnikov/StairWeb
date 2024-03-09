@@ -33,15 +33,19 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/reg/**").permitAll()
-                                .requestMatchers("/users").permitAll()
-                                .requestMatchers("/index").permitAll()
+                        authorize
+                                .requestMatchers("/users").authenticated()
+                                .requestMatchers("/css/**").permitAll()
+                                .requestMatchers("/img/**").permitAll()
+                                .requestMatchers("/js/**").permitAll()
+                                .requestMatchers("/reg").permitAll()
+                                .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(
                         (form) -> form
                                 .loginPage("/authorization").permitAll()
                                 .loginProcessingUrl("/authorization")
-                                .defaultSuccessUrl("/index").permitAll()
+                                .defaultSuccessUrl("/").permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
