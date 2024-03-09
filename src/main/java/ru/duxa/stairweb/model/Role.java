@@ -13,14 +13,11 @@ import java.util.List;
 @Setter
 public class Role {
 
-    public Role(String name) {
-        super();
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable=false, unique=true)
     private String name;
 
     @ManyToMany(mappedBy = "roles")

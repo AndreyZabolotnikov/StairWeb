@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -16,13 +17,14 @@ import java.util.Collection;
 @Setter
 public class Person {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
-    @NotBlank(message = "Имя не может быть пустым")
+    @Column(name = "name" , nullable = false)
     private String name;
 
     @Column(name = "middle_name")
@@ -34,17 +36,13 @@ public class Person {
     @Column(name = "organization")
     private String organization;
 
-    @Column(name = "telephone")
-    @NotBlank(message = "Номер телефона не может быть пустым")
+    @Column(name = "telephone", nullable = false)
     private Long telephone;
 
-    @Column(name = "email", unique = true)
-    @NotBlank(message = "Email не может быть пустым")
-    @Email(message = "Некорректный email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
-    @NotBlank(message = "Пароль не может быть пустым")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "date_create")
@@ -60,17 +58,6 @@ public class Person {
     @JoinTable(name = "users_role",
             joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Collection<Role> roles;
-
-    public Person(String name, String middleName, String lastName, String organization, Long telephone, String email, String password, Collection<Role> roles) {
-        this.name = name;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.organization = organization;
-        this.telephone = telephone;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
+    private List<Role> roles = new ArrayList<>();
 
 }

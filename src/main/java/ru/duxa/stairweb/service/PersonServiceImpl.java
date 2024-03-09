@@ -1,60 +1,77 @@
 package ru.duxa.stairweb.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.model.Person;
 import ru.duxa.stairweb.model.Role;
-import ru.duxa.stairweb.model.Roles;
 import ru.duxa.stairweb.repository.PersonRepository;
+import ru.duxa.stairweb.repository.RoleRepository;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class PersonServiceImpl implements PersonService {
 
-    private PersonRepository personRepository;
-    private BCryptPasswordEncoder passwordEncoder;
+    private final PersonRepository personRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public Person save(PersonRegistrationDto registrationDto) {
-        var person = new Person(registrationDto.getName(),
-                registrationDto.getMiddleName(),
-                registrationDto.getLastName(),
-                registrationDto.getOrganization(),
-                registrationDto.getTelephone(),
-                registrationDto.getEmail(),
-                passwordEncoder.encode(registrationDto.getPassword()),
-                Arrays.asList(new Role(Roles.ROLE_USER.toString()))
-                );
-        return personRepository.save(person);
+    @Autowired
+    public PersonServiceImpl(PersonRepository personRepository,
+                             RoleRepository roleRepository,
+                             PasswordEncoder passwordEncoder) {
+        this.personRepository = personRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var person = personRepository.findByEmail(username);
-        if(person == null){
-            throw new UsernameNotFoundException("Неправильный email");
+    public void saveUser(PersonRegistrationDto personRegistrationDto) {
+        Person person = new Person();
+        person.setName(personRegistrationDto.getName());
+        person.setMiddleName(personRegistrationDto.getMiddleName());
+        person.setLastName(personRegistrationDto.getLastName());
+        person.setOrganization(personRegistrationDto.getOrganization());
+        person.setTelephone(personRegistrationDto.getTelephone());
+        person.setEmail(personRegistrationDto.getEmail());
+        person.setPassword(passwordEncoder.encode(personRegistrationDto.getPassword()));
+        Role role = roleRepository.findByName("ROLE_USER");
+        if (role == null) {
+            role = checkRoleExists();
         }
-        return new User(person.getName(), person.getPassword(), mapRolesToAuthorities(person.getRoles()));
-    }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        person.setRoles(Arrays.asList(role));
+        person.setDateCreate(personRegistrationDto.getDateCreate());
+        personRepository.save(person);
     }
 
     @Override
-    public List<Person> getAll() {
-        return personRepository.findAll();
+    public Person findByEmail(String email) {
+        return personRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<PersonRegistrationDto> findAllUsers() {
+        List<Person> persons = personRepository.findAll();
+        return persons.stream().map((person -> convertEntityToDto(person))).
+                collect(Collectors.toList());
+    }
+
+    private PersonRegistrationDto convertEntityToDto(Person person) {
+        PersonRegistrationDto personRegistrationDto = new PersonRegistrationDto();
+        String [] name = person.getName().split(" ");
+        personRegistrationDto.setName(name[0]);
+        personRegistrationDto.setMiddleName(name[1]);
+        personRegistrationDto.setEmail(person.getEmail());
+        return personRegistrationDto;
+    }
+
+    private Role checkRoleExists() {
+        Role role = new Role();
+        role.setName("USER");
+        return roleRepository.save(role);
     }
 }
