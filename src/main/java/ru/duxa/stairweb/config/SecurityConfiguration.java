@@ -4,7 +4,6 @@ package ru.duxa.stairweb.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,14 +33,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/reg").permitAll()
-                                .requestMatchers("/index").hasRole("USER")
+                        authorize.requestMatchers("/reg/**").permitAll()
+                                .requestMatchers("/users").permitAll()
+                                .requestMatchers("/index").permitAll()
+                                .anyRequest().authenticated()
                 ).formLogin(
                         (form) -> form
                                 .loginPage("/authorization").permitAll()
                                 .loginProcessingUrl("/authorization")
-                                .defaultSuccessUrl("/index")
-                                .permitAll()
+                                .defaultSuccessUrl("/index").permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -6,15 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class StartController {
 
-    @GetMapping("index")
+    @GetMapping("/index")
     public String startWeb(){
         return "index";
     }
-
-    @GetMapping("/authorization")
-    public String authorizationWeb() {
-        return "authorization";
-    }
-
 
 }

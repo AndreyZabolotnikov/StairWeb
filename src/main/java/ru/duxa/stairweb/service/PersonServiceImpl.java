@@ -62,9 +62,8 @@ public class PersonServiceImpl implements PersonService {
 
     private PersonRegistrationDto convertEntityToDto(Person person) {
         PersonRegistrationDto personRegistrationDto = new PersonRegistrationDto();
-        String [] name = person.getName().split(" ");
-        personRegistrationDto.setName(name[0]);
-        personRegistrationDto.setMiddleName(name[1]);
+        personRegistrationDto.setName(person.getName());
+        personRegistrationDto.setMiddleName(person.getMiddleName());
         personRegistrationDto.setEmail(person.getEmail());
         return personRegistrationDto;
     }

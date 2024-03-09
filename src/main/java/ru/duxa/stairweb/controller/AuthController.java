@@ -12,15 +12,22 @@ import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.model.Person;
 import ru.duxa.stairweb.service.PersonService;
 
+import java.util.List;
+
 
 @Controller
-public class RegController {
+public class AuthController {
 
     private final PersonService personService;
 
     @Autowired
-    public RegController(PersonService personService) {
+    public AuthController(PersonService personService) {
         this.personService = personService;
+    }
+
+    @GetMapping("/authorization")
+    public String authorizationWeb() {
+        return "authorization";
     }
 
     @GetMapping("/reg")
@@ -30,7 +37,7 @@ public class RegController {
         return "reg";
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/reg/save")
     public String regPerson(@Valid @ModelAttribute("person") PersonRegistrationDto registrationDto,
                             BindingResult result, Model model) {
         Person existing = personService.findByEmail(registrationDto.getEmail());
@@ -44,4 +51,12 @@ public class RegController {
         personService.saveUser(registrationDto);
         return "redirect:authorization";
     }
+
+    @GetMapping("/users")
+    public String listRegisteredUsers(Model model){
+        List<PersonRegistrationDto> users = personService.findAllUsers();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
 }
