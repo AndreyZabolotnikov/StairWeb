@@ -9,8 +9,7 @@ import ru.duxa.stairweb.model.Role;
 import ru.duxa.stairweb.repository.PersonRepository;
 import ru.duxa.stairweb.repository.RoleRepository;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +38,7 @@ public class PersonServiceImpl implements PersonService {
         person.setTelephone(personRegistrationDto.getTelephone());
         person.setEmail(personRegistrationDto.getEmail());
         person.setPassword(passwordEncoder.encode(personRegistrationDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_USER");
+        Role role = roleRepository.findByName("USER");
         if (role == null) {
             role = checkRoleExists();
         }
@@ -70,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
 
     private Role checkRoleExists() {
         Role role = new Role();
-        role.setName("USER");
+        role.setName("ROLE_USER");
         return roleRepository.save(role);
     }
 }

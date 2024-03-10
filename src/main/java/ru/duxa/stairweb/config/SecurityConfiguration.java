@@ -15,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+//@EnableMethodSecurity
 public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
@@ -34,13 +35,14 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/users").authenticated()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/js/**").permitAll()
                                 .requestMatchers("/reg").permitAll()
                                 .requestMatchers("/").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/users").hasRole("USER")
+                                .requestMatchers("/users1").hasRole("ADMIN")
+
                 ).formLogin(
                         (form) -> form
                                 .loginPage("/authorization").permitAll()
