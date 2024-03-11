@@ -29,22 +29,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         return person.map(MyPersonDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password."));
 
-//        if (person != null) {
-//            return new User(
-//                    person.getEmail(),
-//                    person.getPassword(),
-//                    mapRolesToAuthorities(person.getRoles())
-//            );
-//        } else {
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
     }
-
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-//        Collection<? extends GrantedAuthority> mapRoles = roles.stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                .collect(Collectors.toList());
-//        return mapRoles;
-//    }
 
 }

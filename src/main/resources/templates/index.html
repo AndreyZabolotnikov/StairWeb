@@ -23,11 +23,13 @@
                 <td style="width: 20%">
                     <img th:src="@{img/logo.svg}" alt="Logo" width=80% height=80%/>
                 <td>
-                    <a class="btn btn-danger btn-in" th:href="@{/authorization}">Вход</a>
+                    <a class="btn btn-danger btn-in" th:if="not ${isAuth}"  th:href="@{/authorization}">Вход</a>
+                    <a class="btn btn-danger btn-in" th:if="${isAuth}" th:href="@{/logout}"> Выход</a>
                 </td>
             </tr>
         </table>
         <hr>
+        <p class="h5" th:if="${isAuth}" th:text="${user}"></p>
         <nav class=" navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
