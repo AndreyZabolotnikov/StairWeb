@@ -136,6 +136,10 @@ a {
 .my-h3{
     color: red;
 }
+.my-h5{
+    color: #0f4c81 !important;
+    text-align: right !important;
+}
 .my-td{
     color: gray;
     font-size: 16px !important;
