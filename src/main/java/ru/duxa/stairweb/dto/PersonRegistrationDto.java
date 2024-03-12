@@ -2,6 +2,7 @@ package ru.duxa.stairweb.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class PersonRegistrationDto {
     private String lastName;
     private String organization;
     @NotEmpty(message = "Telephone should not be empty")
-    private Long telephone;
+    private String telephone;
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;

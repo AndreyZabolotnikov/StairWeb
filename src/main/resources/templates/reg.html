@@ -23,7 +23,7 @@
             <table>
                 <tr>
                     <td>
-                        <label for="name">Имя:</label>
+                        <label for="name">Имя*:</label>
                     </td>
                     <td>
                         <input class="form-control" type="text" th:field="*{name}" id="name">
@@ -60,10 +60,11 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="telephone">Телефон:</label>
+                        <label for="telephone">Телефон*:</label>
                     </td>
                     <td>
-                        <input class="form-control" type="text" th:field="*{telephone}" id="telephone">
+                        <input class="form-control" type="text" th:field="*{telephone}" id="telephone" placeholder="+79 _ _ _ _ _ _ _ _ _">
+                        <div style="color: red" th:if="${#fields.hasErrors('telephone')}"  th:errors="*{telephone}"></div>
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +72,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="email">email:</label>
+                        <label for="email">email*:</label>
                     </td>
                     <td>
                         <input class="form-control" type="text" th:field="*{email}" id="email">
@@ -80,7 +81,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="password">Пароль:</label>
+                        <label for="password">Пароль*:</label>
                     </td>
                     <td>
                         <input class="form-control" type="password" th:field="*{password}" id="password">
@@ -89,6 +90,8 @@
                 </tr>
                 <tr>
                     <td>
+                        <br>
+                        <p>* -Обязательные поля для ввода</p>
                         <br>
                         <input class="btn btn-danger" type="submit" value="Создать">
                         <br>

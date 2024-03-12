@@ -37,7 +37,7 @@ public class Person {
     private String organization;
 
     @Column(name = "telephone", nullable = false)
-    private Long telephone;
+    private String telephone;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
