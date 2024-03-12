@@ -2,17 +2,15 @@ package ru.duxa.stairweb.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
-import ru.duxa.stairweb.model.Person;
 import ru.duxa.stairweb.service.PersonService;
+import ru.duxa.stairweb.util.PersonValidator;
 
 import java.util.List;
 
@@ -21,10 +19,12 @@ import java.util.List;
 public class AuthController {
 
     private final PersonService personService;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public AuthController(PersonService personService) {
+    public AuthController(PersonService personService, PersonValidator personValidator) {
         this.personService = personService;
+        this.personValidator = personValidator;
     }
 
     @GetMapping("/authorization")
@@ -42,14 +42,12 @@ public class AuthController {
     @PostMapping("/reg")
     public String regPerson(@Valid @ModelAttribute("person") PersonRegistrationDto registrationDto,
                             BindingResult result, Model model) {
-        Person existing = personService.findByEmail(registrationDto.getEmail());
-        if (existing != null) {
-            result.rejectValue("email", null, "There is already an account registered with the same email");
-        }
+        personValidator.validate(registrationDto, result);
+
         if (result.hasErrors()) {
-            model.addAttribute("person", registrationDto);
             return "reg";
         }
+
         personService.saveUser(registrationDto);
         return "redirect:authorization";
     }

@@ -32,9 +32,19 @@
                 <tr>
                     <td>
                         <label for="password">Пароль:</label>
+
                     </td>
                     <td>
                         <input class="form-control" id="password" type="password" name="password" placeholder="Пароль">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <div  th:if="${param.error}" style="color: red">
+                            Неправильный email или пароль
+                        </div>
                     </td>
                 </tr>
                 <tr>

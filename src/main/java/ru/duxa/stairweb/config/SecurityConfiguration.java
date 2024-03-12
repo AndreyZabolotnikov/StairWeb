@@ -48,10 +48,12 @@ public class SecurityConfiguration {
                         (form) -> form
                                 .loginPage("/authorization").permitAll()
                                 .loginProcessingUrl("/authorization")
-                                .defaultSuccessUrl("/").permitAll()
+                                .defaultSuccessUrl("/", true).permitAll()
+                                .failureUrl("/authorization?error").permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/authorization")
                                 .permitAll()
                 );
         return http.build();
