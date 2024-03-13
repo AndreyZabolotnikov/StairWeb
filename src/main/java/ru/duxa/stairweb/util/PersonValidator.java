@@ -41,12 +41,17 @@ public class PersonValidator implements Validator {
         if (person.getTelephone().isEmpty()) {
             errors.rejectValue("telephone", null, "Телефон не должен быть пустым");
         }
+        else if(person.getTelephone().matches("^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$") == false){
+            errors.rejectValue("telephone", null, "Неверный формат телефона");
+        }
 
         if (personService.findByEmail(person.getEmail()) != null)
             errors.rejectValue("email", "", "Email такой уже существует");
 
         if (person.getEmail().isEmpty())
             errors.rejectValue("email", null, "Email не должен быть пустым");
+        else if (person.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false)
+            errors.rejectValue("email", null, "Неверный формат email");
 
         if (person.getPassword().isEmpty()) {
             errors.rejectValue("password", null, "Пароль не должен быть пустым");

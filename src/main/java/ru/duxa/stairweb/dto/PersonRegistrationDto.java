@@ -16,17 +16,17 @@ import java.time.LocalDateTime;
 @Setter
 public class PersonRegistrationDto {
     private Long id;
-    @NotEmpty(message = "Name should not be empty")
+    @NotEmpty(message = "Имя не должно быть пустым")
     private String name;
     private String middleName;
     private String lastName;
     private String organization;
-    @NotEmpty(message = "Telephone should not be empty")
+    @NotEmpty(message = "Номер телефона не должен быть пустым")
     private String telephone;
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty(message = "Email не должен быть пустым")
     @Email
     private String email;
-    @NotEmpty(message = "Password should not be empty")
+    @NotEmpty(message = "Пароль не должен быть пустым")
     private String password;
     private LocalDateTime dateCreate;
 }
