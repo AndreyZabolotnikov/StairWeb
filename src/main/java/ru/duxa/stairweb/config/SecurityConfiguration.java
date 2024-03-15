@@ -55,6 +55,8 @@ public class SecurityConfiguration {
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/authorization")
                                 .permitAll()
+                ).rememberMe(
+                        (rememberMe) -> rememberMe.key("uniqueAndSecret")
                 );
         return http.build();
     }
