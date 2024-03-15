@@ -24,8 +24,10 @@
                     <img th:src="@{img/logo.svg}" alt="Logo" width=80% height=80%/>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-in" th:if="not ${isAuth}"  th:href="@{/authorization}">Вход</a>
-                    <a class="btn btn-danger btn-in" th:if="${isAuth}" th:href="@{/logout}"> Выход</a>
+                    <a class="btn btn-danger btn-in" th:if="not ${isAuth}" th:href="@{/authorization}">Вход</a>
+                    <form th:if="${isAuth}" th:action="@{/logout}" th:method="POST">
+                        <input type="submit" class="btn btn-danger btn-in" value="Выход">
+                    </form>
                 </td>
             </tr>
         </table>
