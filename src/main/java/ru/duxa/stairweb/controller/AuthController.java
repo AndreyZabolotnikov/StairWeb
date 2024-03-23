@@ -93,27 +93,29 @@ public class AuthController {
             return "forgot-password";
         }
 
-//        PasswordResetToken token = new PasswordResetToken();
-//        token.setToken(UUID.randomUUID().toString());
-//        token.setPerson(person);
-//        token.setExpiryDate(30);
-//        tokenRepository.save(token);
+        PasswordResetToken token = new PasswordResetToken();
+        if(tokenRepository.findByPersonId(person.getId()) != null){
+            token = tokenRepository.findByPersonId(person.getId());
+        }else {
+            token.setToken(UUID.randomUUID().toString());
+            token.setPerson(person);
+            token.setExpiryDate(30);
+            tokenRepository.save(token);
+        }
 
         Mail mail = new Mail();
         mail.setFrom("89658572145@mail.ru");
         mail.setTo(person.getEmail());
-        mail.setSubject("Password reset request");
+        mail.setSubject("Сброс пароля");
 
-//        Map<String, Object> model = new HashMap<>();
-//        model.put("token", token);
-//        model.put("user", person);
-//        model.put("signature", "https://memorynotfound.com");
-//        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-//        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
-//        mail.setModel(model);
-//        emailService.sendEmail(mail);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        emailService.sendSimpleMessage(mail);
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", person);
+        model.put("signature", "https://veara.ru");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        mail.setModel(model);
+        emailService.sendEmail(mail);
 
 
         return "redirect:/forgot?success";
