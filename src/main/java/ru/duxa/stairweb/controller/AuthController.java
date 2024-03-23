@@ -118,7 +118,7 @@ public class AuthController {
         emailService.sendEmail(mail);
 
 
-        return "redirect:/forgot?success";
+        return "redirect:/authorization";
     }
 
     @GetMapping("/users")
