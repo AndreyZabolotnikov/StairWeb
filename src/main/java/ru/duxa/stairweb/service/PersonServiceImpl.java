@@ -36,7 +36,7 @@ public class PersonServiceImpl implements PersonService {
         person.setLastName(personRegistrationDto.getLastName());
         person.setOrganization(personRegistrationDto.getOrganization());
         person.setTelephone(personRegistrationDto.getTelephone());
-        person.setEmail(personRegistrationDto.getEmail());
+        person.setEmail(personRegistrationDto.getEmail().toLowerCase());
         person.setPassword(passwordEncoder.encode(personRegistrationDto.getPassword()));
         Role role = roleRepository.findByName("USER");
         if (role == null) {

@@ -32,7 +32,7 @@ public class MyPersonDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return person.getEmail();
+        return person.getEmail().toLowerCase();
     }
 
     @Override

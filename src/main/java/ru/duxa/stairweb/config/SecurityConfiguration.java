@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/js/**").permitAll()
                                 .requestMatchers("/reg").permitAll()
+                                .requestMatchers("/forgot").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("USER")
                                 .requestMatchers("/users1").hasRole("ADMIN")
