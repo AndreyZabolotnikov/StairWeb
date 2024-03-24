@@ -31,12 +31,11 @@
     </tr>
     <tr>
         <td bgcolor="white" style="padding: 40px 30px 40px 30px;">
-            <p th:text="${'Dear ' + user.name + ' ' + user.lastName}"></p>
+            <p th:text="${user.name + ' ' + user.lastName}"></p>
             <p>
-                You've requested a password reset.
+                Ваша ссылка на сброс пароля:
                 <a th:href="${resetUrl}">reset your password</a>
             </p>
-            <p>Thanks</p>
             <hr>
         </td>
     </tr>

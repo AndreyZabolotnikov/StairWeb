@@ -117,8 +117,12 @@ public class AuthController {
         mail.setModel(model);
         emailService.sendEmail(mail);
 
+        return "redirect:/send-email";
+    }
 
-        return "redirect:/authorization";
+    @GetMapping("/send-email")
+    public String sendEmail(){
+        return "send-email";
     }
 
     @GetMapping("/users")
