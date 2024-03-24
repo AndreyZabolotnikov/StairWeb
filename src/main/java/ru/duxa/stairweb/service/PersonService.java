@@ -9,4 +9,5 @@ public interface PersonService {
     void saveUser(PersonRegistrationDto personRegistrationDto);
     Person findByEmail(String email);
     List<PersonRegistrationDto> findAllUsers();
+
 }
