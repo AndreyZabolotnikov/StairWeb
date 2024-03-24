@@ -20,7 +20,6 @@ import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.util.PersonValidator;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -94,14 +93,15 @@ public class AuthController {
         }
 
         PasswordResetToken token = new PasswordResetToken();
+
         if(tokenRepository.findByPersonId(person.getId()) != null){
             token = tokenRepository.findByPersonId(person.getId());
-        }else {
-            token.setToken(UUID.randomUUID().toString());
+        }else
             token.setPerson(person);
-            token.setExpiryDate(30);
-            tokenRepository.save(token);
-        }
+
+        token.setToken(UUID.randomUUID().toString());
+        token.setExpiryDate(30);
+        tokenRepository.save(token);
 
         Mail mail = new Mail();
         mail.setFrom("89658572145@mail.ru");
@@ -123,21 +123,6 @@ public class AuthController {
     @GetMapping("/send-email")
     public String sendEmail(){
         return "send-email";
-    }
-
-    @GetMapping("/users")
-//    @PreAuthorize("hasRole('USER')")
-    public String listRegisteredUsers(Model model){
-        List<PersonRegistrationDto> users = personService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
-
-    @GetMapping("/users1")
-    public String listRegisteredUsers1(Model model){
-        List<PersonRegistrationDto> users = personService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
     }
 
 }
