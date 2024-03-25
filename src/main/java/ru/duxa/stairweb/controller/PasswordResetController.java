@@ -49,18 +49,27 @@ public class PasswordResetController {
     @Transactional
     public String handleResetPassword(@ModelAttribute("passwordResetForm") @Valid PasswordResetDto form,
                                       BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (form.getPassword().isEmpty()){
+            result.rejectValue("password", null, "Пароль не может быть пустым");
+        }
+
+        else if(!form.getPassword().equals(form.getConfirmPassword())) {
+            result.rejectValue("confirmPassword", "error.passwordResetForm", "Пароли не совпадают");
+        }
+
         if (result.hasErrors()){
             redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".passwordResetForm", result);
             redirectAttributes.addFlashAttribute("passwordResetForm", form);
             return "redirect:/reset-password?token=" + form.getToken();
         }
 
+
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
         Person person = token.getPerson();
         String updatedPassword = passwordEncoder.encode(form.getPassword());
         person.setPassword(updatedPassword);
         tokenRepository.delete(token);
-
 
         return "redirect:/login?resetSuccess";
     }
