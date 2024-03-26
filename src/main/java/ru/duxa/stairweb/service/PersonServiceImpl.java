@@ -44,6 +44,7 @@ public class PersonServiceImpl implements PersonService {
         }
         person.setRoles(Arrays.asList(role));
         person.setDateCreate(personRegistrationDto.getDateCreate());
+        person.setEnabled(false);
         personRepository.save(person);
     }
 

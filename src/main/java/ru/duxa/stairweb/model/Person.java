@@ -46,6 +46,9 @@ public class Person {
     @Column(name = "date_create")
     private LocalDateTime dateCreate;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
 
     @PrePersist
     private void onCreate() {

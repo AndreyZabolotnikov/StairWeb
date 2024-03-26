@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/forgot").permitAll()
                                 .requestMatchers("/send-email").permitAll()
                                 .requestMatchers("/reset-password").permitAll()
+                                .requestMatchers("/confirmation").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("USER")
                                 .requestMatchers("/users1").hasRole("ADMIN")

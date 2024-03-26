@@ -37,7 +37,7 @@ public class PasswordResetController {
         if(resetToken == null) {
            model.addAttribute("error", "Неверная ссылка, запросите заново сбросить пароль");
         } else if (resetToken.isExpired()) {
-            model.addAttribute("error", "Срок действия ссылки истек, запросите заново сбросить пароль");
+            model.addAttribute("error", "Срок действия ссылки истекло, запросите заново сбросить пароль");
 
         }else {
             model.addAttribute("token", resetToken.getToken());
@@ -69,6 +69,7 @@ public class PasswordResetController {
         Person person = token.getPerson();
         String updatedPassword = passwordEncoder.encode(form.getPassword());
         person.setPassword(updatedPassword);
+        person.setEnabled(true);
         tokenRepository.delete(token);
 
         return "redirect:/login?resetSuccess";

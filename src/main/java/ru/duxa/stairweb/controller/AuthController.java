@@ -1,6 +1,7 @@
 package ru.duxa.stairweb.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.duxa.stairweb.dto.PasswordForgotDto;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.model.Mail;
@@ -54,8 +56,8 @@ public class AuthController {
     }
 
     @PostMapping("/reg")
-    public String regPerson(@Valid @ModelAttribute("person") PersonRegistrationDto registrationDto,
-                            BindingResult result, Model model) {
+    public String regPerson(@ModelAttribute("person") @Valid PersonRegistrationDto registrationDto,
+                            BindingResult result, HttpServletRequest request) {
         personValidator.validate(registrationDto, result);
 
         if (result.hasErrors()) {
@@ -63,8 +65,56 @@ public class AuthController {
         }
 
         personService.saveUser(registrationDto);
-        return "redirect:authorization";
+
+        PasswordResetToken token = new PasswordResetToken();
+        Person person = personService.findByEmail(registrationDto.getEmail());
+        token.setPerson(person);
+        token.setToken(UUID.randomUUID().toString());
+        token.setExpiryDate(30);
+        tokenRepository.save(token);
+
+        Mail mail = new Mail();
+        mail.setFrom("89658572145@mail.ru");
+        mail.setTo(person.getEmail());
+        mail.setSubject("Подтверждения регистрации");
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("token", token);
+        model.put("user", person);
+        model.put("signature", "https://veara.ru");
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        model.put("resetUrl", url + "/confirmation?token=" + token.getToken());
+        model.put("forgotUrl", url + "/forgot");
+        mail.setModel(model);
+        emailService.sendEmailConfirmation(mail);
+
+        return "redirect:/send-email";
     }
+
+    @GetMapping("/confirmation")
+    @Transactional
+    public String emailConfirmation(@RequestParam(required = false) String token, Model model) {
+
+        if(tokenRepository.findByToken(token) == null) {
+            model.addAttribute("error", "Неверная ссылка, зарегестрируйтесь заново");
+            System.out.println("!!!!!!!!!!!!!!!!");
+        }else {
+            PasswordResetToken confirmationToken = tokenRepository.findByToken(token);
+
+            if (confirmationToken.isExpired()) {
+                model.addAttribute("error", "Срок действия ссылки истек, запросите сбросить пароль");
+
+            } else {
+                model.addAttribute("token", confirmationToken.getToken());
+                Person person = confirmationToken.getPerson();
+                person.setEnabled(true);
+                tokenRepository.delete(confirmationToken);
+            }
+        }
+
+        return "confirmation-person";
+    }
+
     @GetMapping("/forgot")
     public String forgot(Model model) {
         PasswordForgotDto passwordForgotDto = new PasswordForgotDto();
@@ -115,7 +165,7 @@ public class AuthController {
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
-        emailService.sendEmail(mail);
+        emailService.sendEmailReset(mail);
 
         return "redirect:/send-email";
     }
@@ -124,5 +174,6 @@ public class AuthController {
     public String sendEmail(){
         return "send-email";
     }
+
 
 }
