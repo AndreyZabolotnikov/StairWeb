@@ -46,7 +46,7 @@ public class PersonValidator implements Validator {
         }
 
         if (personService.findByEmail(person.getEmail()) != null)
-            errors.rejectValue("email", "", "Email такой уже существует");
+            errors.rejectValue("email", "", "Email уже существует");
 
         if (person.getEmail().isEmpty())
             errors.rejectValue("email", null, "Email не должен быть пустым");

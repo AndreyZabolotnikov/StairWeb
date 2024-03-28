@@ -57,7 +57,8 @@ public class AuthController {
 
     @PostMapping("/reg")
     public String regPerson(@ModelAttribute("person") @Valid PersonRegistrationDto registrationDto,
-                            BindingResult result, HttpServletRequest request) {
+                            BindingResult result, HttpServletRequest request, Model model) {
+
         personValidator.validate(registrationDto, result);
 
         if (result.hasErrors()) {
@@ -78,15 +79,20 @@ public class AuthController {
         mail.setTo(person.getEmail());
         mail.setSubject("Подтверждения регистрации");
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("token", token);
-        model.put("user", person);
-        model.put("signature", "https://veara.ru");
+        Map<String, Object> modelMail = new HashMap<>();
+        modelMail.put("token", token);
+        modelMail.put("user", person);
+        modelMail.put("signature", "https://veara.ru");
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        model.put("resetUrl", url + "/confirmation?token=" + token.getToken());
-        model.put("forgotUrl", url + "/forgot");
-        mail.setModel(model);
-        emailService.sendEmailConfirmation(mail);
+        modelMail.put("resetUrl", url + "/confirmation?token=" + token.getToken());
+        modelMail.put("forgotUrl", url + "/forgot");
+        mail.setModel(modelMail);
+
+        Runnable runnable = () -> {
+            emailService.sendEmailConfirmation(mail);
+        };
+
+        new Thread(runnable).start();
 
         return "redirect:/send-email";
     }
@@ -95,10 +101,9 @@ public class AuthController {
     @Transactional
     public String emailConfirmation(@RequestParam(required = false) String token, Model model) {
 
-        if(tokenRepository.findByToken(token) == null) {
+        if (tokenRepository.findByToken(token) == null) {
             model.addAttribute("error", "Неверная ссылка, зарегестрируйтесь заново");
-            System.out.println("!!!!!!!!!!!!!!!!");
-        }else {
+        } else {
             PasswordResetToken confirmationToken = tokenRepository.findByToken(token);
 
             if (confirmationToken.isExpired()) {
@@ -126,12 +131,12 @@ public class AuthController {
     public String processForgotPasswordForm(@ModelAttribute("forgotPasswordForm") @Valid PasswordForgotDto form,
                                             BindingResult result,
                                             HttpServletRequest request) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "forgot-password";
         }
 
         if (form.getEmail().isEmpty())
-            result.rejectValue("email","required", "Email не должен быть пустым");
+            result.rejectValue("email", "required", "Email не должен быть пустым");
 
         else if (form.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false)
             result.rejectValue("email", "required", "Неверный формат email");
@@ -144,9 +149,9 @@ public class AuthController {
 
         PasswordResetToken token = new PasswordResetToken();
 
-        if(tokenRepository.findByPersonId(person.getId()) != null){
+        if (tokenRepository.findByPersonId(person.getId()) != null) {
             token = tokenRepository.findByPersonId(person.getId());
-        }else
+        } else
             token.setPerson(person);
 
         token.setToken(UUID.randomUUID().toString());
@@ -171,7 +176,7 @@ public class AuthController {
     }
 
     @GetMapping("/send-email")
-    public String sendEmail(){
+    public String sendEmail() {
         return "send-email";
     }
 
