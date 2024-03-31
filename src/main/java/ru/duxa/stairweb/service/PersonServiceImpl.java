@@ -75,14 +75,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
 
-    public void saveAdmin(String password) {
+    public void saveAdmin(String email,String password) {
         Person person = new Person();
         person.setName("admin");
         person.setMiddleName("admin");
         person.setLastName("admin");
         person.setOrganization("admin");
         person.setTelephone("8900000000");
-        person.setEmail("admin@admin.admin");
+        person.setEmail(email);
         person.setPassword(passwordEncoder.encode(password));
         Role role = new Role();
         role.setName("ROLE_ADMIN");
@@ -91,9 +91,9 @@ public class PersonServiceImpl implements PersonService {
         personRepository.save(person);
     }
 
-    public void resetAdmin() {
-       Person person = personRepository.findByEmail("admin@admin.admin");
-       person.setPassword(passwordEncoder.encode("#admin"));
+    public void resetAdmin(String email,String password) {
+       Person person = personRepository.findByEmail(email);
+       person.setPassword(passwordEncoder.encode(password));
        personRepository.save(person);
     }
 }

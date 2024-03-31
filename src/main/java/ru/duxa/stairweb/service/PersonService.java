@@ -10,7 +10,7 @@ public interface PersonService {
     Person findByEmail(String email);
     List<PersonRegistrationDto> findAllUsers();
 
-    void saveAdmin(String password);
+    void saveAdmin(String email, String password);
 
-    void resetAdmin();
+    void resetAdmin(String email,String password);
 }

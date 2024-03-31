@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,16 +33,14 @@ public class AuthController {
     private final PersonValidator personValidator;
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuthController(PersonService personService, PersonValidator personValidator,
-                          PasswordResetTokenRepository tokenRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
+                          PasswordResetTokenRepository tokenRepository, EmailService emailService) {
         this.personService = personService;
         this.personValidator = personValidator;
         this.tokenRepository = tokenRepository;
         this.emailService = emailService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/authorization")
@@ -53,11 +50,13 @@ public class AuthController {
 
     @GetMapping("/inst-admin")
     public String authorizationAdminWeb(@RequestParam("admin") String admin) {
-        if (admin.equals("reset") && personService.findByEmail("admin@admin.admin") == null) {
-            System.out.println(personService.findByEmail("admin@admin.admin").getPassword());
+        String adminEmail = "admin";
+        String adminPassword = "#adminVeara";
+        if (admin.equals("reset") && personService.findByEmail(adminEmail) == null) {
+            personService.saveAdmin(adminEmail,adminPassword);
         }
-        else if (admin.equals("reset") && personService.findByEmail("admin@admin.admin") != null) {
-            personService.resetAdmin();
+        else if (admin.equals("reset") && personService.findByEmail(adminEmail) != null) {
+            personService.resetAdmin(adminEmail, adminPassword);
         }
         return "redirect:/";
     }
@@ -149,11 +148,16 @@ public class AuthController {
             return "forgot-password";
         }
 
-        if (form.getEmail().isEmpty())
+        if (form.getEmail().isEmpty()) {
             result.rejectValue("email", "required", "Email не должен быть пустым");
+            return "forgot-password";
+        }
 
-        else if (form.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false)
+        else if (form.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false
+        || form.getEmail().equals("admin")) {
             result.rejectValue("email", "required", "Неверный формат email");
+            return "forgot-password";
+        }
 
         Person person = personService.findByEmail(form.getEmail());
         if (person == null) {
