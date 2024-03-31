@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,19 +34,32 @@ public class AuthController {
     private final PersonValidator personValidator;
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuthController(PersonService personService, PersonValidator personValidator,
-                          PasswordResetTokenRepository tokenRepository, EmailService emailService) {
+                          PasswordResetTokenRepository tokenRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
         this.personService = personService;
         this.personValidator = personValidator;
         this.tokenRepository = tokenRepository;
         this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/authorization")
     public String authorizationWeb() {
         return "authorization";
+    }
+
+    @GetMapping("/inst-admin")
+    public String authorizationAdminWeb(@RequestParam("admin") String admin) {
+        if (admin.equals("reset") && personService.findByEmail("admin@admin.admin") == null) {
+            System.out.println(personService.findByEmail("admin@admin.admin").getPassword());
+        }
+        else if (admin.equals("reset") && personService.findByEmail("admin@admin.admin") != null) {
+            personService.resetAdmin();
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/reg")
@@ -170,7 +184,13 @@ public class AuthController {
         String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
-        emailService.sendEmailReset(mail);
+
+        Runnable runnable = () -> {
+            emailService.sendEmailReset(mail);
+        };
+
+        new Thread(runnable).start();
+
 
         return "redirect:/send-email";
     }

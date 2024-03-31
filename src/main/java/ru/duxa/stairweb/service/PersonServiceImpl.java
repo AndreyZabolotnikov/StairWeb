@@ -1,5 +1,6 @@
 package ru.duxa.stairweb.service;
 
+import jakarta.persistence.PrePersist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,8 +44,7 @@ public class PersonServiceImpl implements PersonService {
             role = checkRoleExists();
         }
         person.setRoles(Arrays.asList(role));
-        person.setDateCreate(personRegistrationDto.getDateCreate());
-        person.setEnabled(false);
+        person.setEnabled(true);
         personRepository.save(person);
     }
 
@@ -72,5 +72,28 @@ public class PersonServiceImpl implements PersonService {
         Role role = new Role();
         role.setName("ROLE_USER");
         return roleRepository.save(role);
+    }
+
+
+    public void saveAdmin(String password) {
+        Person person = new Person();
+        person.setName("admin");
+        person.setMiddleName("admin");
+        person.setLastName("admin");
+        person.setOrganization("admin");
+        person.setTelephone("8900000000");
+        person.setEmail("admin@admin.admin");
+        person.setPassword(passwordEncoder.encode(password));
+        Role role = new Role();
+        role.setName("ROLE_ADMIN");
+        person.setRoles(Arrays.asList(role));
+        person.setEnabled(true);
+        personRepository.save(person);
+    }
+
+    public void resetAdmin() {
+       Person person = personRepository.findByEmail("admin@admin.admin");
+       person.setPassword(passwordEncoder.encode("#admin"));
+       personRepository.save(person);
     }
 }

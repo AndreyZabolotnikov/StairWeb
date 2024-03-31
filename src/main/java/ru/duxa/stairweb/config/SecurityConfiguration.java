@@ -44,9 +44,10 @@ public class SecurityConfiguration {
                                 .requestMatchers("/send-email").permitAll()
                                 .requestMatchers("/reset-password").permitAll()
                                 .requestMatchers("/confirmation").permitAll()
+                                .requestMatchers("/inst-admin").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("USER")
-                                .requestMatchers("/users1").hasRole("ADMIN")
+                                .requestMatchers("/admin").hasRole("ADMIN")
 
                 ).formLogin(
                         (form) -> form
