@@ -90,6 +90,7 @@
         <div class="row">
             <div class="align-items-start col">
                 <h5 class="display-6">Лестница</h5>
+                <p style="color: red" th:if="${isErrStair}" >Заполните правильно лестницу!</p>
                 <form th:action="@{/stair}" method="POST" th:object="${stair}">
 
                     <hr>
@@ -106,212 +107,212 @@
                             <tr>
                                 <th>1</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['0']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['0']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>2</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['1']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['1']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>3</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['2']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['2']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>4</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['3']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['3']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>5</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['4']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['4']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>6</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['5']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['5']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>7</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['6']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['6']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>8</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['7']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['7']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>9</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['8']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['8']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>10</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['9']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['9']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>11</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['10']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['10']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>12</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['11']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['11']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>13</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['12']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['12']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>14</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['13']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['13']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>15</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['14']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['14']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>16</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['15']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['15']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>17</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['16']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['16']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>18</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['17']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['17']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>19</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['18']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['18']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>20</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['19']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['19']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>21</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['20']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['20']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>22</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['21']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['21']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>23</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['22']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['22']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>24</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['23']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['23']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>25</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['24']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['24']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>26</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['25']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['25']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>27</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['26']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['26']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>28</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['27']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['27']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>29</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['28']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['28']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                             <tr>
                                 <th>30</th>
                                 <td><input class="form-control" type="number" th:field="*{stepHeights['29']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                                 <td><input class="form-control" type="number" th:field="*{stepLengths['29']}" step="1"
-                                           min="0"></td>
+                                           min="1"></td>
                             </tr>
                         </table>
                     </div>

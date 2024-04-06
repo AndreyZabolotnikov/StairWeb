@@ -27,6 +27,7 @@ public class StartController {
     private final StairValidator stairValidator;
     private final StairService stairService;
     private StairDto stairDtoBuffer;
+    private static boolean isErrStair;
 
     @Autowired
     public StartController(PersonService personService, RoleRepository roleRepository, StairValidator stairValidator, StairService stairService) {
@@ -38,30 +39,45 @@ public class StartController {
 
     @GetMapping("/")
     public String startWeb(@ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
+
         if (authentication != null) {
             model.addAttribute("isAuth", true);
             model.addAttribute("user", authentication.getName());
         } else {
             model.addAttribute("isAuth", false);
         }
-        if(stairDtoBuffer != null) {
+
+        if (stairDtoBuffer != null) {
             stairDto.setDownFloor(stairDtoBuffer.getDownFloor());
             stairDto.setUpperFloor(stairDtoBuffer.getUpperFloor());
             stairDto.setWidthStair(stairDtoBuffer.getWidthStair());
             stairDto.setStepHeights(stairDtoBuffer.getStepHeights());
             stairDto.setStepLengths(stairDtoBuffer.getStepLengths());
         }
+
+        model.addAttribute("isErrStair", isErrStair);
+
         return "index";
     }
 
     @PostMapping("/stair")
-    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result) {
+    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, Model model) {
+
         StairDto stairDto = stairService.formToDto(form);
         stairValidator.validate(stairDto, result);
+
         if (result.hasErrors()) {
             return "index";
         }
+
+        if (stairDto.getStepHeights().size() <= stairDto.getStepLengths().size()) {
+            isErrStair = true;
+            stairDtoBuffer = stairDto;
+            return "redirect:/";
+        }
+        isErrStair = false;
         stairDtoBuffer = stairDto;
+
         return "redirect:/";
     }
 
