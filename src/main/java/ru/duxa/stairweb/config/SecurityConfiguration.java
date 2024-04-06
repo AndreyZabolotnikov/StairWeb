@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/reset-password").permitAll()
                                 .requestMatchers("/confirmation").permitAll()
                                 .requestMatchers("/inst-admin").permitAll()
+                                .requestMatchers("/stair").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("USER")
                                 .requestMatchers("/admin").hasRole("ADMIN")

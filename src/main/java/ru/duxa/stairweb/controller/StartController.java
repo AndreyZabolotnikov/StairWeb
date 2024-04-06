@@ -1,52 +1,80 @@
 package ru.duxa.stairweb.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
+import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.model.Role;
 import ru.duxa.stairweb.repository.RoleRepository;
 import ru.duxa.stairweb.service.PersonService;
+import ru.duxa.stairweb.service.StairService;
+import ru.duxa.stairweb.util.StairValidator;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class StartController {
 
     private final PersonService personService;
     private final RoleRepository roleRepository;
+    private final StairValidator stairValidator;
+    private final StairService stairService;
+    private StairDto stairDtoBuffer;
 
     @Autowired
-    public StartController(PersonService personService, RoleRepository roleRepository) {
+    public StartController(PersonService personService, RoleRepository roleRepository, StairValidator stairValidator, StairService stairService) {
         this.personService = personService;
         this.roleRepository = roleRepository;
+        this.stairValidator = stairValidator;
+        this.stairService = stairService;
     }
 
     @GetMapping("/")
-    public String startWeb(Authentication authentication, Model model) {
+    public String startWeb(@ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
         if (authentication != null) {
             model.addAttribute("isAuth", true);
             model.addAttribute("user", authentication.getName());
-        }
-        else {
+        } else {
             model.addAttribute("isAuth", false);
+        }
+        if(stairDtoBuffer != null) {
+            stairDto.setDownFloor(stairDtoBuffer.getDownFloor());
+            stairDto.setUpperFloor(stairDtoBuffer.getUpperFloor());
+            stairDto.setWidthStair(stairDtoBuffer.getWidthStair());
+            stairDto.setStepHeights(stairDtoBuffer.getStepHeights());
+            stairDto.setStepLengths(stairDtoBuffer.getStepLengths());
         }
         return "index";
     }
 
+    @PostMapping("/stair")
+    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result) {
+        StairDto stairDto = stairService.formToDto(form);
+        stairValidator.validate(stairDto, result);
+        if (result.hasErrors()) {
+            return "index";
+        }
+        stairDtoBuffer = stairDto;
+        return "redirect:/";
+    }
+
     @GetMapping("/users")
 //    @PreAuthorize("hasRole('USER')")
-    public String listRegisteredUsers(Model model){
+    public String listRegisteredUsers(Model model) {
         List<PersonRegistrationDto> users = personService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
 
     @GetMapping("/admin")
-    public String listRegisteredUsers1(Model model){
+    public String listRegisteredUsers1(Model model) {
         List<PersonRegistrationDto> users = personService.findAllUsers();
         List<Role> roles = roleRepository.findAll();
         model.addAttribute("users", users);
