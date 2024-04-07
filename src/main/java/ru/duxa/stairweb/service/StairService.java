@@ -26,7 +26,6 @@ public class StairService {
                 mapBuffer.put(i, map.get(i));
             } else if (map.get(i) != null && map.get(i - 1) != null) {
                 mapBuffer.put(i, map.get(i));
-                break;
             } else {
                 break;
             }

@@ -70,11 +70,12 @@ public class StartController {
             return "index";
         }
 
-        if (stairDto.getStepHeights().size() <= stairDto.getStepLengths().size()) {
+        if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1) {
             isErrStair = true;
             stairDtoBuffer = stairDto;
             return "redirect:/";
         }
+
         isErrStair = false;
         stairDtoBuffer = stairDto;
 
@@ -82,7 +83,7 @@ public class StartController {
     }
 
     @GetMapping("/result")
-    public String generalResult(){
+    public String generalResult() {
         return "general-result";
     }
 
