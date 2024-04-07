@@ -60,7 +60,7 @@ public class StartController {
         return "index";
     }
 
-    @PostMapping("/stair")
+    @PostMapping("/")
     public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, Model model) {
 
         StairDto stairDto = stairService.formToDto(form);
@@ -78,7 +78,12 @@ public class StartController {
         isErrStair = false;
         stairDtoBuffer = stairDto;
 
-        return "redirect:/";
+        return "redirect:/result";
+    }
+
+    @GetMapping("/result")
+    public String generalResult(){
+        return "general-result";
     }
 
     @GetMapping("/users")

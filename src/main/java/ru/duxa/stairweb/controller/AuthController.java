@@ -51,7 +51,7 @@ public class AuthController {
     @GetMapping("/inst-admin")
     public String authorizationAdminWeb(@RequestParam("admin") String admin) {
         String adminEmail = "admin";
-        String adminPassword = "#adminVeara";
+        String adminPassword = "admin";
         if (admin.equals("reset") && personService.findByEmail(adminEmail) == null) {
             personService.saveAdmin(adminEmail,adminPassword);
         }
