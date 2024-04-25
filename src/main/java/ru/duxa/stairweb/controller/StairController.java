@@ -15,7 +15,6 @@ import ru.duxa.stairweb.model.Role;
 import ru.duxa.stairweb.repository.RoleRepository;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.StairService;
-import ru.duxa.stairweb.util.StairValidator;
 
 import java.util.List;
 
@@ -24,16 +23,14 @@ public class StairController {
 
     private final PersonService personService;
     private final RoleRepository roleRepository;
-    private final StairValidator stairValidator;
     private final StairService stairService;
     private StairDto stairDtoBuffer;
     private static boolean isErrStair;
 
     @Autowired
-    public StairController(PersonService personService, RoleRepository roleRepository, StairValidator stairValidator, StairService stairService) {
+    public StairController(PersonService personService, RoleRepository roleRepository, StairService stairService) {
         this.personService = personService;
         this.roleRepository = roleRepository;
-        this.stairValidator = stairValidator;
         this.stairService = stairService;
     }
 
@@ -64,7 +61,6 @@ public class StairController {
     public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, Model model) {
 
         StairDto stairDto = stairService.formToDto(form);
-        stairValidator.validate(stairDto, result);
 
         if (result.hasErrors()) {
             return "index";

@@ -1,6 +1,9 @@
 package ru.duxa.stairweb.dto;
 
 import jakarta.persistence.ElementCollection;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Map;
@@ -11,9 +14,15 @@ import java.util.Map;
 @AllArgsConstructor
 public class StairDto {
     private int numberStair;
-    private int upperFloor;
-    private int downFloor;
-    private int widthStair;
+    @NotNull(message = "не заполнено")
+    @Min(value = 1, message = "не заполнено")
+    private Integer upperFloor;
+    @NotNull(message = "не заполнено")
+    @Min(value = 1, message = "не заполнено")
+    private Integer downFloor;
+    @NotNull(message = "не заполнено")
+    @Min(value = 1, message = "не заполнено")
+    private Integer widthStair;
     @ElementCollection
     private Map<Integer, Integer> stepHeights;
     @ElementCollection
