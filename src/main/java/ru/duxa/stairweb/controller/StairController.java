@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.model.Role;
@@ -24,7 +25,6 @@ public class StairController {
     private final PersonService personService;
     private final RoleRepository roleRepository;
     private final StairService stairService;
-    private StairDto stairDtoBuffer;
     private static boolean isErrStair;
 
     @Autowired
@@ -44,36 +44,28 @@ public class StairController {
             model.addAttribute("isAuth", false);
         }
 
-        if (stairDtoBuffer != null) {
-            stairDto.setDownFloor(stairDtoBuffer.getDownFloor());
-            stairDto.setUpperFloor(stairDtoBuffer.getUpperFloor());
-            stairDto.setWidthStair(stairDtoBuffer.getWidthStair());
-            stairDto.setStepHeights(stairDtoBuffer.getStepHeights());
-            stairDto.setStepLengths(stairDtoBuffer.getStepLengths());
-        }
-
         model.addAttribute("isErrStair", isErrStair);
 
         return "index";
     }
 
     @PostMapping("/")
-    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, Model model) {
+    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, RedirectAttributes redirectAttributes) {
 
         StairDto stairDto = stairService.formToDto(form);
 
-        if (result.hasErrors()) {
-            return "index";
-        }
-
         if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1) {
             isErrStair = true;
-            stairDtoBuffer = stairDto;
+            redirectAttributes.addFlashAttribute("stair", form);
             return "redirect:/";
         }
 
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("stair", form);
+            return "index";
+        }
+
         isErrStair = false;
-        stairDtoBuffer = stairDto;
 
         return "redirect:/result";
     }
