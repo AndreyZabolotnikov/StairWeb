@@ -49,7 +49,7 @@ public class StairController {
     public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 
         StairDto stairDto = stairService.formToDto(form);
-        System.out.println(stairDto.getStepHeights().size());
+
         if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1
                 || form.getStepHeights().size() <= form.getStepLengths().size()
                 || isErrorMapStair(form.getStepHeights(),stairDto.getStepHeights())
