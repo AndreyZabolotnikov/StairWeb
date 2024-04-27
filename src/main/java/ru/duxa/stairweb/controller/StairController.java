@@ -6,10 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.StairDto;
@@ -35,15 +35,21 @@ public class StairController {
     }
 
     @GetMapping("/")
-    public String startWeb(@ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
-
+    public String startWeb(@RequestParam(required = false, name = "backStair") boolean backStair,
+                           @ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
         if (authentication != null) {
             model.addAttribute("isAuth", true);
             model.addAttribute("user", authentication.getName());
         } else {
             model.addAttribute("isAuth", false);
         }
-
+        if(backStair) {
+            stairDto.setWidthStair(stair.getWidthStair());
+            stairDto.setDownFloor(stair.getDownFloor());
+            stairDto.setUpperFloor(stair.getUpperFloor());
+            stairDto.setStepLengths(stair.getStepLengths());
+            stairDto.setStepHeights(stair.getStepHeights());
+        }
         model.addAttribute("isErrStair", isErrStair);
 
         return "index";
