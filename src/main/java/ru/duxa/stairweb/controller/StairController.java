@@ -33,11 +33,8 @@ public class StairController {
     }
 
     @GetMapping("/")
-    public String startWeb(@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer,
-                           @ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
-        if( referrer != null ) {
-            model.addAttribute("previousUrl", referrer);
-        }
+    public String startWeb(@ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
+
         if (authentication != null) {
             model.addAttribute("isAuth", true);
             model.addAttribute("user", authentication.getName());
@@ -45,15 +42,14 @@ public class StairController {
             model.addAttribute("isAuth", false);
         }
         model.addAttribute("isErrStair", isErrStair);
-
         return "index";
     }
 
     @PostMapping("/")
-    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 
         StairDto stairDto = stairService.formToDto(form);
-
+        System.out.println(stairDto.getStepHeights().size());
         if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1
                 || form.getStepHeights().size() <= form.getStepLengths().size()
                 || isErrorMapStair(form.getStepHeights(),stairDto.getStepHeights())
@@ -85,7 +81,7 @@ public class StairController {
     }
 
     @GetMapping("/result")
-    public String generalResult() {
+    public String generalResult(@ModelAttribute("stair") Stair stair) {
         return "general-result";
     }
 
