@@ -6,31 +6,31 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.StairDto;
-import ru.duxa.stairweb.model.Role;
-import ru.duxa.stairweb.repository.RoleRepository;
+import ru.duxa.stairweb.model.Stair;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.StairService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StairController {
 
     private final PersonService personService;
-    private final RoleRepository roleRepository;
     private final StairService stairService;
     private static boolean isErrStair;
+    private static Stair stair;
 
     @Autowired
-    public StairController(PersonService personService, RoleRepository roleRepository, StairService stairService) {
+    public StairController(PersonService personService, StairService stairService) {
         this.personService = personService;
-        this.roleRepository = roleRepository;
         this.stairService = stairService;
     }
 
@@ -54,20 +54,34 @@ public class StairController {
 
         StairDto stairDto = stairService.formToDto(form);
 
-        if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1) {
+        if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1
+                || form.getStepHeights().size() <= form.getStepLengths().size()
+                || isErrorMapStair(form.getStepHeights(),stairDto.getStepHeights())
+                || isErrorMapStair(form.getStepLengths(),stairDto.getStepLengths())
+        ) {
             isErrStair = true;
             redirectAttributes.addFlashAttribute("stair", form);
             return "redirect:/";
         }
 
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("stair", form);
+            redirectAttributes.addFlashAttribute("stair", stairDto);
             return "index";
         }
 
         isErrStair = false;
-
+        stair = stairService.stairDtoToStair(form);
         return "redirect:/result";
+    }
+
+    private boolean isErrorMapStair(Map<Integer, Integer> map, Map<Integer, Integer> mapSize) {
+        int counter = 0;
+        for (int i = 0; i < map.size(); i++) {
+            if (map.get(i) != null) {
+                counter++;
+            }
+        }
+        return counter != mapSize.size();
     }
 
     @GetMapping("/result")
@@ -76,62 +90,62 @@ public class StairController {
     }
 
     @GetMapping("/et_passage_to_wall")
-    public String etPassageToWall(){
+    public String etPassageToWall() {
         return "et/et-passage-to-wall";
     }
 
     @GetMapping("/et_passage_on_supports")
-    public String etPassageOnSupports(){
+    public String etPassageOnSupports() {
         return "et/et-passage-on-supports";
     }
 
     @GetMapping("/et_side_to_wall")
-    public String etSideToWall(){
+    public String etSideToWall() {
         return "et/et-side-to-wall";
     }
 
     @GetMapping("/et_side_on_supports")
-    public String etSideOnSupports(){
+    public String etSideOnSupports() {
         return "et/et-side-on-supports";
     }
 
     @GetMapping("/et_3side_to_wall")
-    public String et3SideToWall(){
+    public String et3SideToWall() {
         return "et/et-3side-to-wall";
     }
 
     @GetMapping("/et_3side_on_supports")
-    public String et3SideOnSupports(){
+    public String et3SideOnSupports() {
         return "et/et-3side-on-supports";
     }
 
     @GetMapping("/npu_passage_to_wall")
-    public String npuPassageToWall(){
+    public String npuPassageToWall() {
         return "npu/npu-passage-to-wall";
     }
 
     @GetMapping("/npu_passage_on_supports")
-    public String npuPassageOnSupports(){
+    public String npuPassageOnSupports() {
         return "npu/npu-passage-on-supports";
     }
 
     @GetMapping("/npu_side_to_wall")
-    public String npuSideToWall(){
+    public String npuSideToWall() {
         return "npu/npu-side-to-wall";
     }
 
     @GetMapping("/npu_side_on_supports")
-    public String npuSideOnSupports(){
+    public String npuSideOnSupports() {
         return "npu/npu-side-on-supports";
     }
 
     @GetMapping("/npu_3side_to_wall")
-    public String npu3SideToWall(){
+    public String npu3SideToWall() {
         return "npu/npu-3side-to-wall";
     }
 
     @GetMapping("/npu_3side_on_supports")
-    public String npu3SideOnSupports(){
+    public String npu3SideOnSupports() {
         return "npu/npu-3side-on-supports";
     }
 
@@ -141,15 +155,6 @@ public class StairController {
         List<PersonRegistrationDto> users = personService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
-    }
-
-    @GetMapping("/admin")
-    public String listRegisteredUsers1(Model model) {
-        List<PersonRegistrationDto> users = personService.findAllUsers();
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("users", users);
-        model.addAttribute("roles", roles);
-        return "admin";
     }
 
 }

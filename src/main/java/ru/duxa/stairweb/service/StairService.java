@@ -2,6 +2,7 @@ package ru.duxa.stairweb.service;
 
 import org.springframework.stereotype.Service;
 import ru.duxa.stairweb.dto.StairDto;
+import ru.duxa.stairweb.model.Stair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,16 @@ public class StairService {
         stairDto.setStepLengths(mapFieldsToMapStair(form.getStepLengths()));
         stairDto.setStepHeights(mapFieldsToMapStair(form.getStepHeights()));
         return stairDto;
+    }
+
+    public Stair stairDtoToStair(StairDto form){
+        Stair stair = new Stair();
+        stair.setWidthStair(form.getWidthStair());
+        stair.setUpperFloor(form.getUpperFloor());
+        stair.setDownFloor(form.getDownFloor());
+        stair.setStepLengths(mapFieldsToMapStair(form.getStepLengths()));
+        stair.setStepHeights(mapFieldsToMapStair(form.getStepHeights()));
+        return stair;
     }
 
     private Map<Integer, Integer> mapFieldsToMapStair(Map<Integer, Integer> map) {
