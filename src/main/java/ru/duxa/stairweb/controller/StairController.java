@@ -2,14 +2,12 @@ package ru.duxa.stairweb.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.StairDto;
@@ -35,20 +33,16 @@ public class StairController {
     }
 
     @GetMapping("/")
-    public String startWeb(@RequestParam(required = false, name = "backStair") boolean backStair,
+    public String startWeb(@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer,
                            @ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
+        if( referrer != null ) {
+            model.addAttribute("previousUrl", referrer);
+        }
         if (authentication != null) {
             model.addAttribute("isAuth", true);
             model.addAttribute("user", authentication.getName());
         } else {
             model.addAttribute("isAuth", false);
-        }
-        if(backStair) {
-            stairDto.setWidthStair(stair.getWidthStair());
-            stairDto.setDownFloor(stair.getDownFloor());
-            stairDto.setUpperFloor(stair.getUpperFloor());
-            stairDto.setStepLengths(stair.getStepLengths());
-            stairDto.setStepHeights(stair.getStepHeights());
         }
         model.addAttribute("isErrStair", isErrStair);
 
