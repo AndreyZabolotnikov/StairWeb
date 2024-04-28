@@ -41,12 +41,12 @@ public class StairController {
         } else {
             model.addAttribute("isAuth", false);
         }
-        model.addAttribute("isErrStair", isErrStair);
         return "index";
     }
 
-    @PostMapping("/")
-    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+    @GetMapping("/stair")
+    public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result,
+                           RedirectAttributes redirectAttributes, Authentication authentication, Model model) {
 
         StairDto stairDto = stairService.formToDto(form);
 
@@ -54,18 +54,15 @@ public class StairController {
                 || form.getStepHeights().size() <= form.getStepLengths().size()
                 || isErrorMapStair(form.getStepHeights(),stairDto.getStepHeights())
                 || isErrorMapStair(form.getStepLengths(),stairDto.getStepLengths())
+                || result.hasErrors()
         ) {
-            isErrStair = true;
-            redirectAttributes.addFlashAttribute("stair", form);
-            return "redirect:/";
-        }
-
-        if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("stair", stairDto);
+            model.addAttribute("isAuth", true);
+            model.addAttribute("user", authentication.getName());
+            result.rejectValue("stepHeights", "error.stair", "Заполните правильно лестницу!");
             return "index";
         }
 
-        isErrStair = false;
         stair = stairService.stairDtoToStair(form);
         return "redirect:/result";
     }

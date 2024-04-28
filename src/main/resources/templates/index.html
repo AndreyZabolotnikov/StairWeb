@@ -90,8 +90,8 @@
         <div class="row">
             <div class="align-items-start col">
                 <h5 class="display-6">Лестница</h5>
-                <p style="color: red" th:if="${isErrStair}" >Заполните правильно лестницу!</p>
-                <form th:action="@{/}" method="POST" th:object="${stair}">
+                <form th:action="@{/stair}" method="GET" th:object="${stair}">
+                    <div style="color: red; margin-left: 20%" th:if="${#fields.hasErrors('stepHeights')}" th:errors="*{stepHeights}">ошибка</div>
                     <hr>
                     <div class="prokrutka">
                         <table>
