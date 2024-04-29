@@ -22,7 +22,6 @@ public class StairController {
 
     private final PersonService personService;
     private final StairService stairService;
-    private static boolean isErrStair;
     private static Stair stair;
 
     @Autowired
