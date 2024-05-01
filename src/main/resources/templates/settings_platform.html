@@ -18,7 +18,30 @@
         crossorigin="anonymous"></script>
 <header th:insert="~{block/block :: header}"></header>
 <main>
-
+    <div class="container">
+        <table class="table table-bordered" style="text-align: center">
+            <colgroup>
+                <col span="1" style="width: 40%;">
+                <col span="1" style="width: 20%;">
+            </colgroup>
+            <tr>
+                <td>
+                    <p>Платформа</p>
+                </td>
+                <td>
+<!--                    <p th:text="${platform.name}"></p>-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Максимальный угол</p>
+                </td>
+                <td>
+<!--                    <p th:text="${platform.maxAngle}"></p>-->
+                </td>
+            </tr>
+        </table>
+    </div>
 </main>
 <footer th:insert="~{block/block :: footer}"></footer>
 
