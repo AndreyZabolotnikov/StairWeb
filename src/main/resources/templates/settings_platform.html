@@ -52,10 +52,11 @@
                     <p>Максимальный угол</p>
                 </td>
                 <td>
-                    <p th:text="${platform.angleMax}"></p>
+                    <input type="number" th:field="${platform.angleMax}"/>
                 </td>
             </tr>
         </table>
+        <button type="submit" class="btn btn-primary" style="margin-left: 43%">Сохранение изменений</button>
     </div>
 </main>
 <footer th:insert="~{block/block :: footer}"></footer>
