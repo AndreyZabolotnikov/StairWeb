@@ -3,8 +3,7 @@ package ru.duxa.stairweb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.duxa.stairweb.model.Platform;
 import ru.duxa.stairweb.service.PlatformService;
 
@@ -13,31 +12,24 @@ import ru.duxa.stairweb.service.PlatformService;
 public class SettingPlatformController {
 
     private final PlatformService platformService;
+    private Platform platform;
 
     @Autowired
     public SettingPlatformController(PlatformService platformService) {
         this.platformService = platformService;
     }
 
-
     @GetMapping
     String setPlatformData(Model model) {
-        Platform platform = new Platform();
+        if(platform == null)
+            platform = new Platform();
         model.addAttribute("platform", platform);
         return "settings_platform";
     }
 
-    @GetMapping("/et")
-    String setPlatformDataET(Model model) {
-        Platform platform = platformService.getPlatform("et");
-        model.addAttribute("platform", platform);
-        return "settings_platform";
-    }
-
-    @GetMapping("/npu")
-    String setPlatformDataNPU(Model model) {
-        Platform platform = platformService.getPlatform("npu");
-        model.addAttribute("platform", platform);
-        return "settings_platform";
+    @GetMapping("/{var}")
+    String setPlatformData(@PathVariable("var") String var) {
+        platform = platformService.getPlatform(var);
+        return "redirect:/settings_platform";
     }
 }
