@@ -47,7 +47,7 @@
                         </colgroup>
                         <tr>
                             <td>
-                                <p>Платформа</p>
+                                <p>Максимальный угол</p>
                             </td>
                             <td>
                                 <input type="number" th:field="${platform.angleMax}"/>
@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p>Максимальный угол</p>
+                                <p>Максимальная длина пути</p>
                             </td>
                             <td>
                                 <input type="number" th:field="${platform.lengthWayMax}"/>
@@ -63,10 +63,66 @@
                         </tr>
                         <tr>
                             <td>
-                                <p>Зазор над ступенькой</p>
+                                <p>Зазор от стены</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.clearanceOnWall}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Зазор от стены стоек</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.clearanceOnStepSupports}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Зазор от ступени</p>
                             </td>
                             <td>
                                 <input type="number" th:field="${platform.clearanceOnStep}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>перекрытия площадки пандусом</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.overlapRamp}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Длина пандуса</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.lengthRamp}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Длина проходной площадки</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.lengthPassing}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Длина боковой площадки</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.lengthSide}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ширина настенный проходной</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.widthOnWallPassing}"/>
                             </td>
                         </tr>
                     </table>
@@ -75,10 +131,66 @@
                     <table class="table table-bordered" style="text-align: center">
                         <tr>
                             <td>
-                                <p>Длина пандуса</p>
+                                <p>Ширина настенный боковой</p>
                             </td>
                             <td>
-                                <input type="number" th:field="${platform.lengthRamp}"/>
+                                <input type="number" th:field="${platform.widthOnWallSide}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ширина настенного на нижней площадка боковой</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.widthOnWallLowerSide}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ширина на стойках проходной</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.widthOnSupportsPassing}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ширина на стойках на нижней площадка боковой</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.widthOnSupportsLowerSide}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ширина на стойках боковой</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.widthOnSupportsSide}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Толщина сложенной на опорах</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.foldedSupports}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Толщина сложенной настенной</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.foldedWall}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Ловитель</p>
+                            </td>
+                            <td>
+                                <input type="number" th:field="${platform.catcher}"/>
                             </td>
                         </tr>
                     </table>
