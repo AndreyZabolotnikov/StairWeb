@@ -55,4 +55,8 @@ public class Platform {
     private int foldedWall;
 
     private int catcher;
+
+    private int firePassageWay;
+
+    private int lengthTrackAdd;
 }

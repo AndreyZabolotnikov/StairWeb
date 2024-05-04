@@ -45,6 +45,8 @@ public class PlatformService {
         platform.setFoldedSupports(platformDto.getFoldedSupports());
         platform.setFoldedWall(platformDto.getFoldedWall());
         platform.setCatcher(platformDto.getCatcher());
+        platform.setFirePassageWay(platformDto.getFirePassageWay());
+        platform.setLengthTrackAdd(platformDto.getLengthTrackAdd());
     }
 
     public PlatformDto getPlatformDto(String platformName) {
@@ -71,6 +73,8 @@ public class PlatformService {
         platformDto.setFoldedSupports(platform.getFoldedSupports());
         platformDto.setFoldedWall(platform.getFoldedWall());
         platformDto.setCatcher(platform.getCatcher());
+        platformDto.setFirePassageWay(platform.getFirePassageWay());
+        platformDto.setLengthTrackAdd(platform.getLengthTrackAdd());
 
         return platformDto;
     }
