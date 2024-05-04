@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.duxa.stairweb.model.Platform;
+import ru.duxa.stairweb.dto.PlatformDto;
 import ru.duxa.stairweb.service.PlatformService;
 
 @Controller
@@ -12,7 +12,7 @@ import ru.duxa.stairweb.service.PlatformService;
 public class SettingPlatformController {
 
     private final PlatformService platformService;
-    private Platform platform;
+    private PlatformDto platformDto;
 
     @Autowired
     public SettingPlatformController(PlatformService platformService) {
@@ -21,15 +21,25 @@ public class SettingPlatformController {
 
     @GetMapping
     String setPlatformData(Model model) {
-        if(platform == null)
-            platform = new Platform();
-        model.addAttribute("platform", platform);
+        if (platformDto == null)
+            platformDto = new PlatformDto();
+        model.addAttribute("platform", platformDto);
         return "settings_platform";
     }
 
     @GetMapping("/{var}")
     String setPlatformData(@PathVariable("var") String var) {
-        platform = platformService.getPlatform(var);
+        platformDto = platformService.getPlatformDto(var);
         return "redirect:/settings_platform";
+    }
+
+    @PostMapping("/save")
+    String savePlatformData(@ModelAttribute("platform") PlatformDto form) {
+        if (platformDto.getName() == null){
+            return "redirect:/settings_platform";
+        }
+        form.setName(platformDto.getName());
+        platformService.savePlatform(form);
+        return "redirect:/settings_platform/" + form.getName();
     }
 }

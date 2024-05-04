@@ -10,6 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlatformDto {
+
+    private String name;
+
     private int angleMax;
 
     private int lengthWayMax;
