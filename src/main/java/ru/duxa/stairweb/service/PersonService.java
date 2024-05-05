@@ -13,4 +13,8 @@ public interface PersonService {
     void saveAdmin(String email, String password);
 
     void resetAdmin(String email,String password);
+
+    void updatePerson(PersonRegistrationDto registrationDto);
+
+    PersonRegistrationDto convertEntityToDto(Person person);
 }

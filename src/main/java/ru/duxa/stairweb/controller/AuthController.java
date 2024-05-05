@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,7 +71,7 @@ public class AuthController {
 
     @PostMapping("/reg")
     public String regPerson(@ModelAttribute("person") @Valid PersonRegistrationDto registrationDto,
-                            BindingResult result, HttpServletRequest request, Model model) {
+                            BindingResult result, HttpServletRequest request) {
 
         personValidator.validate(registrationDto, result);
 
@@ -202,6 +203,28 @@ public class AuthController {
     @GetMapping("/send-email")
     public String sendEmail() {
         return "send-email";
+    }
+
+    @GetMapping("/change_account")
+    public String changeAccount(Authentication authentication, Model model) {
+        Person person = personService.findByEmail(authentication.getName());
+        PersonRegistrationDto personRegistrationDto = personService.convertEntityToDto(person);
+        model.addAttribute("person", personRegistrationDto);
+        return "change_account";
+    }
+
+    @PostMapping("/change_account")
+    public String updateAccount(@ModelAttribute("person") @Valid PersonRegistrationDto form, Authentication authentication, BindingResult result) {
+        personValidator.validate(form, result);
+
+        if (result.hasErrors()) {
+            return "change_account";
+        }
+        form.setEmail(authentication.getName());
+        System.out.println(authentication.getName());
+//        personService.updatePerson(form);
+
+        return "redirect:/";
     }
 
 

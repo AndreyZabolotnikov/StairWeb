@@ -1,5 +1,6 @@
 package ru.duxa.stairweb.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class PersonServiceImpl implements PersonService {
                 collect(Collectors.toList());
     }
 
-    private PersonRegistrationDto convertEntityToDto(Person person) {
+    public PersonRegistrationDto convertEntityToDto(Person person) {
         PersonRegistrationDto personRegistrationDto = new PersonRegistrationDto();
         personRegistrationDto.setName(person.getName());
         personRegistrationDto.setMiddleName(person.getMiddleName());
@@ -95,4 +96,19 @@ public class PersonServiceImpl implements PersonService {
        person.setPassword(passwordEncoder.encode(password));
        personRepository.save(person);
     }
+
+    @Override
+    @Transactional
+    public void updatePerson(PersonRegistrationDto registrationDto) {
+
+        Person person = personRepository.findByEmail(registrationDto.getEmail());
+
+        person.setName(registrationDto.getName());
+        person.setMiddleName(registrationDto.getMiddleName());
+        person.setLastName(registrationDto.getLastName());
+        person.setOrganization(registrationDto.getOrganization());
+        person.setTelephone(registrationDto.getTelephone());
+
+    }
+
 }

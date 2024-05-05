@@ -51,6 +51,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/users").hasRole("USER")
                                 .requestMatchers("/admin").hasRole("ADMIN")
                                 .requestMatchers("/settings_platform").hasRole("ADMIN")
+                                .requestMatchers("/change_account").authenticated()
                                 .anyRequest().authenticated()
 
                 ).formLogin(
