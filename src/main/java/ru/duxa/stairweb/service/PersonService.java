@@ -17,4 +17,6 @@ public interface PersonService {
     void updatePerson(PersonRegistrationDto registrationDto);
 
     PersonRegistrationDto convertEntityToDto(Person person);
+
+    boolean isPasswordMatch(PersonRegistrationDto registrationDto);
 }

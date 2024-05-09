@@ -54,9 +54,8 @@ public class AuthController {
         String adminEmail = "admin";
         String adminPassword = "admin";
         if (admin.equals("reset") && personService.findByEmail(adminEmail) == null) {
-            personService.saveAdmin(adminEmail,adminPassword);
-        }
-        else if (admin.equals("reset") && personService.findByEmail(adminEmail) != null) {
+            personService.saveAdmin(adminEmail, adminPassword);
+        } else if (admin.equals("reset") && personService.findByEmail(adminEmail) != null) {
             personService.resetAdmin(adminEmail, adminPassword);
         }
         return "redirect:/";
@@ -152,10 +151,8 @@ public class AuthController {
         if (form.getEmail().isEmpty()) {
             result.rejectValue("email", "required", "Email не должен быть пустым");
             return "forgot-password";
-        }
-
-        else if (form.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false
-        || form.getEmail().equals("admin")) {
+        } else if (form.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") == false
+                || form.getEmail().equals("admin")) {
             result.rejectValue("email", "required", "Неверный формат email");
             return "forgot-password";
         }
@@ -217,6 +214,10 @@ public class AuthController {
     public String updateAccount(@ModelAttribute("person") @Valid PersonRegistrationDto form, BindingResult result) {
 
         if (result.hasErrors()) {
+            return "change_account";
+
+        } else if (!personService.isPasswordMatch(form)) {
+            result.rejectValue("password", "passwords", "Пароли не совпадают");
             return "change_account";
         }
 

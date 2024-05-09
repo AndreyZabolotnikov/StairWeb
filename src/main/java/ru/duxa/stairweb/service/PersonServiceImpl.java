@@ -117,4 +117,9 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
+    public boolean isPasswordMatch(PersonRegistrationDto registrationDto) {
+        Person person = personRepository.findByEmail(registrationDto.getEmail());
+        return passwordEncoder.matches(registrationDto.getPassword(), person.getPassword());
+    }
+
 }
