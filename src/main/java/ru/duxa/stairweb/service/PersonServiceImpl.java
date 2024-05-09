@@ -62,9 +62,13 @@ public class PersonServiceImpl implements PersonService {
 
     public PersonRegistrationDto convertEntityToDto(Person person) {
         PersonRegistrationDto personRegistrationDto = new PersonRegistrationDto();
+        personRegistrationDto.setEmail(person.getEmail());
         personRegistrationDto.setName(person.getName());
         personRegistrationDto.setMiddleName(person.getMiddleName());
-        personRegistrationDto.setEmail(person.getEmail());
+        personRegistrationDto.setLastName(person.getLastName());
+        personRegistrationDto.setOrganization(person.getOrganization());
+        personRegistrationDto.setTelephone(person.getTelephone());
+
         return personRegistrationDto;
     }
 
@@ -103,12 +107,14 @@ public class PersonServiceImpl implements PersonService {
 
         Person person = personRepository.findByEmail(registrationDto.getEmail());
 
-        person.setName(registrationDto.getName());
-        person.setMiddleName(registrationDto.getMiddleName());
-        person.setLastName(registrationDto.getLastName());
-        person.setOrganization(registrationDto.getOrganization());
-        person.setTelephone(registrationDto.getTelephone());
+        if(registrationDto.getPassword() != null && passwordEncoder.matches(registrationDto.getPassword(), person.getPassword())) {
 
+            person.setName(registrationDto.getName());
+            person.setMiddleName(registrationDto.getMiddleName());
+            person.setLastName(registrationDto.getLastName());
+            person.setOrganization(registrationDto.getOrganization());
+            person.setTelephone(registrationDto.getTelephone());
+        }
     }
 
 }

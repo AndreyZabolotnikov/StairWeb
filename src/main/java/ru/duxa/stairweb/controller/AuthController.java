@@ -214,15 +214,13 @@ public class AuthController {
     }
 
     @PostMapping("/change_account")
-    public String updateAccount(@ModelAttribute("person") @Valid PersonRegistrationDto form, Authentication authentication, BindingResult result) {
-        personValidator.validate(form, result);
+    public String updateAccount(@ModelAttribute("person") @Valid PersonRegistrationDto form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "change_account";
         }
-        form.setEmail(authentication.getName());
-        System.out.println(authentication.getName());
-//        personService.updatePerson(form);
+
+        personService.updatePerson(form);
 
         return "redirect:/";
     }

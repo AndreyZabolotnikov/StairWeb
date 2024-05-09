@@ -23,6 +23,14 @@
             <table>
                 <tr>
                     <td>
+                        <label for="email">Email:</label>
+                    </td>
+                    <td>
+                        <input class="form-control" th:field="*{email}" id="email" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <label for="name">Имя*:</label>
                     </td>
                     <td>
@@ -68,12 +76,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <label for="password">Подтвердите пароль**:</label>
+                    </td>
+                    <td>
+                        <input class="form-control" type="password" th:field="*{password}" id="password">
+                        <div style="color: red" th:if="${#fields.hasErrors('password')}"  th:errors="*{password}"></div>
+                    </td>
+                </tr>
+                <tr>
                     <td><br></td>
                 </tr>
                 <tr>
                     <td>
                         <br>
                         <p>* -Обязательные поля для ввода</p>
+                        <br>
+                        <p>** -Пароль надо потвердить</p>
                         <br>
                         <input class="btn btn-danger" type="submit" value="Изменить">
                         <br>
