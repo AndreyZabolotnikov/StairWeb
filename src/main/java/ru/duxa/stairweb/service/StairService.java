@@ -44,4 +44,43 @@ public class StairService {
         return mapBuffer;
     }
 
+    public double searchAngle(Map<Integer, Integer> stepHeights, Map<Integer, Integer> stepLengths) {
+        double angle = 90;
+        int countMatchingPoints = 0;
+        int stepNumY;
+
+        if (stepHeights.size() == 1)
+            return 30;
+        else {
+            for (int i = 0; i < stepHeights.size()-1; i++) {
+                double lengthStep;
+                if (i == 0)
+                    lengthStep = stepLengths.get(stepLengths.size()-1);
+                else {
+                    lengthStep = stepLengths.get(stepLengths.size()-1) - stepLengths.get(i - 1);
+                }
+                double heightStep = stepHeights.get(stepHeights.size()-1) - stepHeights.get(i);
+                double angleCurrent = Math.toDegrees(Math.atan(heightStep / lengthStep));
+                if (angle == angleCurrent)
+                    countMatchingPoints++;
+                if (angle >= angleCurrent) {
+                    angle = angleCurrent;
+                    stepNumY = i;
+                }
+            }
+        }
+        return angle;
+    }
+
+    public void stepTransformToCoordinates(Map<Integer, Integer> stepSize, Map<Integer, Integer> stepCoordinates) {
+        int size = stepSize.get(0);
+        for (int i = 0; i <= stepSize.size()-1; i++) {
+            if (stepSize.get(i) != 0)
+                stepCoordinates.put(i, size);
+            else break;
+            if (i != stepSize.size()-1)
+                size += stepSize.get(i + 1);
+        }
+    }
+
 }

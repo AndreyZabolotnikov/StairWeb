@@ -14,6 +14,7 @@ import ru.duxa.stairweb.model.Stair;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.StairService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ public class StairController {
 
     private final PersonService personService;
     private final StairService stairService;
-    private static Stair stair;
 
     @Autowired
     public StairController(PersonService personService, StairService stairService) {
@@ -50,8 +50,8 @@ public class StairController {
 
         if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1
                 || form.getStepHeights().size() <= form.getStepLengths().size()
-                || isErrorMapStair(form.getStepHeights(),stairDto.getStepHeights())
-                || isErrorMapStair(form.getStepLengths(),stairDto.getStepLengths())
+                || isErrorMapStair(form.getStepHeights(), stairDto.getStepHeights())
+                || isErrorMapStair(form.getStepLengths(), stairDto.getStepLengths())
                 || result.hasErrors()
         ) {
             redirectAttributes.addFlashAttribute("stair", stairDto);
@@ -61,7 +61,7 @@ public class StairController {
             return "index";
         }
 
-        stair = stairService.stairDtoToStair(form);
+        redirectAttributes.addFlashAttribute("stair", stairDto);
         return "redirect:/result";
     }
 
@@ -76,7 +76,17 @@ public class StairController {
     }
 
     @GetMapping("/result")
-    public String generalResult(@ModelAttribute("stair") Stair stair) {
+    public String generalResult(@ModelAttribute("stair") StairDto stairDto) {
+        HashMap<Integer, Integer> coordinatesHeightsStep = new HashMap<>();
+        HashMap<Integer, Integer> coordinatesLengthsStep = new HashMap<>();
+
+        stairService.stepTransformToCoordinates(stairDto.getStepHeights(), coordinatesHeightsStep);
+        if (stairDto.getStepLengths().size() != 0)
+            stairService.stepTransformToCoordinates(stairDto.getStepLengths(), coordinatesLengthsStep);
+
+        System.out.println(coordinatesHeightsStep);
+        System.out.println(coordinatesLengthsStep);
+        System.out.println(stairService.searchAngle(coordinatesHeightsStep, coordinatesLengthsStep));
         return "general-result";
     }
 
