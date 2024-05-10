@@ -14,6 +14,7 @@ import ru.duxa.stairweb.model.Stair;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.StairService;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,17 +77,20 @@ public class StairController {
     }
 
     @GetMapping("/result")
-    public String generalResult(@ModelAttribute("stair") StairDto stairDto) {
-        HashMap<Integer, Integer> coordinatesHeightsStep = new HashMap<>();
-        HashMap<Integer, Integer> coordinatesLengthsStep = new HashMap<>();
+    public String generalResult(@ModelAttribute("stair") StairDto stairDto, Model model) {
+        Map<Integer, Integer> coordinatesHeightsStep = new HashMap<>();
+        Map<Integer, Integer> coordinatesLengthsStep = new HashMap<>();
 
         stairService.stepTransformToCoordinates(stairDto.getStepHeights(), coordinatesHeightsStep);
-        if (stairDto.getStepLengths().size() != 0)
+        if (!stairDto.getStepLengths().isEmpty())
             stairService.stepTransformToCoordinates(stairDto.getStepLengths(), coordinatesLengthsStep);
 
-        System.out.println(coordinatesHeightsStep);
-        System.out.println(coordinatesLengthsStep);
-        System.out.println(stairService.searchAngle(coordinatesHeightsStep, coordinatesLengthsStep));
+        double angle = stairService.searchAngle(coordinatesHeightsStep, coordinatesLengthsStep);
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+        model.addAttribute("angle", decimalFormat.format(angle));
+        model.addAttribute("heightStair", coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1));
+        model.addAttribute("lengthStair", stairService.lengthStair(coordinatesHeightsStep, coordinatesLengthsStep));
         return "general-result";
     }
 

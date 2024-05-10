@@ -83,4 +83,16 @@ public class StairService {
         }
     }
 
+    public int lengthStair(Map<Integer, Integer> coordinatesHeightsStep, Map<Integer, Integer> coordinatesLengthsStep) {
+        int lengthStair = 0;
+        int length;
+        int height;
+        if (coordinatesHeightsStep.size() > 1) {
+            length = coordinatesLengthsStep.get(coordinatesLengthsStep.size() - 1);
+            height = coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1) - coordinatesHeightsStep.get(0);
+            lengthStair = (int) Math.sqrt(Math.pow(length, 2) + Math.pow(height, 2));
+        }
+        return lengthStair;
+    }
+
 }
