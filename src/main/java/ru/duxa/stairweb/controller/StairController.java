@@ -88,9 +88,12 @@ public class StairController {
         double angle = stairService.searchAngle(coordinatesHeightsStep, coordinatesLengthsStep);
         DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
+        stairDto.setAngle(angle);
+        stairDto.setHeightStair(coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1));
+        stairDto.setLengthStair(stairService.lengthStair(coordinatesHeightsStep, coordinatesLengthsStep));
+
         model.addAttribute("angle", decimalFormat.format(angle));
-        model.addAttribute("heightStair", coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1));
-        model.addAttribute("lengthStair", stairService.lengthStair(coordinatesHeightsStep, coordinatesLengthsStep));
+
         return "general-result";
     }
 

@@ -31,4 +31,10 @@ public class StairDto {
     private Map<Integer, Integer> stepHeights;
     @ElementCollection
     private Map<Integer, Integer> stepLengths;
+
+    private double angle;
+
+    private int heightStair;
+
+    private int lengthStair;
 }
