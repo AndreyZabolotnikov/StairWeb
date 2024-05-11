@@ -10,6 +10,9 @@ import java.util.Map;
 @Service
 public class StairService {
 
+    private int countMatchingPoints = 0;
+    private int stepNumY;
+
     public StairDto formToDto(StairDto form){
         StairDto stairDto = new StairDto();
         stairDto.setWidthStair(form.getWidthStair());
@@ -46,8 +49,6 @@ public class StairService {
 
     public double searchAngle(Map<Integer, Integer> stepHeights, Map<Integer, Integer> stepLengths) {
         double angle = 90;
-        int countMatchingPoints = 0;
-        int stepNumY;
 
         if (stepHeights.size() == 1)
             return 30;

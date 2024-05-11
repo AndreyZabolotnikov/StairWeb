@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
+import ru.duxa.stairweb.dto.PlatformDto;
 import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.model.Stair;
 import ru.duxa.stairweb.service.PersonService;
@@ -77,7 +78,8 @@ public class StairController {
     }
 
     @GetMapping("/result")
-    public String generalResult(@ModelAttribute("stair") StairDto stairDto, Model model) {
+    public String generalResult(@ModelAttribute("stair") StairDto stairDto, @ModelAttribute ("et") PlatformDto et,
+                                @ModelAttribute("npu") PlatformDto npu, Model model) {
         Map<Integer, Integer> coordinatesHeightsStep = new HashMap<>();
         Map<Integer, Integer> coordinatesLengthsStep = new HashMap<>();
 
@@ -86,13 +88,13 @@ public class StairController {
             stairService.stepTransformToCoordinates(stairDto.getStepLengths(), coordinatesLengthsStep);
 
         double angle = stairService.searchAngle(coordinatesHeightsStep, coordinatesLengthsStep);
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
-        stairDto.setAngle(angle);
+        stairDto.setAngle(Math.round(angle*10.0)/10.0);
         stairDto.setHeightStair(coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1));
         stairDto.setLengthStair(stairService.lengthStair(coordinatesHeightsStep, coordinatesLengthsStep));
 
-        model.addAttribute("angle", decimalFormat.format(angle));
+        et.setCurrentAngle(Math.round(angle));
+        npu.setCurrentAngle(Math.round(angle*10.0)/10.0);
 
         return "general-result";
     }

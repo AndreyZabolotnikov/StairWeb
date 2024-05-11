@@ -52,4 +52,6 @@ public class PlatformDto {
     private int firePassageWay;
 
     private int lengthTrackAdd;
+
+    private double currentAngle;
 }
