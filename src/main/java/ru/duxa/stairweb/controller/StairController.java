@@ -12,6 +12,7 @@ import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.PlatformDto;
 import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.service.PersonService;
+import ru.duxa.stairweb.service.PlatformService;
 import ru.duxa.stairweb.service.StairService;
 
 import java.util.HashMap;
@@ -23,11 +24,13 @@ public class StairController {
 
     private final PersonService personService;
     private final StairService stairService;
+    private final PlatformService platformService;
 
     @Autowired
-    public StairController(PersonService personService, StairService stairService) {
+    public StairController(PersonService personService, StairService stairService, PlatformService platformService) {
         this.personService = personService;
         this.stairService = stairService;
+        this.platformService = platformService;
     }
 
     @GetMapping("/")
@@ -85,7 +88,8 @@ public class StairController {
         et.setCurrentAngle((int) stairDto.getAngle());
         npu.setCurrentAngle(Math.round(stairDto.getAngle()*10.0)/10.0);
 
-        System.out.println(stairDto.getFirstPoint());
+        et.setLengthWay(platformService.lengthWay(stairDto, et));
+        npu.setLengthWay(platformService.lengthWay(stairDto, npu));
 
         return "general-result";
     }

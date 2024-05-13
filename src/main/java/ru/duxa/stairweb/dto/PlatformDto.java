@@ -57,4 +57,6 @@ public class PlatformDto {
 
     private double currentAngle;
 
+    private int lengthWay;
+
 }

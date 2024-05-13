@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.duxa.stairweb.dto.PlatformDto;
+import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.model.Platform;
 import ru.duxa.stairweb.repository.PlatformRepository;
 
@@ -77,6 +78,12 @@ public class PlatformService {
         platformDto.setLengthTrackAdd(platform.getLengthTrackAdd());
 
         return platformDto;
+    }
+
+    public int lengthWay(StairDto stairDto, PlatformDto platformDto) {
+        int ye = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size()-1);
+        int xe = (int) Math.round(ye / Math.tan(Math.toRadians(platformDto.getCurrentAngle())));
+        return (int) Math.sqrt(Math.pow(xe, 2) + Math.pow(ye, 2));
     }
 
 }
