@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class StairService {
 
-    public StairDto formToDto(StairDto form){
+    public StairDto formToDto(StairDto form) {
         StairDto stairDto = new StairDto();
         stairDto.setWidthStair(form.getWidthStair());
         stairDto.setUpperFloor(form.getUpperFloor());
@@ -44,25 +44,26 @@ public class StairService {
         return mapBuffer;
     }
 
-    public double searchAngle(StairDto stairDto) {
-        Map<Integer, Integer> stepLengths = stepTransformToCoordinates( stairDto.getStepLengths());
-        Map<Integer, Integer> stepHeights = stepTransformToCoordinates( stairDto.getStepHeights());
+    public void searchParametersStair(StairDto stairDto) {
+
+        stairDto.setStepHeightsCoordinates(stepTransformToCoordinates(stairDto.getStepHeights()));
+        stairDto.setStepLengthsCoordinates(stepTransformToCoordinates(stairDto.getStepLengths()));
 
         double angle = 90;
         int stepNumY = 0;
         int countMatchingPoints = 0;
 
-        if (stepHeights.size() == 1)
-            return 30;
+        if (stairDto.getStepHeightsCoordinates().size() == 1)
+            stairDto.setAngle(30);
         else {
-            for (int i = 0; i < stepHeights.size()-1; i++) {
+            for (int i = 0; i < stairDto.getStepHeightsCoordinates().size() - 1; i++) {
                 double lengthStep;
                 if (i == 0)
-                    lengthStep = stepLengths.get(stepLengths.size()-1);
+                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
                 else {
-                    lengthStep = stepLengths.get(stepLengths.size()-1) - stepLengths.get(i - 1);
+                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1) - stairDto.getStepLengthsCoordinates().get(i - 1);
                 }
-                double heightStep = stepHeights.get(stepHeights.size()-1) - stepHeights.get(i);
+                double heightStep = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1) - stairDto.getStepHeightsCoordinates().get(i);
                 double angleCurrent = Math.toDegrees(Math.atan(heightStep / lengthStep));
                 if (angle == angleCurrent)
                     countMatchingPoints++;
@@ -72,7 +73,11 @@ public class StairService {
                 }
             }
         }
-        return angle;
+        stairDto.setCountMatchingPoints(countMatchingPoints);
+        stairDto.setNumberStair(stepNumY);
+        stairDto.setAngle(Math.round(angle * 10.0) / 10.0);
+        stairDto.setLengthStair(lengthStair(stairDto));
+        stairDto.setHeightStair(stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1));
     }
 
     public Map<Integer, Integer> stepTransformToCoordinates(Map<Integer, Integer> stepSize) {
@@ -82,45 +87,44 @@ public class StairService {
             return stepCoordinates;
 
         int size = stepSize.get(0);
-        for (int i = 0; i <= stepSize.size()-1; i++) {
+        for (int i = 0; i <= stepSize.size() - 1; i++) {
             if (stepSize.get(i) != 0)
                 stepCoordinates.put(i, size);
             else break;
-            if (i != stepSize.size()-1)
+            if (i != stepSize.size() - 1)
                 size += stepSize.get(i + 1);
         }
         return stepCoordinates;
     }
 
-    public int lengthStair(Map<Integer, Integer> coordinatesHeightsStep, Map<Integer, Integer> coordinatesLengthsStep) {
+    private int lengthStair(StairDto stairDto) {
         int lengthStair = 0;
         int length;
         int height;
-        if (coordinatesHeightsStep.size() > 1) {
-            length = coordinatesLengthsStep.get(coordinatesLengthsStep.size() - 1);
-            height = coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1) - coordinatesHeightsStep.get(0);
+        if (stairDto.getStepHeightsCoordinates().size() > 1) {
+            length = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
+            height = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1) - stairDto.getStepHeightsCoordinates().get(0);
             lengthStair = (int) Math.sqrt(Math.pow(length, 2) + Math.pow(height, 2));
         }
         return lengthStair;
     }
 
-    public int findFirstPoint(Map<Integer, Integer> coordinatesHeightsStep, Map<Integer, Integer> coordinatesLengthsStep,
-                              int stepNumY, double angle) {
+    public int findFirstPoint(StairDto stairDto) {
         int x0;
-        if (coordinatesHeightsStep.size() > 1) {
+        if (stairDto.getStepHeightsCoordinates().size() > 1) {
             int y0 = 0;
-            int xe = coordinatesLengthsStep.get(coordinatesLengthsStep.size());
-            int ye = coordinatesHeightsStep.get(coordinatesHeightsStep.size());
-            int ym = coordinatesHeightsStep.get(stepNumY);
+            int xe = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size());
+            int ye = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size());
+            int ym = stairDto.getStepHeightsCoordinates().get(stairDto.getStepNumber());
             int xm;
-            if (stepNumY <= 1)
+            if (stairDto.getStepNumber() <= 1)
                 xm = 0;
             else
-                xm = coordinatesLengthsStep.get(stepNumY - 1);
+                xm = stairDto.getStepLengthsCoordinates().get(stairDto.getStepNumber() - 1);
 
             x0 = (((y0 - ym) * (xe - xm)) / (ye - ym)) + xm;
         } else {
-            x0 = (int) (coordinatesHeightsStep.get(1) / Math.tan(Math.toRadians(angle)));
+            x0 = (int) (stairDto.getStepHeightsCoordinates().get(1) / Math.tan(Math.toRadians(stairDto.getAngle())));
         }
         return Math.abs(x0);
     }

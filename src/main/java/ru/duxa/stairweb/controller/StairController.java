@@ -80,14 +80,12 @@ public class StairController {
                                 @ModelAttribute ("et") PlatformDto et,
                                 @ModelAttribute("npu") PlatformDto npu) {
 
-        double angle = stairService.searchAngle(stairDto);
+        stairService.searchParametersStair(stairDto);
 
-        stairDto.setAngle(Math.round(angle*10.0)/10.0);
-        et.setCurrentAngle(Math.round(angle));
-        npu.setCurrentAngle(Math.round(angle*10.0)/10.0);
+        et.setCurrentAngle((int) stairDto.getAngle());
+        npu.setCurrentAngle(Math.round(stairDto.getAngle()*10.0)/10.0);
 
-//        stairDto.setHeightStair(coordinatesHeightsStep.get(coordinatesHeightsStep.size() - 1));
-//        stairDto.setLengthStair(stairService.lengthStair(coordinatesHeightsStep, coordinatesLengthsStep));
+        System.out.println(stairDto.getFirstPoint());
 
         return "general-result";
     }

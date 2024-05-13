@@ -38,4 +38,13 @@ public class StairDto {
 
     private int lengthStair;
 
+    private Map<Integer, Integer> stepLengthsCoordinates;
+
+    private Map<Integer, Integer> stepHeightsCoordinates;
+
+    private int stepNumber;
+
+    private int countMatchingPoints;
+
+    private int firstPoint;
 }
