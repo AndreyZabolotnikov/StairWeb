@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -54,4 +56,5 @@ public class PlatformDto {
     private int lengthTrackAdd;
 
     private double currentAngle;
+
 }

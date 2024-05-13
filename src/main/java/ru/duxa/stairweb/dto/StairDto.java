@@ -37,4 +37,5 @@ public class StairDto {
     private int heightStair;
 
     private int lengthStair;
+
 }
