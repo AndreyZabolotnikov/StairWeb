@@ -81,7 +81,7 @@ public class StairService {
         stairDto.setFirstPoint(findFirstPoint(stairDto));
     }
 
-    public Map<Integer, Integer> stepTransformToCoordinates(Map<Integer, Integer> stepSize) {
+    private Map<Integer, Integer> stepTransformToCoordinates(Map<Integer, Integer> stepSize) {
 
         Map<Integer, Integer> stepCoordinates = new HashMap<>();
         if (stepSize.isEmpty())
@@ -110,7 +110,7 @@ public class StairService {
         return lengthStair;
     }
 
-    public int findFirstPoint(StairDto stairDto) {
+    private int findFirstPoint(StairDto stairDto) {
         int x0;
         if (stairDto.getStepHeightsCoordinates().size() > 1) {
             int y0 = 0;

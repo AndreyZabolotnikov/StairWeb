@@ -85,11 +85,11 @@ public class StairController {
 
         stairService.searchParametersStair(stairDto);
 
-        et.setCurrentAngle((int) stairDto.getAngle());
-        npu.setCurrentAngle(Math.round(stairDto.getAngle()*10.0)/10.0);
+        et.setName("et");
+        platformService.searchParametersPlatform(stairDto, et);
 
-        et.setLengthWay(platformService.lengthWay(stairDto, et));
-        npu.setLengthWay(platformService.lengthWay(stairDto, npu));
+        npu.setName("npu");
+        platformService.searchParametersPlatform(stairDto, npu);
 
         return "general-result";
     }
