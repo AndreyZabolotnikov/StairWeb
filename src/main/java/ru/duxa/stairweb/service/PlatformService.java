@@ -95,6 +95,7 @@ public class PlatformService {
         System.out.println(platformDto.getClearanceMin());
         System.out.println(platformDto.getCountClearanceMax());
         System.out.println(platformDto.getCountClearanceMin());
+        System.out.println(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto)));
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
@@ -159,24 +160,24 @@ public class PlatformService {
         platformDto.setCountClearanceMin(countClearanceMin);
     }
 
-//    private int lengthClearanceRamp(int lengthWayOnLowerPlats, double angle) {
-//        int l;
-//        int xStair;
-//        if (lengthStepsX.size() >= 1)
-//            xStair = lengthStepsX.get(lengthStepsX.size());
-//        else xStair = 0;
-//        int xWay;
-//        if (lengthStepsY.size() > 1) {
-//            xWay = (int) ((lengthStepsY.get(lengthStepsY.size())) / Math.tan(Math.toRadians(angle))) - lengthWayOnLowerPlats;
-//        } else {
-//            xWay = 0;
-//        }
-//        if (lengthStepsY.size() > 1) {
-//            l = xStair - xWay;
-//        } else {
-//            l = lengthWayOnLowerPlats - firstPoint;
-//        }
-//        return l;
-//    }
+    private int lengthClearanceRamp(PlatformDto platformDto, StairDto stairDto, int lengthWayOnLowerPlats) {
+        int lengthClearanceRamp;
+        int xStair;
+        if (stairDto.getStepLengthsCoordinates().size() >= 1)
+            xStair = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
+        else xStair = 0;
+        int xWay;
+        if (stairDto.getStepHeightsCoordinates().size() > 1) {
+            xWay = (int) ((stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1)) / Math.tan(Math.toRadians(platformDto.getCurrentAngle()))) - lengthWayOnLowerPlats;
+        } else {
+            xWay = 0;
+        }
+        if (stairDto.getStepHeightsCoordinates().size() > 1) {
+            lengthClearanceRamp = xStair - xWay;
+        } else {
+            lengthClearanceRamp = lengthWayOnLowerPlats - stairDto.getFirstPoint();
+        }
+        return lengthClearanceRamp;
+    }
 
 }
