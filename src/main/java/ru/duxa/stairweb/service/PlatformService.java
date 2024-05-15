@@ -90,6 +90,11 @@ public class PlatformService {
 
         platformDto.setLengthWay(lengthWay(stairDto, platformDto));
         System.out.println(lengthWayOnLowerPlats(stairDto, platformDto));
+        findNumberMinClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto));
+        System.out.println(platformDto.getClearanceMax());
+        System.out.println(platformDto.getClearanceMin());
+        System.out.println(platformDto.getCountClearanceMax());
+        System.out.println(platformDto.getCountClearanceMin());
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
@@ -119,35 +124,40 @@ public class PlatformService {
         return lengthWayOnLowerPlats;
     }
 
-//    private void findNumberMinClearanceStep(double angle, int lengthWayOnLowerPlats) {
-//        clearanceMax = 0;
-//        countClearanceMin = 0;
-//        countClearanceMax = 0;
-//        clearanceMin = maxClearanceGOST;
-//
-//        int clearance;
-//        int x;
-//        int y;
-//        int stairY;
-//        for (int i = 1; i < lengthStepsY.size(); i++) {
-//            if (i == 1) {
-//                x = lengthWayOnLowerPlats;
-//            } else {
-//                x = lengthWayOnLowerPlats + lengthStepsX.get(i - 1);
-//            }
-//            y = (int) (Math.tan(Math.toRadians(angle)) * x);
-//            stairY = lengthStepsY.get(i);
-//            clearance = y - stairY;
-//            if (clearance > clearanceMax) {
-//                clearanceMax = clearance;
-//                countClearanceMax = i;
-//            }
-//            if (clearance < clearanceMin) {
-//                clearanceMin = clearance;
-//                countClearanceMin = i;
-//            }
-//        }
-//    }
+    private void findNumberMinClearanceStep(PlatformDto platformDto, StairDto stairDto, int lengthWayOnLowerPlats) {
+        int maxClearanceGOST = 500;
+        int clearanceMax = 0;
+        int countClearanceMin = 0;
+        int countClearanceMax = 0;
+        int clearanceMin = maxClearanceGOST;
+
+        int clearance;
+        int x;
+        int y;
+        int stairY;
+        for (int i = 1; i < stairDto.getStepHeightsCoordinates().size(); i++) {
+            if (i == 1) {
+                x = lengthWayOnLowerPlats;
+            } else {
+                x = lengthWayOnLowerPlats + stairDto.getStepLengthsCoordinates().get(i - 1);
+            }
+            y = (int) (Math.tan(Math.toRadians(platformDto.getCurrentAngle())) * x);
+            stairY = stairDto.getStepHeightsCoordinates().get(i);
+            clearance = y - stairY;
+            if (clearance > clearanceMax) {
+                clearanceMax = clearance;
+                countClearanceMax = i;
+            }
+            if (clearance < clearanceMin) {
+                clearanceMin = clearance;
+                countClearanceMin = i;
+            }
+        }
+        platformDto.setClearanceMax(clearanceMax);
+        platformDto.setClearanceMin(clearanceMin);
+        platformDto.setCountClearanceMax(countClearanceMax);
+        platformDto.setCountClearanceMin(countClearanceMin);
+    }
 
 //    private int lengthClearanceRamp(int lengthWayOnLowerPlats, double angle) {
 //        int l;

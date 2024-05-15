@@ -59,4 +59,12 @@ public class PlatformDto {
 
     private int lengthWay;
 
+    private int clearanceMax;
+
+    private int clearanceMin;
+
+    private int countClearanceMax;
+
+    private int countClearanceMin;
+
 }
