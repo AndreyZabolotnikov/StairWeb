@@ -80,6 +80,7 @@ public class StairService {
         stairDto.setLengthStair(lengthStair(stairDto));
         stairDto.setHeightStair(stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1));
         stairDto.setFirstPoint(findFirstPoint(stairDto));
+
     }
 
     private Map<Integer, Integer> stepTransformToCoordinates(Map<Integer, Integer> stepSize) {
