@@ -61,7 +61,7 @@ public class StairService {
                 if (i == 0)
                     lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
                 else {
-                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1) - stairDto.getStepLengthsCoordinates().get(i - 1);
+                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1) - stairDto.getStepLengthsCoordinates().get(i-1);
                 }
                 double heightStep = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1) - stairDto.getStepHeightsCoordinates().get(i);
                 double angleCurrent = Math.toDegrees(Math.atan(heightStep / lengthStep));
@@ -73,8 +73,9 @@ public class StairService {
                 }
             }
         }
+
         stairDto.setCountMatchingPoints(countMatchingPoints);
-        stairDto.setNumberStair(stepNumY);
+        stairDto.setStepNumber(stepNumY);
         stairDto.setAngle(Math.round(angle * 10.0) / 10.0);
         stairDto.setLengthStair(lengthStair(stairDto));
         stairDto.setHeightStair(stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1));
@@ -118,7 +119,7 @@ public class StairService {
             int ye = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size()-1);
             int ym = stairDto.getStepHeightsCoordinates().get(stairDto.getStepNumber());
             int xm;
-            if (stairDto.getStepNumber() <= 1)
+            if (stairDto.getStepNumber() < 1)
                 xm = 0;
             else
                 xm = stairDto.getStepLengthsCoordinates().get(stairDto.getStepNumber() - 1);
