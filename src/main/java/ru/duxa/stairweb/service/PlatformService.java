@@ -91,19 +91,8 @@ public class PlatformService {
         }
 
         platformDto.setLengthWay(lengthWay(stairDto, platformDto));
-        findNumberMinClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto));
         platformDto.setClearanceOnStep(platformDtoOnName.getClearanceOnStep());
-
-        System.out.println(platformDto.getName());
-        System.out.println("@" + stairDto.getStepNumber());
-        System.out.println("#" + platformDto.getClearanceOnStep());
-
-        System.out.println("!!!!!!!!!!" + lengthWayOnLowerPlats(stairDto, platformDto));
-        System.out.println(platformDto.getClearanceMax());
-        System.out.println(platformDto.getClearanceMin());
-        System.out.println(platformDto.getCountClearanceMax());
-        System.out.println(platformDto.getCountClearanceMin());
-        System.out.println(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto)));
+        findNumberMinClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto));
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
@@ -139,14 +128,14 @@ public class PlatformService {
         int x;
         int y;
         int stairY;
-        for (int i = 1; i < stairDto.getStepHeightsCoordinates().size(); i++) {
-            if (i == 1) {
+        for (int i = 0; i < stairDto.getStepHeightsCoordinates().size() - 1; i++) {
+            if (i == 0) {
                 x = lengthWayOnLowerPlats;
             } else {
                 x = lengthWayOnLowerPlats + stairDto.getStepLengthsCoordinates().get(i - 1);
             }
             y = (int) (Math.tan(Math.toRadians(platformDto.getCurrentAngle())) * x);
-            stairY = stairDto.getStepHeightsCoordinates().get(i - 1);
+            stairY = stairDto.getStepHeightsCoordinates().get(i);
             clearance = y - stairY;
             if (clearance > clearanceMax) {
                 clearanceMax = clearance;
