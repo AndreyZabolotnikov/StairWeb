@@ -82,7 +82,8 @@ public class PlatformService {
 
     public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
-        PlatformDto platformDtoOnName = getPlatformDto(platformDto.getName());
+        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
+        int lengthWayOnLowerPlats;
 
         if (platformDto.getName().equals("et")) {
             platformDto.setCurrentAngle((int) stairDto.getAngle());
@@ -91,8 +92,10 @@ public class PlatformService {
         }
 
         platformDto.setLengthWay(lengthWay(stairDto, platformDto));
-        platformDto.setClearanceOnStep(platformDtoOnName.getClearanceOnStep());
-        findNumberMinClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats(stairDto, platformDto));
+        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
+        lengthWayOnLowerPlats = lengthWayOnLowerPlats(stairDto, platformDto);
+        findNumberMinAndMaxClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats);
+        platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats));
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
@@ -117,7 +120,7 @@ public class PlatformService {
         return lengthWayOnLowerPlats;
     }
 
-    private void findNumberMinClearanceStep(PlatformDto platformDto, StairDto stairDto, int lengthWayOnLowerPlats) {
+    private void findNumberMinAndMaxClearanceStep(PlatformDto platformDto, StairDto stairDto, int lengthWayOnLowerPlats) {
         int maxClearanceGOST = 500;
         int clearanceMax = 0;
         int countClearanceMin = 0;

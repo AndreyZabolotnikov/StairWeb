@@ -67,4 +67,6 @@ public class PlatformDto {
 
     private int countClearanceMin;
 
+    private int lengthClearanceRamp;
+
 }
