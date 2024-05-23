@@ -96,6 +96,7 @@ public class PlatformService {
         lengthWayOnLowerPlats = lengthWayOnLowerPlats(stairDto, platformDto);
         findNumberMinAndMaxClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats);
         platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats));
+
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
