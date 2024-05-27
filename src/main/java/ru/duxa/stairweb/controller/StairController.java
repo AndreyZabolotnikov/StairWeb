@@ -15,7 +15,6 @@ import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.PlatformService;
 import ru.duxa.stairweb.service.StairService;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

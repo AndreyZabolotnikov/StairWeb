@@ -320,7 +320,7 @@
                             <table>
                                 <tr>
                                     <td>Длина нижней площадки, мм</td>
-                                    <td><input class="form-control" type="number" th:field="*{downFloor}" step="1" min="1" max="10000"></td>
+                                    <td><input class="form-control" type="number" th:field="*{downFloor}" step="1" min="1" max="99999"></td>
                                     <td>
                                         <div style="color: red" th:if="${#fields.hasErrors('downFloor')}"
                                              th:errors="*{downFloor}">ошибка
@@ -329,7 +329,7 @@
                                 </tr>
                                 <tr>
                                     <td>Ширина марша, мм</td>
-                                    <td><input class="form-control" type="number" th:field="*{widthStair}" step="1" min="1" max="10000"></td>
+                                    <td><input class="form-control" type="number" th:field="*{widthStair}" step="1" min="1" max="99999"></td>
                                     <td>
                                         <div style="color: red" th:if="${#fields.hasErrors('widthStair')}"
                                              th:errors="*{widthStair}">ошибка
@@ -338,7 +338,7 @@
                                 </tr>
                                 <tr>
                                     <td>Длина верхней площадки, мм</td>
-                                    <td><input class="form-control" type="number" th:field="*{upperFloor}" step="1" min="1" max="10000"></td>
+                                    <td><input class="form-control" type="number" th:field="*{upperFloor}" step="1" min="1" max="99999"></td>
                                     <td>
                                         <div style="color: red" th:if="${#fields.hasErrors('upperFloor')}"
                                              th:errors="*{upperFloor}">ошибка

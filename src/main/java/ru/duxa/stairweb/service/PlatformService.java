@@ -97,6 +97,58 @@ public class PlatformService {
         findNumberMinAndMaxClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats);
         platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats));
 
+
+//        boolean checkET = false;
+//        int countET = 0;
+//        do {
+//            lengthWayET = lengthWay(angleET);
+//
+//            if (countET == 0) {
+//                lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep, angleET, stepNumY);
+//            } else {
+//                lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep, angleET, countClearanceMin);
+//            }
+//            lengthClearanceRampET = lengthClearanceRamp(lengthWayOnLowerPlatsET, angleET);
+//
+//            if(clearanceMax < maxClearanceGOST && clearanceMin > ETPlatform.clearanceOnStep - 1 && lengthClearanceRampET < 10){
+//                for(int i = 1; i <= maxClearanceGOST - ETPlatform.clearanceOnStep; i++) {
+//                    lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep + i, angleET, countClearanceMin);
+//                    lengthClearanceRampET = lengthClearanceRamp(lengthWayOnLowerPlatsET, angleET);
+//                    if(lengthClearanceRampET > 10){
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            findNumberMinClearanceStep(angleET, lengthWayOnLowerPlatsET);
+//
+//            if (lengthClearanceRampET >= (ETPlatform.lengthRamp - ETPlatform.overlapRamp) && angleET > 0) {
+//                angleET--;
+//                checkET = true;
+//            } else if ((lengthClearanceRampET >= (ETPlatform.lengthRamp - ETPlatform.overlapRamp) && angleET < 1) || (lengthClearanceRampET < 0 && angleET < 1)) {
+//                angleET = 0;
+//                lengthWayET = 0;
+//                lengthWayOnLowerPlatsET = 0;
+//                lengthClearanceRampET = 0;
+//                break;
+//
+//            } else if (clearanceMin <= ETPlatform.clearanceOnStep - 1 && countET == 0) {
+//                checkET = true;
+//            } else
+//                break;
+//            countET++;
+//
+//        }
+//        while (checkET);
+//        if(clearanceMax > maxClearanceGOST) {
+//            angleET = 0;
+//            lengthWayET = 0;
+//            lengthWayOnLowerPlatsET = 0;
+//            lengthClearanceRampET = 0;
+//        }
+//
+//        clearanceMaxET = clearanceMax;
+//        clearanceNumberMaxET = countClearanceMax;
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
