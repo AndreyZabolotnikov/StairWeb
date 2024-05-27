@@ -55,6 +55,8 @@ public class PlatformDto {
 
     private int lengthTrackAdd;
 
+    private int maxClearanceGOST;
+
     private double currentAngle;
 
     private int lengthWay;

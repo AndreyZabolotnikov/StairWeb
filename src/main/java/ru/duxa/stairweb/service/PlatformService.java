@@ -48,6 +48,7 @@ public class PlatformService {
         platform.setCatcher(platformDto.getCatcher());
         platform.setFirePassageWay(platformDto.getFirePassageWay());
         platform.setLengthTrackAdd(platformDto.getLengthTrackAdd());
+        platform.setMaxClearanceGOST(platformDto.getMaxClearanceGOST());
     }
 
     public PlatformDto getPlatformDto(String platformName) {
@@ -76,6 +77,7 @@ public class PlatformService {
         platformDto.setCatcher(platform.getCatcher());
         platformDto.setFirePassageWay(platform.getFirePassageWay());
         platformDto.setLengthTrackAdd(platform.getLengthTrackAdd());
+        platformDto.setMaxClearanceGOST(platform.getMaxClearanceGOST());
 
         return platformDto;
     }
@@ -122,12 +124,12 @@ public class PlatformService {
 
         }
         while (checkET);
-//        if(clearanceMax > maxClearanceGOST) {
-//            angleET = 0;
-//            lengthWayET = 0;
-//            lengthWayOnLowerPlatsET = 0;
-//            lengthClearanceRampET = 0;
-//        }
+        if(platformDto.getClearanceMax() > platformDto.getMaxClearanceGOST()) {
+            platformDto.setCurrentAngle(0);
+            platformDto.setLengthWay(0);
+            platformDto.setLengthWayOnLowerPlats(0);
+            platformDto.setLengthClearanceRamp(0);
+        }
 //
 //        clearanceMaxET = clearanceMax;
 //        clearanceNumberMaxET = countClearanceMax;
@@ -174,11 +176,10 @@ public class PlatformService {
     }
 
     private void findNumberMinAndMaxClearanceStep(PlatformDto platformDto, StairDto stairDto, int lengthWayOnLowerPlats) {
-        int maxClearanceGOST = 500;
         int clearanceMax = 0;
         int countClearanceMin = 0;
         int countClearanceMax = 0;
-        int clearanceMin = maxClearanceGOST;
+        int clearanceMin = platformDto.getMaxClearanceGOST();
 
         int clearance;
         int x;

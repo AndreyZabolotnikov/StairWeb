@@ -59,4 +59,6 @@ public class Platform {
     private int firePassageWay;
 
     private int lengthTrackAdd;
+
+    private int maxClearanceGOST;
 }
