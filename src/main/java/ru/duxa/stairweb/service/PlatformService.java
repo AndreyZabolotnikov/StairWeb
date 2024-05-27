@@ -80,27 +80,10 @@ public class PlatformService {
         return platformDto;
     }
 
-    public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
-
-        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
-        int lengthWayOnLowerPlats;
-
-        if (platformDto.getName().equals("et")) {
-            platformDto.setCurrentAngle((int) stairDto.getAngle());
-        } else {
-            platformDto.setCurrentAngle(stairDto.getAngle());
-        }
-
-        platformDto.setLengthWay(lengthWay(stairDto, platformDto));
-        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
-        lengthWayOnLowerPlats = lengthWayOnLowerPlats(stairDto, platformDto);
-        findNumberMinAndMaxClearanceStep(platformDto, stairDto, lengthWayOnLowerPlats);
-        platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, lengthWayOnLowerPlats));
-
-
-//        boolean checkET = false;
-//        int countET = 0;
-//        do {
+    public void optimiizeParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
+        boolean checkET = false;
+        int countET = 0;
+        do {
 //            lengthWayET = lengthWay(angleET);
 //
 //            if (countET == 0) {
@@ -122,24 +105,23 @@ public class PlatformService {
 //
 //            findNumberMinClearanceStep(angleET, lengthWayOnLowerPlatsET);
 //
-//            if (lengthClearanceRampET >= (ETPlatform.lengthRamp - ETPlatform.overlapRamp) && angleET > 0) {
-//                angleET--;
-//                checkET = true;
-//            } else if ((lengthClearanceRampET >= (ETPlatform.lengthRamp - ETPlatform.overlapRamp) && angleET < 1) || (lengthClearanceRampET < 0 && angleET < 1)) {
-//                angleET = 0;
-//                lengthWayET = 0;
-//                lengthWayOnLowerPlatsET = 0;
-//                lengthClearanceRampET = 0;
-//                break;
-//
-//            } else if (clearanceMin <= ETPlatform.clearanceOnStep - 1 && countET == 0) {
-//                checkET = true;
-//            } else
-//                break;
-//            countET++;
-//
-//        }
-//        while (checkET);
+            if (platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() > 0) {
+                platformDto.setCurrentAngle(platformDto.getCurrentAngle() - 1);
+                checkET = true;
+            } else if ((platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() < 1) || (platformDto.getLengthClearanceRamp() < 0 && platformDto.getCurrentAngle() < 1)) {
+                platformDto.setCurrentAngle(0);
+                platformDto.setLengthWay(0);
+                platformDto.setLengthWayOnLowerPlats(0);
+                platformDto.setLengthClearanceRamp(0);
+                break;
+            } else if (platformDto.getClearanceMin() <= platformDto.getClearanceOnStep() - 1 && countET == 0) {
+                checkET = true;
+            } else
+                break;
+            countET++;
+
+        }
+        while (checkET);
 //        if(clearanceMax > maxClearanceGOST) {
 //            angleET = 0;
 //            lengthWayET = 0;
@@ -149,6 +131,24 @@ public class PlatformService {
 //
 //        clearanceMaxET = clearanceMax;
 //        clearanceNumberMaxET = countClearanceMax;
+    }
+
+    public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
+
+        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
+
+        if (platformDto.getName().equals("et")) {
+            platformDto.setCurrentAngle((int) stairDto.getAngle());
+        } else {
+            platformDto.setCurrentAngle(stairDto.getAngle());
+        }
+
+        platformDto.setLengthWay(lengthWay(stairDto, platformDto));
+        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
+        platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
+        findNumberMinAndMaxClearanceStep(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats());
+        platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
+
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
