@@ -23,6 +23,7 @@ public class PlatformService {
     }
 
 
+
     @Transactional
     public void savePlatform(PlatformDto platformDto) {
         Platform platform = getPlatform(platformDto.getName());
@@ -51,10 +52,10 @@ public class PlatformService {
         platform.setMaxClearanceGOST(platformDto.getMaxClearanceGOST());
     }
 
-    public PlatformDto getPlatformDto(String platformName) {
+
+    public PlatformDto getPlatformDto(String platformName, PlatformDto platformDto) {
 
         Platform platform = getPlatform(platformName);
-        PlatformDto platformDto = new PlatformDto();
 
         platformDto.setName(platform.getName());
         platformDto.setAngleMax(platform.getAngleMax());
@@ -84,7 +85,7 @@ public class PlatformService {
 
     public void optimizeParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
-        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
+        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName(), platformDto);
         platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
 
         if (platformDto.getName().equals("et")) {
@@ -149,7 +150,7 @@ public class PlatformService {
 
     public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
-        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
+        platformDto = getPlatformDto(platformDto.getName(), platformDto);
 
         if (platformDto.getName().equals("et")) {
             platformDto.setCurrentAngle((int) stairDto.getAngle());
@@ -158,7 +159,6 @@ public class PlatformService {
         }
 
         platformDto.setLengthWay(lengthWay(stairDto, platformDto));
-        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
         platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
         findNumberMinAndMaxClearanceStep(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats());
         platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));

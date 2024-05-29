@@ -29,7 +29,7 @@ public class SettingPlatformController {
 
     @GetMapping("/{var}")
     String setPlatformData(@PathVariable("var") String var) {
-        platformDto = platformService.getPlatformDto(var);
+        platformDto = platformService.getPlatformDto(var, new PlatformDto());
         return "redirect:/settings_platform";
     }
 
