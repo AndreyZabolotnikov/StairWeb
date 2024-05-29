@@ -85,11 +85,10 @@ public class StairController {
         stairService.searchParametersStair(stairDto);
 
         et.setName("et");
-        platformService.searchParametersPlatform(stairDto, et);
-        platformService.optimizeParametersPlatform(stairDto, et);
+        platformService.optimizeAddSearchParametersPlatform(stairDto, et);
 
         npu.setName("npu");
-        platformService.searchParametersPlatform(stairDto, npu);
+        platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
 
         return "general-result";
     }

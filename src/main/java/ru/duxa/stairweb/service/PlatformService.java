@@ -83,18 +83,15 @@ public class PlatformService {
         return platformDto;
     }
 
-    public void optimizeParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
+    public void optimizeAddSearchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
-        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName(), platformDto);
-        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
+        platformDto = getPlatformDto(platformDto.getName(), platformDto);
 
         if (platformDto.getName().equals("et")) {
             platformDto.setCurrentAngle((int) stairDto.getAngle());
         } else {
             platformDto.setCurrentAngle(stairDto.getAngle());
         }
-
-        searchParametersPlatform(stairDto, platformDto);
 
         boolean check = false;
         int count = 0;
@@ -146,23 +143,6 @@ public class PlatformService {
             platformDto.setLengthWayOnLowerPlats(0);
             platformDto.setLengthClearanceRamp(0);
         }
-    }
-
-    public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
-
-        platformDto = getPlatformDto(platformDto.getName(), platformDto);
-
-        if (platformDto.getName().equals("et")) {
-            platformDto.setCurrentAngle((int) stairDto.getAngle());
-        } else {
-            platformDto.setCurrentAngle(stairDto.getAngle());
-        }
-
-        platformDto.setLengthWay(lengthWay(stairDto, platformDto));
-        platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
-        findNumberMinAndMaxClearanceStep(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats());
-        platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
-
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
