@@ -82,57 +82,69 @@ public class PlatformService {
         return platformDto;
     }
 
-    public void optimiizeParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
-        boolean checkET = false;
-        int countET = 0;
+    public void optimizeParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
+
+        PlatformDto platformDtoByName = getPlatformDto(platformDto.getName());
+        platformDto.setClearanceOnStep(platformDtoByName.getClearanceOnStep());
+
+        if (platformDto.getName().equals("et")) {
+            platformDto.setCurrentAngle((int) stairDto.getAngle());
+        } else {
+            platformDto.setCurrentAngle(stairDto.getAngle());
+        }
+
+        searchParametersPlatform(stairDto, platformDto);
+
+        boolean check = false;
+        int count = 0;
+
         do {
-//            lengthWayET = lengthWay(angleET);
-//
-//            if (countET == 0) {
-//                lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep, angleET, stepNumY);
-//            } else {
-//                lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep, angleET, countClearanceMin);
-//            }
-//            lengthClearanceRampET = lengthClearanceRamp(lengthWayOnLowerPlatsET, angleET);
-//
-//            if(clearanceMax < maxClearanceGOST && clearanceMin > ETPlatform.clearanceOnStep - 1 && lengthClearanceRampET < 10){
-//                for(int i = 1; i <= maxClearanceGOST - ETPlatform.clearanceOnStep; i++) {
-//                    lengthWayOnLowerPlatsET = lengthWayOnLowerPlats(ETPlatform.clearanceOnStep + i, angleET, countClearanceMin);
-//                    lengthClearanceRampET = lengthClearanceRamp(lengthWayOnLowerPlatsET, angleET);
-//                    if(lengthClearanceRampET > 10){
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            findNumberMinClearanceStep(angleET, lengthWayOnLowerPlatsET);
-//
+            platformDto.setLengthWay(lengthWay(stairDto, platformDto));
+
+            if (count > 0) {
+                stairDto.setStepNumber(platformDto.getCountClearanceMin());
+            }
+
+            platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
+
+            if(platformDto.getClearanceMax() < platformDto.getMaxClearanceGOST() && platformDto.getClearanceMin() > platformDto.getClearanceOnStep() - 1
+                    && platformDto.getLengthClearanceRamp() < 10){
+                for(int i = 1; i <= platformDto.getMaxClearanceGOST() - platformDto.getClearanceOnStep(); i++) {
+                    platformDto.setClearanceOnStep(platformDto.getClearanceOnStep() + i);
+                    stairDto.setStepNumber(platformDto.getCountClearanceMin());
+                    platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
+                    platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
+                    if(platformDto.getLengthClearanceRamp() > 10){
+                        break;
+                    }
+                }
+            }
+
+            findNumberMinAndMaxClearanceStep(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats());
+
             if (platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() > 0) {
                 platformDto.setCurrentAngle(platformDto.getCurrentAngle() - 1);
-                checkET = true;
+                check = true;
             } else if ((platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() < 1) || (platformDto.getLengthClearanceRamp() < 0 && platformDto.getCurrentAngle() < 1)) {
                 platformDto.setCurrentAngle(0);
                 platformDto.setLengthWay(0);
                 platformDto.setLengthWayOnLowerPlats(0);
                 platformDto.setLengthClearanceRamp(0);
                 break;
-            } else if (platformDto.getClearanceMin() <= platformDto.getClearanceOnStep() - 1 && countET == 0) {
-                checkET = true;
+            } else if (platformDto.getClearanceMin() <= platformDto.getClearanceOnStep() - 1 && count == 0) {
+                check = true;
             } else
                 break;
-            countET++;
+            count++;
 
         }
-        while (checkET);
+        while (check);
         if(platformDto.getClearanceMax() > platformDto.getMaxClearanceGOST()) {
             platformDto.setCurrentAngle(0);
             platformDto.setLengthWay(0);
             platformDto.setLengthWayOnLowerPlats(0);
             platformDto.setLengthClearanceRamp(0);
         }
-//
-//        clearanceMaxET = clearanceMax;
-//        clearanceNumberMaxET = countClearanceMax;
     }
 
     public void searchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
