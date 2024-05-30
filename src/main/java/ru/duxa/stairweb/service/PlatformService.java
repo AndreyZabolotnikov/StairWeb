@@ -99,8 +99,11 @@ public class PlatformService {
         do {
             platformDto.setLengthWay(lengthWay(stairDto, platformDto));
 
-            if (count > 0) {
+            if (count == 0) {
+                platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
+            }else {
                 stairDto.setStepNumber(platformDto.getCountClearanceMin());
+                platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
             }
 
             platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
