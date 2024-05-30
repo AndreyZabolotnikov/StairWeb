@@ -72,4 +72,8 @@ public class PlatformDto {
     private int lengthClearanceRamp;
 
     private int lengthWayOnLowerPlats;
+
+    private int lengthLowerPlatformMin;
+
+    private int lengthLowerPlatformSideMin;
 }

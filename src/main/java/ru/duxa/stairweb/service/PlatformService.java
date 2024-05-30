@@ -93,7 +93,7 @@ public class PlatformService {
             platformDto.setCurrentAngle(stairDto.getAngle());
         }
 
-        boolean check = false;
+        boolean check;
         int count = 0;
 
         do {
@@ -146,6 +146,9 @@ public class PlatformService {
             platformDto.setLengthWayOnLowerPlats(0);
             platformDto.setLengthClearanceRamp(0);
         }
+        platformDto.setLengthLowerPlatformMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthPassing() + platformDto.getClearanceOnWall());
+        platformDto.setLengthLowerPlatformSideMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthSide() + platformDto.getClearanceOnWall());
+
     }
 
     private int lengthWay(StairDto stairDto, PlatformDto platformDto) {
@@ -223,5 +226,4 @@ public class PlatformService {
         }
         return lengthClearanceRamp;
     }
-
 }
