@@ -14,6 +14,7 @@ import ru.duxa.stairweb.dto.StairDto;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.PlatformService;
 import ru.duxa.stairweb.service.StairService;
+import ru.duxa.stairweb.util.PlatformValidator;
 
 import java.util.List;
 import java.util.Map;
@@ -24,12 +25,14 @@ public class StairController {
     private final PersonService personService;
     private final StairService stairService;
     private final PlatformService platformService;
+    private final PlatformValidator platformValidator;
 
     @Autowired
-    public StairController(PersonService personService, StairService stairService, PlatformService platformService) {
+    public StairController(PersonService personService, StairService stairService, PlatformService platformService, PlatformValidator platformValidator) {
         this.personService = personService;
         this.stairService = stairService;
         this.platformService = platformService;
+        this.platformValidator = platformValidator;
     }
 
     @GetMapping("/")
@@ -80,15 +83,17 @@ public class StairController {
     @GetMapping("/result")
     public String generalResult(@ModelAttribute("stair") StairDto stairDto,
                                 @ModelAttribute ("et") PlatformDto et,
-                                @ModelAttribute("npu") PlatformDto npu) {
+                                @ModelAttribute("npu") PlatformDto npu, Model model) {
 
         stairService.searchParametersStair(stairDto);
 
         et.setName("et");
         platformService.optimizeAddSearchParametersPlatform(stairDto, et);
+        platformValidator.setParam(stairDto, et);
 
         npu.setName("npu");
         platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
+        platformValidator.setParam(stairDto, npu);
 
         return "general-result";
     }

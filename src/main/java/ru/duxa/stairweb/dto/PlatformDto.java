@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Map;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -76,4 +74,16 @@ public class PlatformDto {
     private int lengthLowerPlatformMin;
 
     private int lengthLowerPlatformSideMin;
+
+    private boolean isPassingToWall;
+
+    private boolean isPassingOnSupports;
+
+    private boolean isSideToWall;
+
+    private boolean isSideOnSupports;
+
+    private boolean isThreeSideToWall;
+
+    private boolean isThreeSideOnSupports;
 }

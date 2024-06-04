@@ -47,15 +47,33 @@
                         </tr>
                         <tr>
                             <td>К стене</td>
-                            <td><a th:href="@{/et_passage_to_wall}">ДА</a></td>
-                            <td><a th:href="@{/et_side_to_wall}">ДА</a></td>
-                            <td><a th:href="@{/et_3side_to_wall}">ДА</a></td>
+                            <td><a th:href="@{/et_passage_to_wall}">
+                                <b th:if="${et.passingToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${et.passingToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/et_side_to_wall}">
+                                <b th:if="${et.sideToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${et.sideToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/et_3side_to_wall}">
+                                <b th:if="${et.threeSideToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${et.threeSideToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
                         </tr>
                         <tr>
                             <td>на опорах</td>
-                            <td><a th:href="@{/et_passage_on_supports}">ДА</a></td>
-                            <td><a th:href="@{/et_side_on_supports}">ДА</a></td>
-                            <td><a th:href="@{/et_3side_on_supports}">ДА</a></td>
+                            <td><a th:href="@{/et_passage_on_supports}">
+                                <b th:if="${et.passingOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${et.passingOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/et_side_on_supports}">
+                                <b th:if="${et.sideOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${et.sideOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/et_3side_on_supports}">
+                                <b th:if="${et.threeSideOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${et.threeSideOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
                         </tr>
                     </table>
                 </td>
@@ -84,15 +102,33 @@
                         </tr>
                         <tr>
                             <td>К стене</td>
-                            <td><a th:href="@{/npu_passage_to_wall}">ДА</a></td>
-                            <td><a th:href="@{/npu_side_to_wall}">ДА</a></td>
-                            <td><a th:href="@{/npu_3side_to_wall}">ДА</a></td>
+                            <td><a th:href="@{/npu_passage_to_wall}">
+                                <b th:if="${npu.passingToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.passingToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/npu_side_to_wall}">
+                                <b th:if="${npu.sideToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.sideToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/npu_3side_to_wall}">
+                                <b th:if="${npu.threeSideToWall}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.threeSideToWall}" th:text="НЕТ">Нет</b>
+                            </a></td>
                         </tr>
                         <tr>
                             <td>на опорах</td>
-                            <td><a th:href="@{/npu_passage_on_supports}">ДА</a></td>
-                            <td><a th:href="@{/npu_side_on_supports}">ДА</a></td>
-                            <td><a th:href="@{/npu_3side_on_supports}">ДА</a></td>
+                            <td><a th:href="@{/npu_passage_on_supports}">
+                                <b th:if="${npu.passingOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.passingOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/npu_side_on_supports}">
+                                <b th:if="${npu.sideOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.sideOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
+                            <td><a th:href="@{/npu_3side_on_supports}">
+                                <b th:if="${npu.threeSideOnSupports}" th:text="ДА">Да</b>
+                                <b th:unless="${npu.threeSideOnSupports}" th:text="НЕТ">Нет</b>
+                            </a></td>
                         </tr>
                     </table>
                 </td>
