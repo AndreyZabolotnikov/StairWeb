@@ -53,26 +53,26 @@
                             </a></td>
                             <td><a th:href="@{/et_side_to_wall}">
                                 <b th:if="${et.sideToWall}" th:text="ДА">Да</b>
-                                <b th:unless="${et.sideToWall}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${et.sideToWall}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/et_3side_to_wall}">
                                 <b th:if="${et.threeSideToWall}" th:text="ДА">Да</b>
-                                <b th:unless="${et.threeSideToWall}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${et.threeSideToWall}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                         </tr>
                         <tr>
                             <td>на опорах</td>
                             <td><a th:href="@{/et_passage_on_supports}">
                                 <b th:if="${et.passingOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${et.passingOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${et.passingOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/et_side_on_supports}">
                                 <b th:if="${et.sideOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${et.sideOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${et.sideOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/et_3side_on_supports}">
                                 <b th:if="${et.threeSideOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${et.threeSideOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${et.threeSideOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                         </tr>
                     </table>
@@ -108,26 +108,26 @@
                             </a></td>
                             <td><a th:href="@{/npu_side_to_wall}">
                                 <b th:if="${npu.sideToWall}" th:text="ДА">Да</b>
-                                <b th:unless="${npu.sideToWall}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${npu.sideToWall}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/npu_3side_to_wall}">
                                 <b th:if="${npu.threeSideToWall}" th:text="ДА">Да</b>
-                                <b th:unless="${npu.threeSideToWall}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${npu.threeSideToWall}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                         </tr>
                         <tr>
                             <td>на опорах</td>
                             <td><a th:href="@{/npu_passage_on_supports}">
                                 <b th:if="${npu.passingOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${npu.passingOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${npu.passingOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/npu_side_on_supports}">
                                 <b th:if="${npu.sideOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${npu.sideOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${npu.sideOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                             <td><a th:href="@{/npu_3side_on_supports}">
                                 <b th:if="${npu.threeSideOnSupports}" th:text="ДА">Да</b>
-                                <b th:unless="${npu.threeSideOnSupports}" th:text="НЕТ">Нет</b>
+                                <b th:unless="${npu.threeSideOnSupports}" style="color: red" th:text="НЕТ">Нет</b>
                             </a></td>
                         </tr>
                     </table>
