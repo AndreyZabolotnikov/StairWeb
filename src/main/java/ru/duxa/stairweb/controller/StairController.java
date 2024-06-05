@@ -83,7 +83,7 @@ public class StairController {
     @GetMapping("/result")
     public String generalResult(@ModelAttribute("stair") StairDto stairDto,
                                 @ModelAttribute ("et") PlatformDto et,
-                                @ModelAttribute("npu") PlatformDto npu, Model model) {
+                                @ModelAttribute("npu") PlatformDto npu) {
 
         stairService.searchParametersStair(stairDto);
 
@@ -100,61 +100,73 @@ public class StairController {
 
     @GetMapping("/et_passage_to_wall")
     public String etPassageToWall() {
+
         return "et/et-passage-to-wall";
     }
 
     @GetMapping("/et_passage_on_supports")
     public String etPassageOnSupports() {
+
         return "et/et-passage-on-supports";
     }
 
     @GetMapping("/et_side_to_wall")
     public String etSideToWall() {
+
         return "et/et-side-to-wall";
     }
 
     @GetMapping("/et_side_on_supports")
     public String etSideOnSupports() {
+
         return "et/et-side-on-supports";
     }
 
     @GetMapping("/et_3side_to_wall")
     public String et3SideToWall() {
+
         return "et/et-3side-to-wall";
     }
 
     @GetMapping("/et_3side_on_supports")
     public String et3SideOnSupports() {
+
         return "et/et-3side-on-supports";
     }
 
     @GetMapping("/npu_passage_to_wall")
     public String npuPassageToWall() {
+
         return "npu/npu-passage-to-wall";
     }
 
     @GetMapping("/npu_passage_on_supports")
     public String npuPassageOnSupports() {
+
         return "npu/npu-passage-on-supports";
     }
 
     @GetMapping("/npu_side_to_wall")
     public String npuSideToWall() {
+
         return "npu/npu-side-to-wall";
     }
 
     @GetMapping("/npu_side_on_supports")
     public String npuSideOnSupports() {
+
         return "npu/npu-side-on-supports";
     }
 
     @GetMapping("/npu_3side_to_wall")
     public String npu3SideToWall() {
+
         return "npu/npu-3side-to-wall";
     }
 
     @GetMapping("/npu_3side_on_supports")
     public String npu3SideOnSupports() {
+
         return "npu/npu-3side-on-supports";
     }
 
