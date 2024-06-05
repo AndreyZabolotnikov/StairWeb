@@ -42,4 +42,9 @@ public class SettingPlatformController {
         platformService.savePlatform(form);
         return "redirect:/settings_platform/" + form.getName();
     }
+
+    @GetMapping("/img_param")
+    String imgParam() {
+        return "img_param";
+    }
 }
