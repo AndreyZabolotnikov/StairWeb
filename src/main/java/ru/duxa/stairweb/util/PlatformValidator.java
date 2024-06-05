@@ -38,8 +38,7 @@ public class PlatformValidator {
     private boolean isPassingOnSupports() {
         boolean flag = false;
         if (isAngle() && isRampClearance() && isLengthLowerPassing()
-                && platformDto.getWidthOnSupportsPassing() + platformDto.getClearanceOnStepSupports()
-                + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
+                && platformDto.getWidthOnSupportsPassing() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
         ) {
             flag = true;
         }
@@ -59,8 +58,7 @@ public class PlatformValidator {
     private boolean isSideOnSupports() {
         boolean flag = false;
         if (isAngle() && isRampClearance() && isLengthLowerSide()
-                && platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnStepSupports()
-                + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
+                && platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
         ) {
             flag = true;
         }
@@ -68,11 +66,23 @@ public class PlatformValidator {
     }
 
     private boolean isThreeSideToWall() {
-        return true;
+        boolean flag = false;
+        if (isAngle() && isRampClearance() && isLengthLowerPassing()
+                && platformDto.getWidthOnWallSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
+        ) {
+            flag = true;
+        }
+        return flag;
     }
 
     private boolean isThreeSideOnSupports() {
-        return true;
+        boolean flag = false;
+        if (isAngle() && isRampClearance() && isLengthLowerPassing()
+                && platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
+        ) {
+            flag = true;
+        }
+        return flag;
     }
 
     private boolean isAngle() {
