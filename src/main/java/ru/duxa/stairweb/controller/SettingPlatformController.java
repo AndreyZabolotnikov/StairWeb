@@ -20,7 +20,7 @@ public class SettingPlatformController {
     }
 
     @GetMapping
-    String setPlatformData(Model model) {
+    public String setPlatformData(Model model) {
         if (platformDto == null)
             platformDto = new PlatformDto();
         model.addAttribute("platform", platformDto);
@@ -28,13 +28,13 @@ public class SettingPlatformController {
     }
 
     @GetMapping("/{var}")
-    String setPlatformData(@PathVariable("var") String var) {
+    public String setPlatformData(@PathVariable("var") String var) {
         platformDto = platformService.getPlatformDto(var, new PlatformDto());
         return "redirect:/settings_platform";
     }
 
     @PostMapping("/save")
-    String savePlatformData(@ModelAttribute("platform") PlatformDto form) {
+    public String savePlatformData(@ModelAttribute("platform") PlatformDto form) {
         if (platformDto.getName() == null){
             return "redirect:/settings_platform";
         }
@@ -43,8 +43,4 @@ public class SettingPlatformController {
         return "redirect:/settings_platform/" + form.getName();
     }
 
-    @GetMapping("/img_param")
-    String imgParam() {
-        return "img_param";
-    }
 }
