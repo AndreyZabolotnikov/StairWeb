@@ -26,6 +26,9 @@ public class StairController {
     private final StairService stairService;
     private final PlatformService platformService;
     private final PlatformValidator platformValidator;
+    private StairDto stairDto;
+    private PlatformDto et;
+    private PlatformDto npu;
 
     @Autowired
     public StairController(PersonService personService, StairService stairService, PlatformService platformService, PlatformValidator platformValidator) {
@@ -35,8 +38,33 @@ public class StairController {
         this.platformValidator = platformValidator;
     }
 
+    @ModelAttribute("stair")
+    private StairDto getStairDto() {
+        if (stairDto == null) {
+            stairDto = new StairDto();
+        }
+        return stairDto;
+    }
+
+    @ModelAttribute("et")
+    private PlatformDto getEt() {
+        if (et == null) {
+            et = new PlatformDto();
+        }
+        return et;
+    }
+
+    @ModelAttribute("npu")
+    private PlatformDto getNpu() {
+        if (npu == null) {
+            npu = new PlatformDto();
+        }
+        return npu;
+    }
+
+
     @GetMapping("/")
-    public String startWeb(@ModelAttribute("stair") StairDto stairDto, Authentication authentication, Model model) {
+    public String startWeb( Authentication authentication, Model model) {
 
         if (authentication != null) {
             model.addAttribute("isAuth", true);
@@ -44,6 +72,9 @@ public class StairController {
         } else {
             model.addAttribute("isAuth", false);
         }
+        stairDto = new StairDto();
+        npu = new PlatformDto();
+        et = new PlatformDto();
         return "index";
     }
 
@@ -51,7 +82,7 @@ public class StairController {
     public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result,
                            RedirectAttributes redirectAttributes, Authentication authentication, Model model) {
 
-        StairDto stairDto = stairService.formToDto(form);
+        stairDto = stairService.formToDto(form);
 
         if ((stairDto.getStepHeights().size() - stairDto.getStepLengths().size()) != 1
                 || form.getStepHeights().size() <= form.getStepLengths().size()
@@ -81,9 +112,7 @@ public class StairController {
     }
 
     @GetMapping("/result")
-    public String generalResult(@ModelAttribute("stair") StairDto stairDto,
-                                @ModelAttribute ("et") PlatformDto et,
-                                @ModelAttribute("npu") PlatformDto npu) {
+    public String generalResult() {
 
         stairService.searchParametersStair(stairDto);
 
@@ -94,6 +123,8 @@ public class StairController {
         npu.setName("npu");
         platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
         platformValidator.setParam(stairDto, npu);
+
+
 
         return "general-result";
     }
