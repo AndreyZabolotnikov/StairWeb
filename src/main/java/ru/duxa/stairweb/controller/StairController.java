@@ -2,6 +2,7 @@ package ru.duxa.stairweb.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Scope("session")
 public class StairController {
 
     private final PersonService personService;
@@ -72,9 +74,7 @@ public class StairController {
         } else {
             model.addAttribute("isAuth", false);
         }
-        stairDto = new StairDto();
-        npu = new PlatformDto();
-        et = new PlatformDto();
+
         return "index";
     }
 
@@ -131,73 +131,61 @@ public class StairController {
 
     @GetMapping("/et_passage_to_wall")
     public String etPassageToWall() {
-
         return "et/et-passage-to-wall";
     }
 
     @GetMapping("/et_passage_on_supports")
     public String etPassageOnSupports() {
-
         return "et/et-passage-on-supports";
     }
 
     @GetMapping("/et_side_to_wall")
     public String etSideToWall() {
-
         return "et/et-side-to-wall";
     }
 
     @GetMapping("/et_side_on_supports")
     public String etSideOnSupports() {
-
         return "et/et-side-on-supports";
     }
 
     @GetMapping("/et_3side_to_wall")
     public String et3SideToWall() {
-
         return "et/et-3side-to-wall";
     }
 
     @GetMapping("/et_3side_on_supports")
     public String et3SideOnSupports() {
-
         return "et/et-3side-on-supports";
     }
 
     @GetMapping("/npu_passage_to_wall")
     public String npuPassageToWall() {
-
         return "npu/npu-passage-to-wall";
     }
 
     @GetMapping("/npu_passage_on_supports")
     public String npuPassageOnSupports() {
-
         return "npu/npu-passage-on-supports";
     }
 
     @GetMapping("/npu_side_to_wall")
     public String npuSideToWall() {
-
         return "npu/npu-side-to-wall";
     }
 
     @GetMapping("/npu_side_on_supports")
     public String npuSideOnSupports() {
-
         return "npu/npu-side-on-supports";
     }
 
     @GetMapping("/npu_3side_to_wall")
     public String npu3SideToWall() {
-
         return "npu/npu-3side-to-wall";
     }
 
     @GetMapping("/npu_3side_on_supports")
     public String npu3SideOnSupports() {
-
         return "npu/npu-3side-on-supports";
     }
 
