@@ -23,8 +23,10 @@
         <br>
         <p class="text-center" style="color: #0f4c81"><b>Проходной к стене</b></p>
         <br>
-        <div style="text-align: center">
+        <div>
             <img th:src="@{img/ЕТtoWallPassing.png}" alt="Проходной к стене" width="900px"/>
+            <p class="text-on-img" style=" margin-top: -545px; margin-left: 365px; rotate: -70deg;" th:text="${et.currentAngle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -530px; margin-left: 250px; rotate: -75deg;" th:text="${stair.angle} + '°'"/>
         </div>
     </div>
 </main>

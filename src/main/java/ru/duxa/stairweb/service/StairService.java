@@ -20,16 +20,6 @@ public class StairService {
         return stairDto;
     }
 
-//    public Stair stairDtoToStair(StairDto form){
-//        Stair stair = new Stair();
-//        stair.setWidthStair(form.getWidthStair());
-//        stair.setUpperFloor(form.getUpperFloor());
-//        stair.setDownFloor(form.getDownFloor());
-//        stair.setStepLengths(mapFieldsToMapStair(form.getStepLengths()));
-//        stair.setStepHeights(mapFieldsToMapStair(form.getStepHeights()));
-//        return stair;
-//    }
-
     private Map<Integer, Integer> mapFieldsToMapStair(Map<Integer, Integer> map) {
         Map<Integer, Integer> mapBuffer = new HashMap<>();
         for (int i = 0; i < map.size(); i++) {
