@@ -130,7 +130,7 @@ public class StairController {
     }
 
     @GetMapping("/et_passage_to_wall")
-    public String etPassageToWall() {
+    public String etPassageToWall(Model model) {
         return "et/et-passage-to-wall";
     }
 

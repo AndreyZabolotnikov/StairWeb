@@ -47,4 +47,6 @@ public class StairDto {
     private int countMatchingPoints;
 
     private int firstPoint;
+
+    private int horizontalLength;
 }
