@@ -24,6 +24,7 @@
         <p class="text-center" style="color: #0f4c81"><b>Проходной к стене</b></p>
         <div style="position: relative">
             <img th:src="@{img/ЕТtoWallPassing.png}" alt="Проходной к стене" width="900px"/>
+
             <p class="text-on-img" style=" margin-top: -515px; margin-left: 260px; transform-origin: left; transform: rotate(-75deg);"
                th:text="${stair.angle} + '°'"/>
             <p class="text-on-img" style=" margin-top: -417px; margin-left: 220px; transform-origin: left; transform: rotate(26deg);"
@@ -61,6 +62,10 @@
             <p class="text-on-img" style=" margin-top: -687px; margin-left: 655px;" th:text="${et.clearanceOnWall}"/>
             <p class="text-on-img" style=" margin-top: -465px; margin-left: 745px;" th:text="${et.widthOnWallPassing}"/>
             <p class="text-on-img" style=" margin-top: -72px; margin-left: 800px;" th:text="${et.foldedWall}"/>
+
+            <p class="text-on-img" style=" margin-top: -302px; margin-left: 350px;">
+                <i>Длина трассы = </i><i th:text="${et.lengthWay + et.lengthTrackAdd}"/> мм
+            </p>
         </div>
     </div>
 </main>
