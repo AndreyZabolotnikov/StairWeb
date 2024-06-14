@@ -86,4 +86,14 @@ public class PlatformDto {
     private boolean isThreeSideToWall;
 
     private boolean isThreeSideOnSupports;
+
+    private boolean isMaxAngle;
+
+    private boolean isLengthLowerPassing;
+
+    private boolean isRampClearance;
+
+    private boolean isWidthPassingOnWall;
+
+    private boolean checkFirePassageWay;
 }

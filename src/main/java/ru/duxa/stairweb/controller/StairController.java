@@ -130,7 +130,6 @@ public class StairController {
 
     @GetMapping("/et_passage_to_wall")
     public String etPassageToWall(Model model) {
-        model.addAttribute("isAngleMax", et.getAngleMax() >= et.getCurrentAngle() && et.getCurrentAngle() > 0);
         return "et/et-passage-to-wall";
     }
 

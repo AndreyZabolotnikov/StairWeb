@@ -81,7 +81,8 @@
                     <img th:src="@{img/EasyTrap.webp}" alt="Изображение EasyTrap" width="100%" height="100%">
                 </td>
                 <td>
-                    <p><b th:text="${et.currentAngle}"></b>° - угол подъема платформы</p>
+                    <p><b th:if="${et.MaxAngle}" th:text="${et.currentAngle}" style="color: black"></b>
+                    <b th:unless="${et.MaxAngle}" th:text="${et.currentAngle}" style="color: red"></b>° - угол подъема платформы</p>
                     <p><b th:text="${et.lengthWay}"></b> мм - Длинна пути подъема платформы</p>
                     <p><b th:text="${et.lengthLowerPlatformMin}"></b> мм - Минимальная нижняя площадка(проходной и на 3 стороны)</p>
                     <p><b th:text="${et.lengthLowerPlatformSideMin}"></b> мм - Минимальная нижняя площадка(боковой)</p>
@@ -136,7 +137,8 @@
                     <img th:src="@{img/npu.png}" alt="Изображение НПУ" width="100%" height="100%">
                 </td>
                 <td>
-                    <p><b th:text="${npu.currentAngle}"></b>° - угол подъема платформы</p>
+                    <p><b th:if="${npu.MaxAngle}" th:text="${npu.currentAngle}" style="color: black"/>
+                        <b th:unless="${npu.MaxAngle}" th:text="${npu.currentAngle}" style="color: red"/>° - угол подъема платформы</p>
                     <p><b th:text="${npu.lengthWay}"></b> мм - Длинна пути подъема платформы</p>
                     <p><b th:text="${npu.lengthLowerPlatformMin}"></b> мм - Минимальная нижняя площадка(проходной и на 3 стороны)</p>
                     <p><b th:text="${npu.lengthLowerPlatformSideMin}"></b> мм - Минимальная нижняя площадка(боковой)</p>
