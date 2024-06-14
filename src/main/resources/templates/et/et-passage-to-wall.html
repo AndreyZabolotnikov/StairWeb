@@ -24,17 +24,28 @@
         <p class="text-center" style="color: #0f4c81"><b>Проходной к стене</b></p>
         <div style="position: relative">
             <img th:src="@{img/ЕТtoWallPassing.png}" alt="Проходной к стене" width="900px"/>
-            <p class="text-on-img" style=" margin-top: -515px; margin-left: 260px; transform-origin: left; transform: rotate(-75deg);" th:text="${stair.angle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -417px; margin-left: 220px; transform-origin: left; transform: rotate(26deg);" th:text="${stair.lengthStair}"/>
-            <p class="text-on-img" style=" margin-top: -545px; margin-left: 47px; transform-origin: left; transform: rotate(-90deg);" th:text="${stair.heightStair}"/>
+            <p class="text-on-img" style=" margin-top: -515px; margin-left: 260px; transform-origin: left; transform: rotate(-75deg);"
+               th:text="${stair.angle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -417px; margin-left: 220px; transform-origin: left; transform: rotate(26deg);"
+               th:text="${stair.lengthStair}"/>
+            <p class="text-on-img" style=" margin-top: -545px; margin-left: 47px; transform-origin: left; transform: rotate(-90deg);"
+               th:text="${stair.heightStair}"/>
             <p class="text-on-img" style=" margin-top: -442px; margin-left: 23px;" th:text="${stair.upperFloor}"/>
             <p class="text-on-img" style=" margin-top: -442px; margin-left: 440px;" th:text="${stair.downFloor}"/>
             <p class="text-on-img" style=" margin-top: -442px; margin-left: 250px;" th:text="${stair.horizontalLength}"/>
             <p class="text-on-img" style=" margin-top: -438px; margin-left: 745px;" th:text="${stair.widthStair}"/>
             <p class="text-on-img" style=" margin-top: -52px; margin-left: 745px;" th:text="${stair.widthStair}"/>
-<!--            Свойства платформы-->
-            <p class="text-on-img" style=" margin-top: -530px; margin-left: 377px; transform-origin: left; transform: rotate(-70deg);" th:text="${et.currentAngle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -402px; margin-left: 315px; transform-origin: left; transform: rotate(26deg);" th:text="${et.lengthWay}"/>
+
+            <!--            Свойства платформы-->
+
+            <p class="text-on-img" style=" margin-top: -530px; margin-left: 377px; transform-origin: left; transform: rotate(-70deg); color: black"
+               th:if="${isAngleMax}" th:text="${et.currentAngle} + '°'"/>
+
+            <p class="text-on-img" style=" margin-top: -530px; margin-left: 377px; transform-origin: left; transform: rotate(-70deg); color: red"
+               th:unless="${isAngleMax}" th:text="${et.currentAngle} + '°'"/>
+
+            <p class="text-on-img" style=" margin-top: -402px; margin-left: 315px; transform-origin: left; transform: rotate(26deg);"
+               th:text="${et.lengthWay}"/>
             <p class="text-on-img" style=" margin-top: -465px; margin-left: 440px;" th:text="${et.lengthLowerPlatformMin}"/>
             <p class="text-on-img" style=" margin-top: -657px; margin-left: 139px;" th:text="${et.lengthClearanceRamp}"/>
             <p class="text-on-img" style=" margin-top: -687px; margin-left: 655px;" th:text="${et.clearanceOnWall}"/>

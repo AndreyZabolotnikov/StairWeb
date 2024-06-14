@@ -51,7 +51,7 @@ public class StairService {
                 if (i == 0)
                     lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
                 else {
-                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1) - stairDto.getStepLengthsCoordinates().get(i-1);
+                    lengthStep = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1) - stairDto.getStepLengthsCoordinates().get(i - 1);
                 }
                 double heightStep = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1) - stairDto.getStepHeightsCoordinates().get(i);
                 double angleCurrent = Math.toDegrees(Math.atan(heightStep / lengthStep));
@@ -70,7 +70,8 @@ public class StairService {
         stairDto.setLengthStair(lengthStair(stairDto));
         stairDto.setHeightStair(stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1));
         stairDto.setFirstPoint(findFirstPoint(stairDto));
-        stairDto.setHorizontalLength(stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1));
+        if (stairDto.getStepLengthsCoordinates().size() > 0)
+            stairDto.setHorizontalLength(stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1));
     }
 
     private Map<Integer, Integer> stepTransformToCoordinates(Map<Integer, Integer> stepSize) {
@@ -106,8 +107,8 @@ public class StairService {
         int x0;
         if (stairDto.getStepHeightsCoordinates().size() > 1) {
             int y0 = 0;
-            int xe = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size()-1);
-            int ye = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size()-1);
+            int xe = stairDto.getStepLengthsCoordinates().get(stairDto.getStepLengthsCoordinates().size() - 1);
+            int ye = stairDto.getStepHeightsCoordinates().get(stairDto.getStepHeightsCoordinates().size() - 1);
             int ym = stairDto.getStepHeightsCoordinates().get(stairDto.getStepNumber());
             int xm;
             if (stairDto.getStepNumber() < 1)

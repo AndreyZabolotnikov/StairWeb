@@ -66,7 +66,7 @@ public class StairController {
 
 
     @GetMapping("/")
-    public String startWeb( Authentication authentication, Model model) {
+    public String startWeb(Authentication authentication, Model model) {
 
         if (authentication != null) {
             model.addAttribute("isAuth", true);
@@ -125,12 +125,12 @@ public class StairController {
         platformValidator.setParam(stairDto, npu);
 
 
-
         return "general-result";
     }
 
     @GetMapping("/et_passage_to_wall")
     public String etPassageToWall(Model model) {
+        model.addAttribute("isAngleMax", et.getAngleMax() >= et.getCurrentAngle() && et.getCurrentAngle() > 0);
         return "et/et-passage-to-wall";
     }
 
