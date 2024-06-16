@@ -148,6 +148,11 @@ public class PlatformService {
         }
         platformDto.setLengthLowerPlatformMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthPassing() + platformDto.getClearanceOnWall());
         platformDto.setLengthLowerPlatformSideMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthSide() + platformDto.getClearanceOnWall());
+        if(stairDto.getStepLengthsCoordinates().size() > 0) {
+            platformDto.setCountStepClearanceMax(platformDto.getCountClearanceMax() + 1);
+        } else
+            platformDto.setCountStepClearanceMax(0);
+
 
     }
 

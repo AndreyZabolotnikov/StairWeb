@@ -63,13 +63,13 @@
             <p class="text-on-img" style=" margin-top: -465px; margin-left: 745px;" th:text="${et.widthOnWallPassing}"/>
             <p class="text-on-img" style=" margin-top: -72px; margin-left: 800px;" th:text="${et.foldedWall}"/>
 
-            <p class="text-on-img" style=" margin-top: -342px; margin-left: 0px;">
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -342px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="${et.clearanceMax}"/> мм
             </p>
-            <p class="text-on-img" style=" margin-top: -322px; margin-left: 0px;">
-                <i>номер ступени = </i><i th:text="${et.countClearanceMax + 1}"/>
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -322px; margin-left: 150px;">
+                <i>номер ступени = </i><i th:text="${et.countStepClearanceMax}"/>
             </p>
-            <p class="text-on-img" style=" margin-top: -302px; margin-left: 0px;">
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -302px; margin-left: 150px;">
                 <i>Длина трассы = </i><i th:text="${et.lengthWay + et.lengthTrackAdd}"/> мм
             </p>
         </div>

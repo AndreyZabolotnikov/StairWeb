@@ -75,6 +75,8 @@ public class PlatformDto {
 
     private int lengthLowerPlatformSideMin;
 
+    private int countStepClearanceMax;
+
     private boolean isPassingToWall;
 
     private boolean isPassingOnSupports;
