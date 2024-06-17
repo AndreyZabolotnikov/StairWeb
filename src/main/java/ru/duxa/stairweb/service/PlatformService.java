@@ -165,6 +165,9 @@ public class PlatformService {
             platformDto.setWidthOnWallPassing(0);
             platformDto.setFoldedWall(0);
             platformDto.setClearanceOnWall(0);
+            platformDto.setWidthOnWallSide(0);
+            platformDto.setWidthOnWallLowerSide(0);
+
         }
 
 
