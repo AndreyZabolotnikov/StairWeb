@@ -23,7 +23,6 @@ public class PlatformService {
     }
 
 
-
     @Transactional
     public void savePlatform(PlatformDto platformDto) {
         Platform platform = getPlatform(platformDto.getName());
@@ -101,21 +100,21 @@ public class PlatformService {
 
             if (count == 0) {
                 platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
-            }else {
+            } else {
                 stairDto.setStepNumber(platformDto.getCountClearanceMin());
                 platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
             }
 
             platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
 
-            if(platformDto.getClearanceMax() < platformDto.getMaxClearanceGOST() && platformDto.getClearanceMin() > platformDto.getClearanceOnStep() - 1
-                    && platformDto.getLengthClearanceRamp() < 10){
-                for(int i = 1; i <= platformDto.getMaxClearanceGOST() - platformDto.getClearanceOnStep(); i++) {
+            if (platformDto.getClearanceMax() < platformDto.getMaxClearanceGOST() && platformDto.getClearanceMin() > platformDto.getClearanceOnStep() - 1
+                    && platformDto.getLengthClearanceRamp() < 10) {
+                for (int i = 1; i <= platformDto.getMaxClearanceGOST() - platformDto.getClearanceOnStep(); i++) {
                     platformDto.setClearanceOnStep(platformDto.getClearanceOnStep() + i);
                     stairDto.setStepNumber(platformDto.getCountClearanceMin());
                     platformDto.setLengthWayOnLowerPlats(lengthWayOnLowerPlats(stairDto, platformDto));
                     platformDto.setLengthClearanceRamp(lengthClearanceRamp(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats()));
-                    if(platformDto.getLengthClearanceRamp() > 10){
+                    if (platformDto.getLengthClearanceRamp() > 10) {
                         break;
                     }
                 }
@@ -140,18 +139,33 @@ public class PlatformService {
 
         }
         while (check);
-        if(platformDto.getClearanceMax() > platformDto.getMaxClearanceGOST()) {
+
+        if (platformDto.getClearanceMax() > platformDto.getMaxClearanceGOST()) {
             platformDto.setCurrentAngle(0);
             platformDto.setLengthWay(0);
             platformDto.setLengthWayOnLowerPlats(0);
             platformDto.setLengthClearanceRamp(0);
         }
+
         platformDto.setLengthLowerPlatformMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthPassing() + platformDto.getClearanceOnWall());
         platformDto.setLengthLowerPlatformSideMin(platformDto.getLengthWayOnLowerPlats() + platformDto.getLengthSide() + platformDto.getClearanceOnWall());
-        if(stairDto.getStepLengthsCoordinates().size() > 0) {
+
+        if (stairDto.getStepLengthsCoordinates().size() > 0) {
             platformDto.setCountStepClearanceMax(platformDto.getCountClearanceMax() + 1);
         } else
             platformDto.setCountStepClearanceMax(0);
+
+        if(platformDto.getCurrentAngle() <  1) {
+            platformDto.setLengthLowerPlatformMin(0);
+            platformDto.setLengthLowerPlatformSideMin(0);
+            platformDto.setLengthWay(0);
+            platformDto.setLengthTrackAdd(0);
+            platformDto.setCountClearanceMax(0);
+            platformDto.setClearanceMax(0);
+            platformDto.setWidthOnWallPassing(0);
+            platformDto.setFoldedWall(0);
+            platformDto.setClearanceOnWall(0);
+        }
 
 
     }
