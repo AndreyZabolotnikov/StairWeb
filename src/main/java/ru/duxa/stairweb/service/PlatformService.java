@@ -167,7 +167,7 @@ public class PlatformService {
             platformDto.setClearanceOnWall(0);
             platformDto.setWidthOnWallSide(0);
             platformDto.setWidthOnWallLowerSide(0);
-
+            platformDto.setCountStepClearanceMax(0);
         }
 
 
