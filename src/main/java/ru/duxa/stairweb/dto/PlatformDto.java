@@ -93,9 +93,17 @@ public class PlatformDto {
 
     private boolean isLengthLowerPassing;
 
+    private boolean isLengthLowerSide;
+
     private boolean isRampClearance;
 
     private boolean isWidthPassingOnWall;
 
+    private boolean isWidthPassingOnSupports;
+
+    private boolean isWidthSideToWall;
+
     private boolean checkFirePassageWay;
+
+    private boolean checkFirePassageSupports;
 }

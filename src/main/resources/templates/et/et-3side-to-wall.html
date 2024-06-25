@@ -49,16 +49,16 @@
                th:text="${stair.horizontalLength}"/>
 
             <p class="text-on-img" style=" margin-top: -416px; margin-left: 635px; color: black"
-               th:if="${et.widthPassingOnWall}" th:text="${stair.widthStair}"/>
+               th:if="${et.widthSideToWall}" th:text="${stair.widthStair}"/>
             <p class="text-on-img" style=" margin-top: -416px; margin-left: 635px; color: red"
-               th:unless="${et.widthPassingOnWall}" th:text="${stair.widthStair}"/>
+               th:unless="${et.widthSideToWall}" th:text="${stair.widthStair}"/>
 
             <p class="text-on-img" style=" margin-top: -45px; margin-left: 610px; color: black"
-               th:if="${et.widthPassingOnWall && et.checkFirePassageWay}" th:text="${stair.widthStair}"/>
+               th:if="${et.widthSideToWall && et.checkFirePassageWay}" th:text="${stair.widthStair}"/>
             <p class="text-on-img" style=" margin-top: -45px; margin-left: 610px; color: blue"
-               th:if="${et.widthPassingOnWall && not et.checkFirePassageWay}" th:text="${stair.widthStair}"/>
+               th:if="${et.widthSideToWall && not et.checkFirePassageWay}" th:text="${stair.widthStair}"/>
             <p class="text-on-img" style=" margin-top: -45px; margin-left: 610px; color: red"
-               th:unless="${et.widthPassingOnWall}" th:text="${stair.widthStair}"/>
+               th:unless="${et.widthSideToWall}" th:text="${stair.widthStair}"/>
 
             <!--            Свойства платформы-->
 
