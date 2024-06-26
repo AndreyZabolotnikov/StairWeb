@@ -103,6 +103,8 @@ public class PlatformDto {
 
     private boolean isWidthSideToWall;
 
+    private boolean isWidthSideOnSupports;
+
     private boolean checkFirePassageWay;
 
     private boolean checkFirePassageSupports;

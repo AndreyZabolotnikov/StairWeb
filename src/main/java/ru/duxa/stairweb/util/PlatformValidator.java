@@ -29,6 +29,7 @@ public class PlatformValidator {
         platformDto.setWidthPassingOnWall(isWidthPassingOnWall());
         platformDto.setWidthPassingOnSupports(isWidthPassingOnSupports());
         platformDto.setWidthSideToWall(isWidthSideToWall());
+        platformDto.setWidthSideOnSupports(isWidthSideOnSupports());
         platformDto.setCheckFirePassageWay(isFirePassageWay());
         platformDto.setCheckFirePassageSupports(isFirePassageSupports());
 
@@ -60,9 +61,7 @@ public class PlatformValidator {
 
     private boolean isSideOnSupports() {
         boolean flag = false;
-        if (isAngle() && isRampClearance() && isLengthLowerSide()
-                && platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
-        ) {
+        if (isAngle() && isRampClearance() && isLengthLowerSide() && isWidthSideOnSupports()) {
             flag = true;
         }
         return flag;
@@ -78,9 +77,7 @@ public class PlatformValidator {
 
     private boolean isThreeSideOnSupports() {
         boolean flag = false;
-        if (isAngle() && isRampClearance() && isLengthLowerPassing()
-                && platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair()
-        ) {
+        if (isAngle() && isRampClearance() && isLengthLowerPassing() && isWidthSideOnSupports()) {
             flag = true;
         }
         return flag;
@@ -115,6 +112,10 @@ public class PlatformValidator {
         return platformDto.getWidthOnWallSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair();
     }
 
+    private boolean isWidthSideOnSupports() {
+        return platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair();
+    }
+
     private boolean isFirePassageWay() {
         return (platformDto.getFirePassageWay() + platformDto.getFoldedWall()) <= stairDto.getWidthStair();
     }
@@ -122,4 +123,5 @@ public class PlatformValidator {
     private boolean isFirePassageSupports() {
         return (platformDto.getFirePassageWay() + platformDto.getFoldedWall() + platformDto.getClearanceOnStepSupports()) <= stairDto.getWidthStair();
     }
+
 }
