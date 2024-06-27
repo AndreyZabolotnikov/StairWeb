@@ -113,7 +113,7 @@ public class PlatformValidator {
     }
 
     private boolean isWidthSideOnSupports() {
-        return platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() <= stairDto.getWidthStair();
+        return platformDto.getWidthOnSupportsSide() + platformDto.getClearanceOnWall() + platformDto.getClearanceOnStepSupports()  <= stairDto.getWidthStair();
     }
 
     private boolean isFirePassageWay() {
