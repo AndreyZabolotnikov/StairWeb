@@ -62,7 +62,7 @@
                th:unless="${et.checkLengthWay}" th:text="${et.lengthWay}"/>
 
             <p class="text-on-img" style=" margin-top: -465px; margin-left: 440px;" th:text="${et.lengthLowerPlatformMin}"/>
-            <p class="text-on-img" style=" margin-top: -657px; margin-left: 139px;" th:text="${et.lengthClearanceRamp}"/>
+            <p class="text-on-img" style=" margin-top: -657px; margin-left: 139px;" th:text="${et.lengthRamp - et.lengthClearanceRamp}"/>
             <p class="text-on-img" style=" margin-top: -687px; margin-left: 655px;" th:text="${et.clearanceOnWall}"/>
             <p class="text-on-img" style=" margin-top: -465px; margin-left: 745px;" th:text="${et.widthOnWallPassing}"/>
             <p class="text-on-img" style=" margin-top: -72px; margin-left: 800px;" th:text="${et.foldedWall}"/>
