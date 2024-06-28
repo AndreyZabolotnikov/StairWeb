@@ -108,4 +108,8 @@ public class PlatformDto {
     private boolean checkFirePassageWay;
 
     private boolean checkFirePassageSupports;
+
+    private boolean checkCatcher;
+
+    private boolean checkLengthWay;
 }

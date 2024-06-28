@@ -47,11 +47,17 @@
             <!--            Свойства платформы-->
 
             <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: black"
-               th:if="${et.MaxAngle}" th:text="${et.currentAngle} + '°'"/>
+               th:if="${et.MaxAngle && not et.checkCatcher}" th:text="${et.currentAngle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: blue"
+               th:if="${et.MaxAngle && et.checkCatcher}" th:text="${et.currentAngle} + '°'"/>
             <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: red"
                th:unless="${et.MaxAngle}" th:text="${et.currentAngle} + '°'"/>
 
-            <p class="text-on-img" style=" margin-top: -468px; margin-left: 275px; transform-origin: left; transform: rotate(26deg);" th:text="${et.lengthWay}"/>
+            <p class="text-on-img" style=" margin-top: -468px; margin-left: 275px; transform-origin: left; transform: rotate(26deg); color: red"
+               th:if="${et.checkLengthWay}"   th:text="${et.lengthWay}"/>
+            <p class="text-on-img" style=" margin-top: -468px; margin-left: 275px; transform-origin: left; transform: rotate(26deg); color: black"
+               th:unless="${et.checkLengthWay}"   th:text="${et.lengthWay}"/>
+
             <p class="text-on-img" style=" margin-top: -462px; margin-left: 460px;" th:text="${et.lengthLowerPlatformMin}"/>
             <p class="text-on-img" style=" margin-top: -672px; margin-left: 90px;" th:text="${et.lengthClearanceRamp}"/>
             <p class="text-on-img" style=" margin-top: -832px; margin-left: 715px;" th:text="${et.clearanceOnWall}"/>

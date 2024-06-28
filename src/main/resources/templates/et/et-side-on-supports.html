@@ -49,14 +49,18 @@
 
             <!--            Свойства платформы-->
 
-            <p class="text-on-img"
-               style=" margin-top: -540px; margin-left: 255px; transform-origin: left; transform: rotate(-80deg); color: black"
-               th:if="${et.MaxAngle}" th:text="${et.currentAngle} + '°'"/>
-            <p class="text-on-img"
-               style=" margin-top: -540px; margin-left: 255px; transform-origin: left; transform: rotate(-80deg); color: red"
+            <p class="text-on-img" style=" margin-top: -540px; margin-left: 255px; transform-origin: left; transform: rotate(-80deg); color: black"
+               th:if="${et.MaxAngle && not et.checkCatcher}" th:text="${et.currentAngle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -540px; margin-left: 255px; transform-origin: left; transform: rotate(-80deg); color: blue"
+               th:if="${et.MaxAngle && et.checkCatcher}" th:text="${et.currentAngle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -540px; margin-left: 255px; transform-origin: left; transform: rotate(-80deg); color: red"
                th:unless="${et.MaxAngle}" th:text="${et.currentAngle} + '°'"/>
 
-            <p class="text-on-img" style=" margin-top: -505px; margin-left: 250px; transform-origin: left; transform: rotate(26deg);" th:text="${et.lengthWay}"/>
+            <p class="text-on-img" style=" margin-top: -505px; margin-left: 250px; transform-origin: left; transform: rotate(26deg); color: red"
+               th:if="${et.checkLengthWay}"  th:text="${et.lengthWay}"/>
+            <p class="text-on-img" style=" margin-top: -505px; margin-left: 250px; transform-origin: left; transform: rotate(26deg); color: black"
+               th:unless="${et.checkLengthWay}"  th:text="${et.lengthWay}"/>
+
             <p class="text-on-img" style=" margin-top: -500px; margin-left: 400px;" th:text="${et.lengthLowerPlatformSideMin}"/>
             <p class="text-on-img" style=" margin-top: -702px; margin-left: 80px;" th:text="${et.lengthClearanceRamp}"/>
             <p class="text-on-img" style=" margin-top: -870px; margin-left: 630px;" th:text="${et.clearanceOnWall}"/>
