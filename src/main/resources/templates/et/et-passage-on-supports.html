@@ -80,18 +80,13 @@
                style=" margin-top: -485px; margin-left: 283px; transform-origin: left; transform: rotate(26deg);color: black"
                th:unless="*{checkLengthWay}" th:text="*{lengthWay}"/>
 
-            <p class="text-on-img" style=" margin-top: -483px; margin-left: 485px;"
-               th:text="*{lengthLowerPlatformMin}"/>
-            <p class="text-on-img" style=" margin-top: -694px; margin-left: 120px;"
-               th:text="*{lengthRamp - lengthClearanceRamp}"/>
-            <p class="text-on-img" style=" margin-top: -470px; margin-left: 730px;" th:text="*{clearanceOnWall}"/>
-            <p class="text-on-img" style=" margin-top: -470px; margin-left: 800px;"
-               th:text="*{widthOnSupportsPassing}"/>
-            <p class="text-on-img" style=" margin-top: -470px; margin-left: 925px;"
-               th:text="*{clearanceOnStepSupports}"/>
+            <p class="text-on-img" style=" margin-top: -483px; margin-left: 485px;" th:text="*{lengthLowerPlatformMin}"/>
+            <p class="text-on-img" style=" margin-top: -694px; margin-left: 120px;" th:text="*{lengthRamp - lengthClearanceRamp}"/>
+            <p class="text-on-img" style=" margin-top: -470px; margin-left: 720px;" th:text="min + ' ' + *{clearanceOnWall}"/>
+            <p class="text-on-img" style=" margin-top: -470px; margin-left: 800px;" th:text="*{widthOnSupportsPassing}"/>
+            <p class="text-on-img" style=" margin-top: -470px; margin-left: 925px;" th:text="*{clearanceOnStepSupports}"/>
             <p class="text-on-img" style=" margin-top: -70px; margin-left: 850px;" th:text="*{foldedWall}"/>
-            <p class="text-on-img" style=" margin-top: -84px; margin-left: 925px;"
-               th:text="*{clearanceOnStepSupports}"/>
+            <p class="text-on-img" style=" margin-top: -84px; margin-left: 925px;" th:text="*{clearanceOnStepSupports}"/>
 
             <p class="text-on-img" style=" white-space: nowrap; margin-top: -352px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="*{clearanceMax}"/> мм

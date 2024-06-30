@@ -60,13 +60,13 @@
 
             <p class="text-on-img" style=" margin-top: -462px; margin-left: 460px;" th:text="*{lengthLowerPlatformMin}"/>
             <p class="text-on-img" style=" margin-top: -672px; margin-left: 90px;" th:text="*{lengthRamp - lengthClearanceRamp}"/>
-            <p class="text-on-img" style=" margin-top: -832px; margin-left: 715px;" th:text="*{clearanceOnWall}"/>
+            <p class="text-on-img" style=" margin-top: -832px; margin-left: 715px;" th:text="min + ' ' + *{clearanceOnWall}"/>
             <p class="text-on-img" style=" margin-top: -453px; margin-left: 780px;" th:text="*{widthOnSupportsLowerSide}"/>
             <p class="text-on-img" style=" margin-top: -61px; margin-left: 830px;" th:text="*{foldedWall}"/>
             <p class="text-on-img" style=" margin-top: -832px; margin-left: 780px;" th:text="*{widthOnSupportsSide}"/>
             <p class="text-on-img" style=" margin-top: -73px; margin-left: 900px;" th:text="*{clearanceOnStepSupports}"/>
             <p class="text-on-img" style=" margin-top: -453px; margin-left: 900px;" th:text="*{clearanceOnStepSupports}"/>
-            <p class="text-on-img" style=" margin-top: -453px; margin-left: 710px;" th:text="*{clearanceOnWall}"/>
+            <p class="text-on-img" style=" margin-top: -453px; margin-left: 710px;" th:text="min + ' ' + *{clearanceOnWall}"/>
 
             <p class="text-on-img" style=" white-space: nowrap; margin-top: -332px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="*{clearanceMax}"/> мм
