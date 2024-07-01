@@ -27,7 +27,7 @@
 
             <p class="text-on-img" style=" margin-top: -512px; margin-left: 226px; transform-origin: left; transform: rotate(-75deg);"
                th:text="${stair.angle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -525px; margin-left: 150px; transform-origin: left; transform: rotate(26deg);"
+            <p class="text-on-img" style=" margin-top: -563px; margin-left: 135px; transform-origin: left; transform: rotate(26deg);"
                th:text="${stair.lengthStair}"/>
             <p class="text-on-img" style=" margin-top: -538px; margin-left: 21px; transform-origin: left; transform: rotate(-90deg);"
                th:text="${stair.heightStair}"/>
@@ -56,9 +56,9 @@
             <p class="text-on-img" style=" margin-top: -502px; margin-left: 268px; transform-origin: left; transform: rotate(-80deg); color: red"
                th:unless="*{maxAngle}" th:text="*{currentAngle} + '°'"/>
 
-            <p class="text-on-img" style=" margin-top: -563px; margin-left: 135px; transform-origin: left; transform: rotate(26deg); color: red"
+            <p class="text-on-img" style=" margin-top: -525px; margin-left: 150px; transform-origin: left; transform: rotate(26deg); color: red"
                th:if="*{checkLengthWay}" th:text="*{lengthWay}"/>
-            <p class="text-on-img" style=" margin-top: -563px; margin-left: 135px; transform-origin: left; transform: rotate(26deg); color: black"
+            <p class="text-on-img" style=" margin-top: -525px; margin-left: 150px; transform-origin: left; transform: rotate(26deg); color: black"
                th:unless="*{checkLengthWay}" th:text="*{lengthWay}"/>
 
             <p class="text-on-img" style=" margin-top: -457px; margin-left: 430px;" th:text="*{lengthLowerPlatformMin}"/>

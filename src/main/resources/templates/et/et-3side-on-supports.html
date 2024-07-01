@@ -25,56 +25,62 @@
         <div style="position: relative" th:object="${et}">
             <img th:src="@{img/ЕТtoSupports3Side.png}" alt="Боковой на опорах" width="950px"/>
 
-            <p class="text-on-img" style=" margin-top: -515px; margin-left: 243px; transform-origin: left; transform: rotate(-80deg);" th:text="${stair.angle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -425px; margin-left: 300px; transform-origin: left; transform: rotate(26deg);" th:text="${stair.lengthStair}"/>
-            <p class="text-on-img" style=" margin-top: -540px; margin-left: 32px; transform-origin: left; transform: rotate(-90deg);" th:text="${stair.heightStair}"/>
+            <p class="text-on-img" style=" margin-top: -535px; margin-left: 232px; transform-origin: left; transform: rotate(-80deg);"
+               th:text="${stair.angle} + '°'"/>
+            <p class="text-on-img" style=" margin-top: -485px; margin-left: 222px; transform-origin: left; transform: rotate(26deg);"
+               th:text="${stair.lengthStair}"/>
+            <p class="text-on-img" style=" margin-top: -570px; margin-left: 19px; transform-origin: left; transform: rotate(-90deg);"
+               th:text="${stair.heightStair}"/>
 
-            <p class="text-on-img" style=" margin-top: -438px; margin-left: 90px; color: black" th:if="*{rampClearance}" th:text="${stair.upperFloor}"/>
-            <p class="text-on-img" style=" margin-top: -438px; margin-left: 90px; color: red" th:unless="*{rampClearance}" th:text="${stair.upperFloor}"/>
+            <p class="text-on-img" style=" margin-top: -464px; margin-left: 80px; color: black" th:if="*{rampClearance}" th:text="${stair.upperFloor}"/>
+            <p class="text-on-img" style=" margin-top: -464px; margin-left: 80px; color: red" th:unless="*{rampClearance}" th:text="${stair.upperFloor}"/>
 
-            <p class="text-on-img" style=" margin-top: -438px; margin-left: 470px; color: black" th:if="*{lengthLowerPassing}" th:text="${stair.downFloor}"/>
-            <p class="text-on-img" style=" margin-top: -438px; margin-left: 470px; color: red" th:unless="*{lengthLowerPassing}" th:text="${stair.downFloor}"/>
+            <p class="text-on-img" style=" margin-top: -464px; margin-left: 470px; color: black" th:if="*{lengthLowerPassing}" th:text="${stair.downFloor}"/>
+            <p class="text-on-img" style=" margin-top: -464px; margin-left: 470px; color: red" th:unless="*{lengthLowerPassing}" th:text="${stair.downFloor}"/>
 
-            <p class="text-on-img" style=" margin-top: -438px; margin-left: 180px;" th:text="${stair.horizontalLength}"/>
+            <p class="text-on-img" style=" margin-top: -464px; margin-left: 170px;" th:text="${stair.horizontalLength}"/>
 
-            <p class="text-on-img" style=" margin-top: -432px; margin-left: 780px; color: black" th:if="*{widthSideOnSupports}" th:text="${stair.widthStair}"/>
-            <p class="text-on-img" style=" margin-top: -432px; margin-left: 780px; color: red" th:unless="*{widthSideOnSupports}" th:text="${stair.widthStair}"/>
+            <p class="text-on-img" style=" margin-top: -456px; margin-left: 780px; color: black" th:if="*{widthSideOnSupports}" th:text="${stair.widthStair}"/>
+            <p class="text-on-img" style=" margin-top: -456px; margin-left: 780px; color: red" th:unless="*{widthSideOnSupports}" th:text="${stair.widthStair}"/>
 
-            <p class="text-on-img" style=" margin-top: -46px; margin-left: 760px; color: black" th:if="*{widthSideOnSupports && checkFirePassageSupports}" th:text="${stair.widthStair}"/>
-            <p class="text-on-img" style=" margin-top: -46px; margin-left: 760px; color: blue" th:if="*{widthSideOnSupports && not checkFirePassageSupports}" th:text="${stair.widthStair}"/>
-            <p class="text-on-img" style=" margin-top: -46px; margin-left: 760px; color: red" th:unless="*{widthSideOnSupports}" th:text="${stair.widthStair}"/>
+            <p class="text-on-img" style=" margin-top: -68px; margin-left: 760px; color: black" th:if="*{widthSideOnSupports && checkFirePassageSupports}"
+               th:text="${stair.widthStair}"/>
+            <p class="text-on-img" style=" margin-top: -68px; margin-left: 760px; color: blue" th:if="*{widthSideOnSupports && not checkFirePassageSupports}"
+               th:text="${stair.widthStair}"/>
+            <p class="text-on-img" style=" margin-top: -68px; margin-left: 760px; color: red" th:unless="*{widthSideOnSupports}"
+               th:text="${stair.widthStair}"/>
 
             <!--            Свойства платформы-->
 
-            <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: black"
+            <p class="text-on-img" style=" margin-top: -526px; margin-left: 288px; transform-origin: left; transform: rotate(-82deg); color: black"
                th:if="*{maxAngle && not checkCatcher}" th:text="*{currentAngle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: blue"
+            <p class="text-on-img" style=" margin-top: -526px; margin-left: 288px; transform-origin: left; transform: rotate(-82deg); color: blue"
                th:if="*{maxAngle && checkCatcher}" th:text="*{currentAngle} + '°'"/>
-            <p class="text-on-img" style=" margin-top: -500px; margin-left: 298px; transform-origin: left; transform: rotate(-80deg); color: red"
+            <p class="text-on-img" style=" margin-top: -526px; margin-left: 288px; transform-origin: left; transform: rotate(-82deg); color: red"
                th:unless="*{maxAngle}" th:text="*{currentAngle} + '°'"/>
 
-            <p class="text-on-img" style=" margin-top: -468px; margin-left: 275px; transform-origin: left; transform: rotate(26deg); color: red"
+            <p class="text-on-img" style=" margin-top: -493px; margin-left: 267px; transform-origin: left; transform: rotate(26deg); color: red"
                th:if="*{checkLengthWay}"   th:text="*{lengthWay}"/>
-            <p class="text-on-img" style=" margin-top: -468px; margin-left: 275px; transform-origin: left; transform: rotate(26deg); color: black"
+            <p class="text-on-img" style=" margin-top: -493px; margin-left: 267px; transform-origin: left; transform: rotate(26deg); color: black"
                th:unless="*{checkLengthWay}"   th:text="*{lengthWay}"/>
 
-            <p class="text-on-img" style=" margin-top: -462px; margin-left: 460px;" th:text="*{lengthLowerPlatformMin}"/>
-            <p class="text-on-img" style=" margin-top: -672px; margin-left: 90px;" th:text="*{lengthRamp - lengthClearanceRamp}"/>
-            <p class="text-on-img" style=" margin-top: -832px; margin-left: 700px;" th:text="min + ' ' + *{clearanceOnWall}"/>
-            <p class="text-on-img" style=" margin-top: -453px; margin-left: 780px;" th:text="*{widthOnSupportsLowerSide}"/>
-            <p class="text-on-img" style=" margin-top: -61px; margin-left: 830px;" th:text="*{foldedWall}"/>
-            <p class="text-on-img" style=" margin-top: -832px; margin-left: 780px;" th:text="*{widthOnSupportsSide}"/>
-            <p class="text-on-img" style=" margin-top: -73px; margin-left: 900px;" th:text="*{clearanceOnStepSupports}"/>
-            <p class="text-on-img" style=" margin-top: -453px; margin-left: 900px;" th:text="*{clearanceOnStepSupports}"/>
-            <p class="text-on-img" style=" margin-top: -453px; margin-left: 671px;" th:text="min + ' ' + *{clearanceOnWall}"/>
+            <p class="text-on-img" style=" margin-top: -488px; margin-left: 460px;" th:text="*{lengthLowerPlatformMin}"/>
+            <p class="text-on-img" style=" margin-top: -697px; margin-left: 85px;" th:text="*{lengthRamp - lengthClearanceRamp}"/>
+            <p class="text-on-img" style=" margin-top: -859px; margin-left: 690px;" th:text="min + ' ' + *{clearanceOnWall}"/>
+            <p class="text-on-img" style=" margin-top: -477px; margin-left: 780px;" th:text="*{widthOnSupportsLowerSide}"/>
+            <p class="text-on-img" style=" margin-top: -83px; margin-left: 830px;" th:text="*{foldedWall}"/>
+            <p class="text-on-img" style=" margin-top: -859px; margin-left: 780px;" th:text="*{widthOnSupportsSide}"/>
+            <p class="text-on-img" style=" margin-top: -96px; margin-left: 898px;" th:text="*{clearanceOnStepSupports}"/>
+            <p class="text-on-img" style=" margin-top: -477px; margin-left: 898px;" th:text="*{clearanceOnStepSupports}"/>
+            <p class="text-on-img" style=" margin-top: -477px; margin-left: 665px;" th:text="min + ' ' + *{clearanceOnWall}"/>
 
-            <p class="text-on-img" style=" white-space: nowrap; margin-top: -332px; margin-left: 150px;">
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -337px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="*{clearanceMax}"/> мм
             </p>
-            <p class="text-on-img" style=" white-space: nowrap; margin-top: -312px; margin-left: 150px;">
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -317px; margin-left: 150px;">
                 <i>номер ступени = </i><i th:text="*{countStepClearanceMax}"/>
             </p>
-            <p class="text-on-img" style=" white-space: nowrap; margin-top: -292px; margin-left: 150px;">
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -297px; margin-left: 150px;">
                 <i>Длина трассы = </i><i th:text="*{lengthWay + lengthTrackAdd}"/> мм
             </p>
         </div>
