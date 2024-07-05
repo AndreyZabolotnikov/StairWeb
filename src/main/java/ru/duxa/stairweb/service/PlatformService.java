@@ -85,6 +85,7 @@ public class PlatformService {
     public void optimizeAddSearchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
         platformDto = getPlatformDto(platformDto.getName(), platformDto);
+        platformDto.setLengthRamp(platformDto.getLengthRamp() + stairDto.getOption());
 
         if (platformDto.getName().equals("et")) {
             platformDto.setCurrentAngle((int) stairDto.getAngle());

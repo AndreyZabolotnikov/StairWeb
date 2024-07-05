@@ -132,8 +132,6 @@ public class StairController {
         platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
         platformValidator.setParam(stairDto, npu);
 
-        System.out.println(stairDto.getOption());
-
         return "general-result";
     }
 

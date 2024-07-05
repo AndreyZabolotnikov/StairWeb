@@ -17,6 +17,7 @@ public class StairService {
         stairDto.setDownFloor(form.getDownFloor());
         stairDto.setStepLengths(mapFieldsToMapStair(form.getStepLengths()));
         stairDto.setStepHeights(mapFieldsToMapStair(form.getStepHeights()));
+        stairDto.setOption(form.getOption());
         return stairDto;
     }
 
