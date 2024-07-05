@@ -49,4 +49,6 @@ public class StairDto {
     private int firstPoint;
 
     private int horizontalLength;
+
+    private int option;
 }
