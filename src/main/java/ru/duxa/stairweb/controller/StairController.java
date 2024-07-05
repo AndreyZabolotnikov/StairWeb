@@ -78,6 +78,14 @@ public class StairController {
         return "index";
     }
 
+    @GetMapping("/reset")
+    public String reset() {
+        stairDto = new StairDto();
+        et = new PlatformDto();
+        npu = new PlatformDto();
+        return "redirect:/";
+    }
+
     @GetMapping("/stair")
     public String addStair(@ModelAttribute("stair") @Valid StairDto form, BindingResult result,
                            RedirectAttributes redirectAttributes, Authentication authentication, Model model) {
