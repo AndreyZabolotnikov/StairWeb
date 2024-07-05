@@ -69,6 +69,9 @@
             <p class="text-on-img" style=" margin-top: -72px; margin-left: 885px;" th:text="*{clearanceOnStepSupports}"/>
             <p class="text-on-img" style=" margin-top: -447px; margin-left: 880px;" th:text="*{clearanceOnStepSupports}"/>
 
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -352px; margin-left: 150px;" th:if="${stair.option} > 0">
+                <i>Увелечения пандуса </i><i th:text="${stair.option}"/> мм
+            </p>
             <p class="text-on-img" style=" white-space: nowrap; margin-top: -332px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="*{clearanceMax}"/> мм
             </p>

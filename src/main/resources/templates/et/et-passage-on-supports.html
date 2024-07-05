@@ -70,6 +70,9 @@
             <p class="text-on-img" style=" margin-top: -67px; margin-left: 843px;" th:text="*{foldedWall}"/>
             <p class="text-on-img" style=" margin-top: -81px; margin-left: 913px;" th:text="*{clearanceOnStepSupports}"/>
 
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -372px; margin-left: 150px;" th:if="${stair.option} > 0">
+                <i>Увелечения пандуса </i><i th:text="${stair.option}"/> мм
+            </p>
             <p class="text-on-img" style=" white-space: nowrap; margin-top: -352px; margin-left: 150px;">
                 <i>Максимальный зазор над лестнецей </i><i th:text="*{clearanceMax}"/> мм
             </p>
