@@ -133,8 +133,6 @@ public class StairController {
         double scale = Math.pow(10, 1);
         npu.setCurrentAngle(Math.ceil(npu.getCurrentAngle() * scale) / scale);
 
-        System.out.println(stairDto.getOptionWidth());
-
         if(stairDto.getOptionWidth() != null) {
             npu.setWidthOnWallPassing(npu.getWidthOnWallPassing() - 100);
             npu.setWidthOnWallSide(npu.getWidthOnWallSide() - 100);
