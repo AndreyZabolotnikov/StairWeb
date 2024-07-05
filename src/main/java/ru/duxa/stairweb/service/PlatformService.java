@@ -84,13 +84,16 @@ public class PlatformService {
 
     public void optimizeAddSearchParametersPlatform(StairDto stairDto, PlatformDto platformDto) {
 
+        double negativeAngle;
         platformDto = getPlatformDto(platformDto.getName(), platformDto);
         platformDto.setLengthRamp(platformDto.getLengthRamp() + stairDto.getOption());
 
         if (platformDto.getName().equals("et")) {
             platformDto.setCurrentAngle((int) stairDto.getAngle());
+            negativeAngle =  1.0;
         } else {
             platformDto.setCurrentAngle(stairDto.getAngle());
+            negativeAngle = 0.1;
         }
 
         boolean check;
@@ -124,7 +127,7 @@ public class PlatformService {
             findNumberMinAndMaxClearanceStep(platformDto, stairDto, platformDto.getLengthWayOnLowerPlats());
 
             if (platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() > 0) {
-                platformDto.setCurrentAngle(platformDto.getCurrentAngle() - 1);
+                platformDto.setCurrentAngle(platformDto.getCurrentAngle() - negativeAngle);
                 check = true;
             } else if ((platformDto.getLengthClearanceRamp() >= (platformDto.getLengthRamp() - platformDto.getOverlapRamp()) && platformDto.getCurrentAngle() < 1) || (platformDto.getLengthClearanceRamp() < 0 && platformDto.getCurrentAngle() < 1)) {
                 platformDto.setCurrentAngle(0);

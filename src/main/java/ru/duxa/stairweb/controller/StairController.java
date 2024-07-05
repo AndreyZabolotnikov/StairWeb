@@ -130,6 +130,8 @@ public class StairController {
 
         npu.setName("npu");
         platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
+        double scale = Math.pow(10, 1);
+        npu.setCurrentAngle(Math.ceil(npu.getCurrentAngle() * scale) / scale);
         platformValidator.setParam(stairDto, npu);
 
         return "general-result";
