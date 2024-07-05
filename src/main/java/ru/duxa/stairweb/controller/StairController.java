@@ -132,6 +132,18 @@ public class StairController {
         platformService.optimizeAddSearchParametersPlatform(stairDto, npu);
         double scale = Math.pow(10, 1);
         npu.setCurrentAngle(Math.ceil(npu.getCurrentAngle() * scale) / scale);
+
+        System.out.println(stairDto.getOptionWidth());
+
+        if(stairDto.getOptionWidth() != null) {
+            npu.setWidthOnWallPassing(npu.getWidthOnWallPassing() - 100);
+            npu.setWidthOnWallSide(npu.getWidthOnWallSide() - 100);
+            npu.setWidthOnWallLowerSide(npu.getWidthOnWallLowerSide() - 100);
+            npu.setWidthOnSupportsPassing(npu.getWidthOnSupportsPassing() - 100);
+            npu.setWidthOnSupportsSide(npu.getWidthOnSupportsSide() - 100);
+            npu.setWidthOnSupportsLowerSide(npu.getWidthOnSupportsLowerSide() - 100);
+        }
+
         platformValidator.setParam(stairDto, npu);
 
         return "general-result";

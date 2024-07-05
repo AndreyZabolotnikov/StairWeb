@@ -51,4 +51,6 @@ public class StairDto {
     private int horizontalLength;
 
     private int option;
+
+    private String optionWidth;
 }
