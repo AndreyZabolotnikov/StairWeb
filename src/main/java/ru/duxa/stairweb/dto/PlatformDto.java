@@ -112,4 +112,6 @@ public class PlatformDto {
     private boolean checkCatcher;
 
     private boolean checkLengthWay;
+
+    private int negativeWidth;
 }

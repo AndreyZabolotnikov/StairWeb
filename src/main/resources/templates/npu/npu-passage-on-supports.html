@@ -69,6 +69,9 @@
             <p class="text-on-img" style=" margin-top: -70px; margin-left: 820px;" th:text="*{foldedWall}"/>
             <p class="text-on-img" style=" margin-top: -70px; margin-left: 880px;" th:text="*{clearanceOnStepSupports}"/>
 
+            <p class="text-on-img" style=" white-space: nowrap; margin-top: -392px; margin-left: 150px;" th:if="${stair.optionWidth} != null">
+                <i>Площадка укорочена на  </i><i th:text="*{negativeWidth}"/> мм
+            </p>
             <p class="text-on-img" style=" white-space: nowrap; margin-top: -372px; margin-left: 150px;" th:if="${stair.option} > 0">
                 <i>Увелечения пандуса </i><i th:text="${stair.option}"/> мм
             </p>
