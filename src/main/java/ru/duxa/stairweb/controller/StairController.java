@@ -133,13 +133,14 @@ public class StairController {
         double scale = Math.pow(10, 1);
         npu.setCurrentAngle(Math.ceil(npu.getCurrentAngle() * scale) / scale);
 
+        int negativeWidth = 100;
         if(stairDto.getOptionWidth() != null) {
-            npu.setWidthOnWallPassing(npu.getWidthOnWallPassing() - 100);
-            npu.setWidthOnWallSide(npu.getWidthOnWallSide() - 100);
-            npu.setWidthOnWallLowerSide(npu.getWidthOnWallLowerSide() - 100);
-            npu.setWidthOnSupportsPassing(npu.getWidthOnSupportsPassing() - 100);
-            npu.setWidthOnSupportsSide(npu.getWidthOnSupportsSide() - 100);
-            npu.setWidthOnSupportsLowerSide(npu.getWidthOnSupportsLowerSide() - 100);
+            npu.setWidthOnWallPassing(npu.getWidthOnWallPassing() - negativeWidth);
+            npu.setWidthOnWallSide(npu.getWidthOnWallSide() - negativeWidth);
+            npu.setWidthOnWallLowerSide(npu.getWidthOnWallLowerSide() - negativeWidth);
+            npu.setWidthOnSupportsPassing(npu.getWidthOnSupportsPassing() - negativeWidth);
+            npu.setWidthOnSupportsSide(npu.getWidthOnSupportsSide() - negativeWidth);
+            npu.setWidthOnSupportsLowerSide(npu.getWidthOnSupportsLowerSide() - negativeWidth);
         }
 
         platformValidator.setParam(stairDto, npu);
