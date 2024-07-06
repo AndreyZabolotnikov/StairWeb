@@ -94,6 +94,15 @@ public class PlatformService {
         } else {
             platformDto.setCurrentAngle(stairDto.getAngle());
             negativeAngle = 0.1;
+            platformDto.setNegativeWidth(100);
+            if(stairDto.getOptionWidth() != null) {
+                platformDto.setWidthOnWallPassing(platformDto.getWidthOnWallPassing() - platformDto.getNegativeWidth());
+                platformDto.setWidthOnWallSide(platformDto.getWidthOnWallSide() - platformDto.getNegativeWidth());
+                platformDto.setWidthOnWallLowerSide(platformDto.getWidthOnWallLowerSide() - platformDto.getNegativeWidth());
+                platformDto.setWidthOnSupportsPassing(platformDto.getWidthOnSupportsPassing() - platformDto.getNegativeWidth());
+                platformDto.setWidthOnSupportsSide(platformDto.getWidthOnSupportsSide() - platformDto.getNegativeWidth());
+                platformDto.setWidthOnSupportsLowerSide(platformDto.getWidthOnSupportsLowerSide() - platformDto.getNegativeWidth());
+            }
         }
 
         boolean check;
