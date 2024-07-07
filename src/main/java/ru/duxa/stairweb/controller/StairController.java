@@ -198,12 +198,4 @@ public class StairController {
         return "npu/npu-3side-on-supports";
     }
 
-    @GetMapping("/users")
-//    @PreAuthorize("hasRole('USER')")
-    public String listRegisteredUsers(Model model) {
-        List<PersonRegistrationDto> users = personService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
-
 }

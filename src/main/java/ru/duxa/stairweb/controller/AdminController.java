@@ -31,4 +31,5 @@ public class AdminController {
         model.addAttribute("roles", roles);
         return "admin";
     }
+
 }
