@@ -2,6 +2,7 @@ package ru.duxa.stairweb.service;
 
 
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.BaseFont;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Map;
 
 @Service
@@ -21,7 +23,7 @@ public class ExportPdfServiceImpl implements ExportPdfService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public ByteArrayInputStream exportReceiptPdf(String templateName, Map<String, Object> data) {
+    public ByteArrayInputStream exportPdf(String templateName, Map<String, Object> data) {
         Context context = new Context();
         context.setVariables(data);
         String htmlContent = templateEngine.process(templateName, context);
@@ -30,6 +32,7 @@ public class ExportPdfServiceImpl implements ExportPdfService {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ITextRenderer renderer = new ITextRenderer();
+            renderer.getFontResolver().addFont("font/dejavu-sans/DejaVuSans.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             renderer.setDocumentFromString(htmlContent);
             renderer.layout();
             renderer.createPDF(byteArrayOutputStream, false);
@@ -37,6 +40,8 @@ public class ExportPdfServiceImpl implements ExportPdfService {
             byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
         } catch (DocumentException e) {
             logger.error(e.getMessage(), e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return byteArrayInputStream;

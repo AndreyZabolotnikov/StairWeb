@@ -1,6 +1,8 @@
 package ru.duxa.stairweb.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -12,11 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.duxa.stairweb.dto.PersonRegistrationDto;
 import ru.duxa.stairweb.dto.PlatformDto;
 import ru.duxa.stairweb.dto.StairDto;
+import ru.duxa.stairweb.service.ExportPdfService;
 import ru.duxa.stairweb.service.PersonService;
 import ru.duxa.stairweb.service.PlatformService;
 import ru.duxa.stairweb.service.StairService;
 import ru.duxa.stairweb.util.PlatformValidator;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +37,15 @@ public class StairController {
     private StairDto stairDto;
     private PlatformDto et;
     private PlatformDto npu;
+    private ExportPdfService exportPdfService;
 
     @Autowired
-    public StairController(PersonService personService, StairService stairService, PlatformService platformService, PlatformValidator platformValidator) {
+    public StairController(PersonService personService, StairService stairService, PlatformService platformService, PlatformValidator platformValidator, ExportPdfService exportPdfService) {
         this.personService = personService;
         this.stairService = stairService;
         this.platformService = platformService;
         this.platformValidator = platformValidator;
+        this.exportPdfService = exportPdfService;
     }
 
     @ModelAttribute("stair")
@@ -198,4 +206,14 @@ public class StairController {
         return "npu/npu-3side-on-supports";
     }
 
+    @GetMapping("/download_stair")
+    public void downloadStair(HttpServletResponse response) throws IOException {
+        Map<String, Object> data = new HashMap<>();
+        data.put("stair", stairDto);
+        ByteArrayInputStream exportedData = exportPdfService.exportPdf("stair", data);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=stair.pdf");
+        IOUtils.copy(exportedData, response.getOutputStream());
+
+    }
 }
